@@ -1,14 +1,11 @@
-import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import HeadingOne from "./components/common/headings/HeadingOne";
 import HeadingTwo from "./components/common/headings/HeadingTwo";
 import HeadingThree from "./components/common/headings/HeadingThree";
-import { Grid } from "@mui/material";
+import "./assets/index.css";
 
-function App() {
-    const [count, setCount] = useState(0);
-
+const App = () => {
     return (
         <>
             <div>
@@ -43,6 +40,6 @@ function App() {
             </div>
         </>
     );
-}
+};
 
 export default App;
