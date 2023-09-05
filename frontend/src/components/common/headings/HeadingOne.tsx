@@ -6,6 +6,7 @@ import {
     Grid,
     Box,
 } from "@mui/material";
+import defaultTheme from "../../../assets/theme/defaultTheme";
 
 type ColorType = "mono" | ButtonProps["color"];
 
@@ -45,7 +46,7 @@ const HeadingOne: React.FC<HeadingOneProps> = ({
             <Grid item xs={11}>
                 <Typography
                     textAlign={"left"}
-                    fontFamily={""}
+                    fontFamily={"bebas-nueue"}
                     fontSize={"3rem"}
                     fontWeight={"400"}
                     color={isMonoScheme ? "white" : "black"}

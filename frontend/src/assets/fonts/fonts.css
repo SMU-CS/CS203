@@ -1,0 +1,41 @@
+@font-face {
+  font-family: 'circular-spotify-bold';
+  src: url('circular-spotify/CircularSpotifyTextBold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'circular-spotify-light';
+  src: url('circular-spotify/CircularSpotifyTextLight.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'bebas-nueue';
+  src: url('bebas-neue/BebasNeue.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'lato-bold';
+  src: url('lato/Lato-Bold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'lato-regular';
+  src: url('lato/Lato-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'lato-semi-bold-italic';
+  src: url('lato/Lato-SemiBoldItalic.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
