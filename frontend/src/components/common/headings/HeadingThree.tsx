@@ -45,7 +45,7 @@ const HeadingThree: React.FC<HeadingOneProps> = ({
             <Grid item xs={11}>
                 <Typography
                     textAlign={"left"}
-                    fontFamily={""}
+                    fontFamily={"bebas-nueue"}
                     fontSize={"2rem"}
                     fontWeight={"400"}
                     color={isMonoScheme ? "white" : "black"}
