@@ -20,7 +20,6 @@ const NextButton: React.FC<ButtonProps> = ({ children, ...props }) => {
         <MuiButton
             sx={{
 
-                fontFamily: 'circular-spotify-bold',
                 margin: "5px",
                 paddingLeft: "15px",
                 paddingRight: "15px",

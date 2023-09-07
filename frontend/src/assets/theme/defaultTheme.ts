@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles';
+import HeadingOne from '../../components/common/headings/HeadingOne';
 
 const defaultTheme = createTheme({
   palette: {
@@ -23,30 +24,46 @@ const defaultTheme = createTheme({
     fontSize: 20,
 
     fontFamily: [
-      'bebas-nueue', 
-      'circular-spotify-bold', 
-      'circular-spotify-light', 
-      'lato-bold', 
-      'lato-regular',
-      'lato-semi-bold-italic'
-    ].join(','), 
+      'BebasNueue', 
+      'CircularSpotify',
+      'Lato',
+    ].join(','),
 
     allVariants: {
       textTransform: 'none',
-      fontFamily: 'lato-regular',
-    }
-  },
+    },
 
-  // components: {
-  //   MuiButton: {
-  //     styleOverrides: {
-  //       root: {
-  //         textTransform: "none"
-  //       }
-  //     }
-  //   }
-  //   Mui
-  // }
+    h1: {
+      fontFamily: 'BebasNueue',
+      textAlign: "left",
+      fontSize: "3rem",
+      fontWeight: "400",
+      textTransform: "uppercase",
+    },
+
+    h2: {
+      fontFamily: 'BebasNueue',
+      textAlign: "left",
+      fontSize: "2.25rem",
+      fontWeight: "400",
+      textTransform: "uppercase",
+    },
+
+    h3: {
+      fontFamily: 'BebasNueue',
+      textAlign: "left",
+      fontSize: "2rem",
+      fontWeight: "400",
+      textTransform: "uppercase",
+    },
+
+    button: {
+      fontFamily: 'CircularSpotify',
+      fontWeight: 'bold',
+    },
+
+    
+  },
 
   });
 

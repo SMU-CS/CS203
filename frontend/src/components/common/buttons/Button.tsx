@@ -18,13 +18,12 @@ const Button: React.FC<ButtonProps> = ({ children, ...props }) => {
     return (
         <MuiButton
             sx={{
-
-                fontFamily: 'circular-spotify-bold',
-                margin: "5px",
-                                paddingLeft: "15px",
-                paddingRight: "15px",
+                
                 color: "white",
                 backgroundColor: defaultTheme.palette.primary.main,
+                margin: "5px",
+                paddingLeft: "15px",
+                paddingRight: "15px",
                 boxShadow: 4,
                 
                 ":hover": {

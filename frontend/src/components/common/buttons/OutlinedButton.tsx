@@ -18,7 +18,7 @@ const OutlinedButton: React.FC<ButtonProps> = ({ children, ...props }) => {
     return (
         <MuiButton
             sx={{
-                fontFamily: 'circular-spotify-bold',
+
                 margin: "5px",
                 paddingLeft: "15px",
                 paddingRight: "15px",

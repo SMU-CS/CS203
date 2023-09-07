@@ -45,12 +45,7 @@ const HeadingOne: React.FC<HeadingOneProps> = ({
             </Grid>
             <Grid item xs={11}>
                 <Typography
-                    textAlign={"left"}
-                    fontFamily={"bebas-nueue"}
-                    fontSize={"3rem"}
-                    fontWeight={"400"}
                     color={isMonoScheme ? "white" : "black"}
-                    textTransform={"uppercase"}
                     {...props}
                     variant="h1"
                 >
