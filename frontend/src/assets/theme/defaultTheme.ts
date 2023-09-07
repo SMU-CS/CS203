@@ -1,5 +1,4 @@
 import { createTheme } from '@mui/material/styles';
-import HeadingOne from '../../components/common/headings/HeadingOne';
 
 const defaultTheme = createTheme({
   palette: {
@@ -13,7 +12,7 @@ const defaultTheme = createTheme({
 
     secondary: {
         main: "#00B0FF",
-        light: '#33FFF',
+        light: '#33BFFF',
         dark: '#007BB2',
         contrastText: '#fff',
     },

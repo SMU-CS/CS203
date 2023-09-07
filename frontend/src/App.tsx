@@ -9,7 +9,7 @@ import NextButton from "./components/common/buttons/NextButton";
 const App = () => {
     return (
         <>
-            <HeadingOne colorScheme="primary"> Featured </HeadingOne>
+            <HeadingOne colorScheme="secondary"> Featured </HeadingOne>
             <h1></h1>
 
             <HeadingTwo colorScheme="primary"> Heading 2 </HeadingTwo>

@@ -1,14 +1,7 @@
 import React from "react";
-import {
-    Typography,
-    TypographyProps,
-    ButtonProps,
-    Grid,
-    Box,
-} from "@mui/material";
-import defaultTheme from "../../../assets/theme/defaultTheme";
+import { Typography, TypographyProps, Grid, Box } from "@mui/material";
 
-type ColorType = "mono" | ButtonProps["color"];
+type ColorType = "mono" | "primary" | "secondary";
 
 interface HeadingOneProps extends TypographyProps {
     children: string;
@@ -25,23 +18,20 @@ const HeadingOne: React.FC<HeadingOneProps> = ({
     ...props
 }) => {
     const isMonoScheme = colorScheme === "mono";
-    colorScheme = colorScheme ? colorScheme : "primary";
+    // colorScheme = colorScheme ? colorScheme : "primary";
 
     return (
         <Grid container xs={12}>
-            <Grid
-                item
-                xs={0.1}
-                marginRight={"1.25rem"}
-            >
+            <Grid item xs={0.1} marginRight={"1.25rem"}>
                 <Box
                     sx={{
-                        backgroundColor: isMonoScheme ? "white" : `${colorScheme}.light`,
+                        backgroundColor: isMonoScheme
+                            ? "white"
+                            : `${colorScheme}.light`,
                         width: "0.3125rem",
                         height: "3.625rem",
                     }}
                 />
-
             </Grid>
             <Grid item xs={11}>
                 <Typography
