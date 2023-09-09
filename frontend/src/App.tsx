@@ -3,8 +3,6 @@ import HeadingOne from "./components/common/headings/HeadingOne";
 import HeadingTwo from "./components/common/headings/HeadingTwo";
 import HeadingThree from "./components/common/headings/HeadingThree";
 import Button from "./components/common/buttons/Button";
-import OutlinedButton from "./components/common/buttons/OutlinedButton";
-import NextButton from "./components/common/buttons/NextButton";
 
 const App = () => {
     return (
@@ -32,11 +30,11 @@ const App = () => {
                 <HeadingThree colorScheme="mono"> Heading 3 </HeadingThree>
             </div>
 
-            <Button>regular</Button>
+            <Button colorType='secondary' variantType='contained' hasNextIcon={false}>regular</Button>
 
-            <OutlinedButton>outlined</OutlinedButton>
+            <Button colorType='secondary' variantType='outlined' hasNextIcon={false}>outlined</Button>
 
-            <NextButton>next</NextButton>
+            <Button colorType='primary' variantType='contained' hasNextIcon>next</Button>
         </>
     );
 };

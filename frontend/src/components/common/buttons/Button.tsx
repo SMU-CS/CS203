@@ -3,10 +3,14 @@ import {
     Button as MuiButton,
     ButtonProps as MuiButtonProps,
 } from "@mui/material";
-import defaultTheme from "../../../assets/theme/defaultTheme";
+
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 interface ButtonProps extends MuiButtonProps {
     children: string;
+    colorType: 'primary' | 'secondary';
+    hasNextIcon: boolean;
+    variantType: 'outlined' | 'contained';
 }
 
 /**
@@ -14,21 +18,33 @@ interface ButtonProps extends MuiButtonProps {
  * @param {ReactChildren} children
  *
  */
-const Button: React.FC<ButtonProps> = ({ children, ...props }) => {
+const Button: React.FC<ButtonProps> = ({ children, colorType, hasNextIcon, variantType, ...props }) => {
+
+    const isContained = variantType === "contained";
+    const nextIcon = hasNextIcon ? <ArrowForwardIcon /> : null;
+
     return (
         <MuiButton
+
+            variant= {variantType}
+            endIcon= {nextIcon}
+            
+
             sx={{
                 
-                color: "white",
-                backgroundColor: defaultTheme.palette.primary.main,
+                backgroundColor: isContained ? `${colorType}.main` : 'transparent',
+                borderColor: isContained ? 'transparent' : `${colorType}.main`,
+                boxShadow: isContained ? 4 : 0,
+                color: isContained ? "white" : `${colorType}.main`,
                 margin: "5px",
-                paddingLeft: "15px",
-                paddingRight: "15px",
-                boxShadow: 4,
+                paddingLeft: "25px",
+                paddingRight: "25px",
                 
                 ":hover": {
-                    color: "white",
-                    backgroundColor: defaultTheme.palette.secondary.main,
+                    backgroundColor: isContained ? `${colorType}.dark` : 'transparent',
+                    borderColor: isContained ? 'transparent' : `${colorType}.dark`,
+                    boxShadow: 4,
+                    color: isContained ? "white" : `${colorType}.dark`,
                 },
 
             }} 
