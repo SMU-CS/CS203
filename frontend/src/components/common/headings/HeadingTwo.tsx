@@ -28,22 +28,21 @@ const HeadingTwo: React.FC<HeadingOneProps> = ({
 
     return (
         <Grid container xs={12}>
-            <Grid
-                item
-                xs={0.1}
-                marginRight={"1.25rem"}
-            >
+            <Grid item xs={0.1} marginRight={"1rem"}>
                 <Box
                     sx={{
-                        backgroundColor: isMonoScheme ? "white" : `${colorScheme}.light`,
+                        backgroundColor: isMonoScheme
+                            ? "white"
+                            : `${colorScheme}.light`,
                         width: "0.3125rem",
                         height: "100%",
                     }}
                 />
-
             </Grid>
             <Grid item xs={11}>
                 <Typography
+                    marginTop={"0.5rem"}
+                    marginBottom={"0.5rem"}
                     textAlign={"left"}
                     fontFamily={""}
                     fontSize={"2.25rem"}
