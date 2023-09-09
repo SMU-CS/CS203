@@ -4,7 +4,12 @@ import viteLogo from "/vite.svg";
 import HeadingOne from "./components/common/headings/HeadingOne";
 import HeadingTwo from "./components/common/headings/HeadingTwo";
 import HeadingThree from "./components/common/headings/HeadingThree";
-import { Grid } from "@mui/material";
+<<<<<<< Updated upstream
+import NavBar from "./components/common/navigations/NavBar";
+=======
+import NavBar from "./components/common/navigations/navbar";
+//import "./App.css";
+>>>>>>> Stashed changes
 
 function App() {
     const [count, setCount] = useState(0);
@@ -23,6 +28,11 @@ function App() {
                     />
                 </a>
             </div>
+<<<<<<< Updated upstream
+            <NavBar UserVariant="customer" authenticated="true"></NavBar>
+=======
+            {/* <NavBar></NavBar> */}
+>>>>>>> Stashed changes
             <HeadingOne colorScheme="primary"> Heading 1 </HeadingOne>
             <h1></h1>
 
