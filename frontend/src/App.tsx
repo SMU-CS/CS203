@@ -2,12 +2,24 @@ import './assets/fonts/fonts.css';
 import HeadingOne from "./components/common/headings/HeadingOne";
 import HeadingTwo from "./components/common/headings/HeadingTwo";
 import HeadingThree from "./components/common/headings/HeadingThree";
-import Button from "./components/common/buttons/Button";
+import { Grid } from "@mui/material";
 
 const App = () => {
     return (
         <>
-            <HeadingOne colorScheme="secondary"> Featured </HeadingOne>
+            <div>
+                <a href="https://vitejs.dev" target="_blank">
+                    <img src={viteLogo} className="logo" alt="Vite logo" />
+                </a>
+                <a href="https://react.dev" target="_blank">
+                    <img
+                        src={reactLogo}
+                        className="logo react"
+                        alt="React logo"
+                    />
+                </a>
+            </div>
+            <HeadingOne colorScheme="primary"> Heading 1 </HeadingOne>
             <h1></h1>
 
             <HeadingTwo colorScheme="primary"> Heading 2 </HeadingTwo>
