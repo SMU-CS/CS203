@@ -1,10 +1,7 @@
-// main.tsx
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { ThemeProvider } from '@mui/material/styles'; // or '@mui/styles' for MUI v4
-import CssBaseline from '@mui/material/CssBaseline'; // Optional: Apply global CSS reset
-import App from './App'; // Your main application component
-import theme from './assets/theme/defaultTheme'; // Import your custom theme
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import router from "./router/config"
+import { RouterProvider } from 'react-router-dom'
 
 ReactDOM.render(
   <React.StrictMode>
