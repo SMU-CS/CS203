@@ -1,6 +1,7 @@
 import Heading from "./components/common/headings/Heading";
 import Button from "./components/common/buttons/Button";
 import { Typography } from "@mui/material";
+import { ArrowForward } from "@mui/icons-material";
 
 const App = () => {
     return (
@@ -51,25 +52,23 @@ const App = () => {
             </Typography>
             <Typography variant="subtitle2">Subtitle 2 (Bold)</Typography>
 
-            <Button
-                colorType="secondary"
-                variantType="contained"
-                hasNextIcon={false}
-            >
+            <Button color="secondary" variant="contained">
                 regular
             </Button>
 
-            <Button
-                colorType="secondary"
-                variantType="outlined"
-                hasNextIcon={false}
-            >
+            <Button color="secondary" variant="outlined">
                 outlined
             </Button>
 
-            <Button colorType="primary" variantType="contained" hasNextIcon>
+            <Button
+                color="primary"
+                variant="contained"
+                endIcon={<ArrowForward />}
+            >
                 next
             </Button>
+
+            <Typography>End</Typography>
         </>
     );
 };
