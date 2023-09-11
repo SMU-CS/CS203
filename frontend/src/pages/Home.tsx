@@ -1,12 +1,12 @@
 import Footer from "../components/common/Footer";
-import HeadingOne from "../components/common/headings/HeadingOne";
+import Heading from "../components/common/headings/Heading";
 
 
 const Home = () => {
     return (
         <div>
             <Footer></Footer>
-            <HeadingOne colorScheme="primary" > Testing Heading One </HeadingOne>
+            <Heading color="primary" > Testing Heading One </Heading>
         </div>
     )
 
