@@ -12,8 +12,6 @@ import EventDetails from "../pages/public/EventDetails";
     @returns { Router } returns a BrowserRouter
 */
 const router = createBrowserRouter([
-    //{ path: "/", element: <App /> },
-
     {
         path: "/",
         element: (

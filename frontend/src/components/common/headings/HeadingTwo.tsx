@@ -41,15 +41,12 @@ const HeadingTwo: React.FC<HeadingOneProps> = ({
             </Grid>
             <Grid item xs={11}>
                 <Typography
-<<<<<<< HEAD
-=======
                     marginTop={"0.5rem"}
                     marginBottom={"0.5rem"}
                     textAlign={"left"}
                     fontFamily={""}
                     fontSize={"2.25rem"}
                     fontWeight={"400"}
->>>>>>> 21de59f (increase height of coloured bar on HeadingOne, HeadingTwo, HeadingThree)
                     color={isMonoScheme ? "white" : "black"}
                     {...props}
                     variant="h2"
