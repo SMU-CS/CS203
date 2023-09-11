@@ -1,33 +1,37 @@
 import React from "react";
 import { Typography, TypographyProps, Grid, Box } from "@mui/material";
 
-type ColorType = "mono" | "primary" | "secondary";
-
-interface HeadingOneProps extends TypographyProps {
+interface HeadingProps extends TypographyProps {
     children: string;
-    colorScheme?: ColorType;
+    color?: "mono" | "primary" | "secondary";
 }
 
 /**
- * This is a HeadingOne custom component
- * @property {ColorType} colorScheme
+ * Custom Heading component
+ * Only takes in h1, h2 and h3
+ *
+ * @property {"mono" | "primary" | "secondary"} color
+ * @property {string} children
+ * @property {TypographyProps.variant} variant
+ *
+ * @returns {Typography} A heading element
  */
-const HeadingOne: React.FC<HeadingOneProps> = ({
-    colorScheme,
+const Heading: React.FC<HeadingProps> = ({
+    color,
     children,
+    variant,
     ...props
 }) => {
-    const isMonoScheme = colorScheme === "mono";
-    // colorScheme = colorScheme ? colorScheme : "primary";
+    const isMonoScheme = color === "mono";
 
     return (
-        <Grid container xs={12}>
+        <Grid container>
             <Grid item xs={0.1} marginRight={"1rem"}>
                 <Box
                     sx={{
                         backgroundColor: isMonoScheme
                             ? "white"
-                            : `${colorScheme}.light`,
+                            : `${color}.light`,
                         width: "0.3125rem",
                         height: "100%",
                     }}
@@ -35,15 +39,10 @@ const HeadingOne: React.FC<HeadingOneProps> = ({
             </Grid>
             <Grid item xs={11}>
                 <Typography
-                    marginTop={"0.5rem"}
-                    marginBottom={"0.5rem"}
-                    textAlign={"left"}
-                    fontFamily={""}
-                    fontSize={"3rem"}
-                    fontWeight={"400"}
+                    variant={!variant ? "h1" : variant}
+                    my={"0.5rem"}
                     color={isMonoScheme ? "white" : "black"}
                     {...props}
-                    variant="h1"
                 >
                     {children}
                 </Typography>
@@ -52,4 +51,4 @@ const HeadingOne: React.FC<HeadingOneProps> = ({
     );
 };
 
-export default HeadingOne;
+export default Heading;
