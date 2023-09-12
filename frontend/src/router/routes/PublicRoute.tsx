@@ -1,13 +1,17 @@
 import NavBar from "../../components/common/navigations/NavBar";
 //import BaseRoute from "./BaseRoute";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { ReactElement, useEffect } from "react";
 // import { queueSuccess } from "../../functions/formHandling";
 // import { enqueueSnackbar } from "notistack";
 // import jwtDecode from "jwt-decode";
 // import Cookies from "js-cookie";
 
-const PublicRoute = ({ children }) => {
+interface PublicRouteProps {
+    children: ReactElement
+}
+
+const PublicRoute:React.FC<PublicRouteProps> = ({ children }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -30,7 +34,7 @@ const PublicRoute = ({ children }) => {
         //<BaseRoute>
         <div>
             <NavBar authenticated="false" />
-            <div style={{ margin: "1.5rem" }}>{children}</div>
+            {children}
         </div>
             
         //</BaseRoute>
