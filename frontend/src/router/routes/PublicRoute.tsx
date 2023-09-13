@@ -33,7 +33,7 @@ const PublicRoute:React.FC<PublicRouteProps> = ({ children }) => {
     return (
         //<BaseRoute>
         <div>
-            <NavBar authenticated="false" />
+            <NavBar role="guest"/>
             {children}
         </div>
             
