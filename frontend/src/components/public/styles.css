@@ -1,0 +1,18 @@
+.each-slide-effect > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+  }
+  
+  .each-slide-effect span {
+    font-size: 20px;
+    background: #efefef;
+    text-align: center;
+  }
+
+.styling {
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
