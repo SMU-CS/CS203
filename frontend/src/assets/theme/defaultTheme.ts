@@ -31,6 +31,8 @@ declare module "@mui/material/Typography" {
     }
 }
 
+const theme = createTheme();
+
 /**
  * Creates a new default theme for the application
  *
@@ -68,16 +70,34 @@ const defaultTheme = createTheme({
         h1: {
             ...headingPalette,
             fontSize: "3rem",
+            [theme.breakpoints.down("md")]: {
+                fontSize: "2.5rem",
+            },
+            [theme.breakpoints.down("sm")]: {
+                fontSize: "2rem",
+            },
         },
 
         h2: {
             ...headingPalette,
             fontSize: "2.25rem",
+            [theme.breakpoints.down("md")]: {
+                fontSize: "2rem",
+            },
+            [theme.breakpoints.down("sm")]: {
+                fontSize: "1.75rem",
+            },
         },
 
         h3: {
             ...headingPalette,
             fontSize: "2rem",
+            [theme.breakpoints.down("md")]: {
+                fontSize: "1.7rem",
+            },
+            [theme.breakpoints.down("sm")]: {
+                fontSize: "1.4rem",
+            },
         },
 
         h4: undefined,
@@ -88,26 +108,56 @@ const defaultTheme = createTheme({
             fontFamily: "CircularSpotify",
             fontWeight: "bold",
             fontSize: "0.9375rem",
+            [theme.breakpoints.down("md")]: {
+                fontSize: "0.8rem",
+            },
+            [theme.breakpoints.down("sm")]: {
+                fontSize: "0.7rem",
+            }
         },
 
         body1: {
             fontFamily: "CircularSpotify",
             fontSize: "1.25rem",
+            [theme.breakpoints.down("md")]: {
+                fontSize: "1.05rem",
+            },
+            [theme.breakpoints.down("sm")]: {
+                fontSize: "0.9rem",
+            }
         },
 
         body2: {
             fontFamily: "CircularSpotify",
             fontSize: "0.9375rem",
+            [theme.breakpoints.down("md")]: {
+                fontSize: "0.8rem",
+            },
+            [theme.breakpoints.down("sm")]: {
+                fontSize: "0.7rem",
+            }
         },
 
         subtitle1: {
             fontFamily: "Lato",
             fontSize: "1rem",
+            [theme.breakpoints.down("md")]: {
+                fontSize: "0.85rem",
+            },
+            [theme.breakpoints.down("sm")]: {
+                fontSize: "0.65rem",
+            }
         },
 
         subtitle2: {
             fontFamily: "Lato",
             fontSize: "0.75rem",
+            [theme.breakpoints.down("md")]: {
+                fontSize: "0.7rem",
+            },
+            [theme.breakpoints.down("sm")]: {
+                fontSize: "0.65rem",
+            }
         },
 
         caption: undefined,
