@@ -11,9 +11,8 @@ const Footer: React.FC = () => {
         <Grid
             container
             direction="column"
-            position="fixed"
-            bottom={0}
             bgcolor={grey[800]}
+            mt="auto"
             p={3} // Stands for padding
         >
             <Grid item>
@@ -27,7 +26,7 @@ const Footer: React.FC = () => {
                         <img
                             style={{
                                 width: "7rem",
-                                margin: "1rem"
+                                margin: "1rem",
                             }}
                             src={MainImage}
                             alt="MainImg"
