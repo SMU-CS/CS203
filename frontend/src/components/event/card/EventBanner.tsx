@@ -55,7 +55,7 @@ const EventCard = () => {
                         width={"90px"}
                         height={"10px"}
                         marginBottom={"30px"}
-                        marginTop={'10px'}
+                        marginTop={"10px"}
                     >
                         <br />
                     </Box>
