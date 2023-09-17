@@ -2,11 +2,12 @@ import { Box, Typography } from "@mui/material";
 
 const EventDescription = () => {
     return (
-        <Box width={"100vh"}>
+        <Box>
             <Typography
-                fontSize={"2vh"}
+                fontSize={"1rem"}
                 fontFamily={"Lato"}
-                justifyContent={"left"}
+                paddingTop={"1rem"}
+                paddingBottom={"1rem"}
             >
                 this is a text test Lorem, ipsum dolor sit amet consectetur
                 adipisicing elit. Esse aliquid natus reprehenderit ducimus,
