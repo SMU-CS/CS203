@@ -1,66 +1,22 @@
-import React, { Fragment } from "react";
-import Footer from "../../components/common/Footer";
-import GallerySection from "../../components/public/GallerySection";
-import ConcertImage1 from "../../assets/illustrations/Concert1.png";
-import ConcertImage2 from "../../assets/illustrations/taytay.jpeg";
-import EventCard from "../../components/public/EventCard";
-import { Grid } from "@mui/material";
+import GallerySection from "../../components/public/gallery/GallerySection";
+import EventCard from "../../components/event/card/EventCard";
+import { Grid, useMediaQuery, useTheme } from "@mui/material";
 import Heading from "../../components/common/headings/Heading";
-import GalleryImage1 from "../../assets/illustrations/taytay.jpeg"
-import GalleryImage2 from "../../assets/illustrations/Concert1.png"
-import GalleryImage3 from "../../assets/illustrations/Hallyupopfest.png"
-import GalleryImage4 from "../../assets/illustrations/coldplay.png"
-import GalleryImage5 from "../../assets/illustrations/charlieputh.jpeg"
+import GalleryImage1 from "../../assets/illustrations/taytay.jpeg";
+import GalleryImage2 from "../../assets/illustrations/Concert1.png";
+import GalleryImage3 from "../../assets/illustrations/Hallyupopfest.png";
+import GalleryImage4 from "../../assets/illustrations/coldplay.png";
+import GalleryImage5 from "../../assets/illustrations/charlieputh.jpeg";
+import { EventDetailsType } from "../../types/event";
 
-interface GallerySectionDetails{
-    id: string;
-    GalleryPic : any;
-}
-
-const GalleryDetailsArray: GallerySectionDetails[] = [
-    {
-        id: "1",
-        GalleryPic: GalleryImage1,
-    },
-    {
-        id: "2",
-        GalleryPic: GalleryImage2,
-    },
-    {
-        id: "3",
-        GalleryPic: GalleryImage3,
-    },
-    {
-        id: "4",
-        GalleryPic: GalleryImage4,
-    },
-    {
-        id: "5",
-        GalleryPic: GalleryImage5,
-    },
-    {
-        id: "6",
-        GalleryPic: GalleryImage2,
-    },
-]
-
-interface EventDetails {
-    id: string;
-    title: string;
-    startDate: string;
-    endDate: string;
-    location: string;
-    imagePic: any;
-}
-
-const eventDetailsArray: EventDetails[] = [
+const eventDetailsArray: EventDetailsType[] = [
     {
         id: "1",
         title: "TWICE 5TH WORLD TOUR ‘READY TO BE’ IN SINGAPORE",
         startDate: "2/9/2023",
         endDate: "3/9/2023",
         location: "Singapore Indoor Stadium",
-        imagePic: ConcertImage1,
+        imagePic: GalleryImage1,
     },
     {
         id: "2",
@@ -68,7 +24,7 @@ const eventDetailsArray: EventDetails[] = [
         startDate: "2/3/2024",
         endDate: "3/3/2024",
         location: "National Stadium",
-        imagePic: ConcertImage2,
+        imagePic: GalleryImage2,
     },
     {
         id: "3",
@@ -100,7 +56,7 @@ const eventDetailsArray: EventDetails[] = [
         startDate: "2/9/2023",
         endDate: "3/9/2023",
         location: "Singapore Indoor Stadium",
-        imagePic: ConcertImage2,
+        imagePic: GalleryImage2,
     },
     {
         id: "7",
@@ -108,39 +64,42 @@ const eventDetailsArray: EventDetails[] = [
         startDate: "2/9/2023",
         endDate: "3/9/2023",
         location: "Singapore Indoor Stadium",
-        imagePic: ConcertImage2,
+        imagePic: GalleryImage3,
     },
 ];
 
 const Landing = () => {
+    const theme = useTheme();
+    const smResponsive = useMediaQuery(theme.breakpoints.down("md"));
+    const xsResponsive = useMediaQuery(theme.breakpoints.down("sm"));
+
     return (
         <div>
-            <GallerySection galleryDetails={GalleryDetailsArray}/>
-            <Grid container direction="column" style={{ minHeight: "100vh" }} rowGap={5}>
-                <Grid item marginTop={"3rem"} marginLeft={"3rem"}>
+            <GallerySection slides={eventDetailsArray} />
+            <Grid container direction="column">
+                <Grid
+                    item
+                    margin={
+                        xsResponsive ? "2rem" : smResponsive ? "1.5rem" : "3rem"
+                    }
+                >
                     <Heading color="primary"> What's New </Heading>
                 </Grid>
                 <Grid item>
                     <Grid
                         container
-                        justifyContent={"center"}
+                        justifyContent="center"
                         direction="row"
-                        columnGap={9}
-                        rowGap={6}
-                        
+                        columnGap={5}
+                        rowGap={5}
+                        mb="3rem"
                     >
-                        {eventDetailsArray
-                            //Qn: is the data sorted from newest event to oldest event? need to display the latest 6 events
-                            .slice(0, 6)
-                            .map((details, index) => (
-                                <Grid key={index} item>
-                                    <EventCard {...details} />
-                                </Grid>
-                            ))}
+                        {eventDetailsArray.slice(0, 6).map((details, index) => (
+                            <Grid xs={9} sm={5} lg={3} key={index} item>
+                                <EventCard event={details} />
+                            </Grid>
+                        ))}
                     </Grid>
-                </Grid>
-                <Grid item>
-                    <Footer />
                 </Grid>
             </Grid>
         </div>
