@@ -6,6 +6,8 @@ import Login from "../pages/public/Login";
 import Landing from "../pages/public/Landing";
 import EventListing from "../pages/public/EventListing";
 import EventDetails from "../pages/public/EventDetails";
+import PurchaseRequest from "../pages/public/PurchaseRequest";
+import PurchaseRequestConfirmation from "../pages/public/PurchaseRequestConfirmation";
 
 /**
     Creates a browser router with react-router-dom
@@ -17,55 +19,63 @@ const router = createBrowserRouter([
         element: (
             //for now use Home page to test components
             <PublicRoute>
-                <Home/>
+                <Home />
             </PublicRoute>
-    
         ),
         //errorElement: <Error404 />,
     },
     {
         path: "/App",
-        element: (
-            <App />
-        )
+        element: <App />,
     },
     {
         path: "/Login",
         element: (
             <PublicRoute>
-                <Login/>
+                <Login />
             </PublicRoute>
-        
-        )
+        ),
     },
     {
         path: "/Landing",
         element: (
             <PublicRoute>
-                <Landing/>
+                <Landing />
             </PublicRoute>
-        
-        )
+        ),
     },
     {
         path: "/EventListing",
         element: (
             <PublicRoute>
-                <EventListing/>
+                <EventListing />
             </PublicRoute>
-        
-        )
+        ),
     },
     {
         path: "/EventDetails",
         element: (
             <PublicRoute>
-                <EventDetails/>
+                <EventDetails />
             </PublicRoute>
-        
-        )
+        ),
     },
-
+    {
+        path: "/PurchaseRequest",
+        element: (
+            <PublicRoute>
+                <PurchaseRequest />
+            </PublicRoute>
+        ),
+    },
+    {
+        path: "/PurchaseRequestConfirmation",
+        element: (
+            <PublicRoute>
+                <PurchaseRequestConfirmation />
+            </PublicRoute>
+        ),
+    },
 ]);
 
 export default router;
