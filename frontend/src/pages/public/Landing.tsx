@@ -3,7 +3,7 @@ import EventCard from "../../components/event/card/EventCard";
 import { Grid, useMediaQuery, useTheme } from "@mui/material";
 import Heading from "../../components/common/headings/Heading";
 import GalleryImage1 from "../../assets/illustrations/taytay.jpeg";
-import GalleryImage2 from "../../assets/illustrations/Concert1.png";
+import GalleryImage2 from "../../assets/illustrations/TwiceConcertBanner.jpg";
 import GalleryImage3 from "../../assets/illustrations/Hallyupopfest.png";
 import GalleryImage4 from "../../assets/illustrations/coldplay.png";
 import GalleryImage5 from "../../assets/illustrations/charlieputh.jpeg";

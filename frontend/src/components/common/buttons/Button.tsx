@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import {
     Button as MuiButton,
     ButtonProps as MuiButtonProps,
+    Typography,
 } from "@mui/material";
 
 interface ButtonProps extends MuiButtonProps {
@@ -15,7 +16,22 @@ interface ButtonProps extends MuiButtonProps {
  * @returns {ReactElement} Button
  */
 const Button: React.FC<ButtonProps> = ({ children, ...props }) => {
-    return <MuiButton {...props}>{children}</MuiButton>;
+    return (
+        <MuiButton {...props}>
+            <Typography
+                variant="button"
+                sx={{
+                    transform: {
+                        xs: "translateY(2px)",
+                        sm: "none",
+                        md: "translateY(2px)",
+                    },
+                }}
+            >
+                {children}
+            </Typography>
+        </MuiButton>
+    );
 };
 
 export default Button;

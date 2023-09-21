@@ -2,23 +2,23 @@ import {
     Box,
     Chip,
     FormControl,
+    FormControlProps,
     FormHelperText,
     InputLabel,
     MenuItem,
     Select,
     Typography,
 } from "@mui/material";
-import { SelectInputProps } from "@mui/material/Select/SelectInput";
 import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
-interface DropdownChoices {
+export interface DropdownChoices {
     text: string | number;
     value: string | number;
     id?: string | number;
 }
 
-interface SelectFieldProps extends SelectInputProps {
+interface SelectFieldProps extends FormControlProps {
     name: string;
     label: string;
     multiple: boolean;
@@ -31,6 +31,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
     label,
     choices,
     multiple,
+    ...props
 }) => {
     const { control } = useFormContext();
 
@@ -39,27 +40,48 @@ const SelectField: React.FC<SelectFieldProps> = ({
             control={control}
             name={name}
             render={({ field, fieldState: { error } }) => (
-                <FormControl variant={variant} error={Boolean(error)}>
-                    <InputLabel>{label}</InputLabel>
+                <FormControl
+                    {...props}
+                    fullWidth
+                    variant={variant}
+                    error={Boolean(error)}
+                >
+                    <InputLabel><Typography variant="subtitle1">{label}</Typography></InputLabel>
                     <Select
+                        label={label}
                         multiple={multiple}
                         {...field}
-                        value={field.value || multiple ? [] : ""}
+                        value={field.value || (multiple ? [] : "")}
                         renderValue={(selected) =>
-                            multiple ? (
-                                <Box display="flex" flexWrap="wrap" gap="0.5">
-                                    {selected.map((value) => (
-                                        <Chip key={value} label={value} />
-                                    ))}
+                            multiple && selected instanceof Array ? (
+                                <Box display="flex" flexWrap="wrap" gap="1">
+                                    {selected.map((value) => {
+                                        const selectedChoice = choices.find(
+                                            (choice) => choice.value === value
+                                        );
+                                        return (
+                                            <Chip
+                                                key={value}
+                                                label={selectedChoice?.text}
+                                            />
+                                        );
+                                    })}
                                 </Box>
                             ) : (
-                                <Typography>{selected}</Typography>
+                                <Typography variant="subtitle1">
+                                    {
+                                        choices.find(
+                                            (choice) =>
+                                                choice.value === selected
+                                        )?.text
+                                    }
+                                </Typography>
                             )
                         }
                     >
                         {choices.map(({ text, value }) => (
-                            <MenuItem>
-                                {value === "" ? <em>{text}</em> : text}{" "}
+                            <MenuItem key={value} value={value}>
+                                {value === "" ? <em>{text}</em> : text}
                             </MenuItem>
                         ))}
                     </Select>
