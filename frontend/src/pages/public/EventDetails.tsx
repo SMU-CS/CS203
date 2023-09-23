@@ -8,6 +8,7 @@ import EventExchangeRefundPolicy from "../../components/event/card/EventExchange
 import EventAdmissionPolicy from "../../components/event/card/EventAdmissionPolicy";
 import TicketPricing from "../../components/event/card/TicketPricing";
 import WaysToBuyTickets from "../../components/event/card/WaysToBuyTickets";
+import Breadcrumb from "../../components/event/Breadcrumb";
 
 const EventDetails = () => {
 
@@ -23,6 +24,7 @@ const EventDetails = () => {
     return (
         <>
             <TabBar></TabBar>
+            <Breadcrumb></Breadcrumb>
             <div>
                 <Box
                     sx={{
@@ -40,7 +42,7 @@ const EventDetails = () => {
 
                     <EventBanner></EventBanner>
 
-                    <Heading color="primary" variant="h2">
+                    <Heading color='primary' variant='h2'>
                         Event Details
                     </Heading>
 
@@ -48,7 +50,7 @@ const EventDetails = () => {
 
                     <Divider light sx={DividerStyle} />
 
-                    <Heading color="primary" variant="h2">
+                    <Heading color='primary' variant='h2'>
                         Ticket Pricing
                     </Heading>
 
@@ -56,7 +58,7 @@ const EventDetails = () => {
 
                     <Divider light sx={DividerStyle} />
 
-                    <Heading color="primary" variant="h2">
+                    <Heading color='primary' variant='h2'>
                         Exchange & Refund Policy Details
                     </Heading>
 
@@ -64,7 +66,7 @@ const EventDetails = () => {
 
                     <Divider light sx={DividerStyle} />
 
-                    <Heading color="primary" variant="h2">
+                    <Heading color='primary' variant='h2'>
                         Admission Policy
                     </Heading>
 
@@ -72,7 +74,7 @@ const EventDetails = () => {
 
                     <Divider light sx={DividerStyle} />
 
-                    <Heading color="primary" variant="h2">
+                    <Heading color='primary' variant='h2'>
                         Ways To Buy Tickets
                     </Heading>
 
