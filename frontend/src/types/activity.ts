@@ -2,8 +2,8 @@ import { TicketType } from "./ticket";
 
 export interface Activity {
     id: string;
-    start_datetime: string;
-    end_datetime: string;
+    startDateTime: string;
+    endDateTime: string;
     location: string;
-    ticket: TicketType[];
+    ticketTypes: TicketType[];
 }
