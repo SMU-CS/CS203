@@ -1,11 +1,11 @@
 import React from "react";
 import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
-import { EventDetailsType } from "../../../types/event";
+import { EventListingType } from "../../../types/event";
 import { Box, useTheme } from "@mui/material";
 
 interface GallerySectionProps {
-    slides: EventDetailsType[];
+    slides?: EventListingType[];
 }
 
 const GallerySection: React.FC<GallerySectionProps> = ({ slides }) => {
@@ -27,14 +27,15 @@ const GallerySection: React.FC<GallerySectionProps> = ({ slides }) => {
                     },
                 ]}
             >
-                {slides.map(({ imagePic, id }) => (
-                    <img
-                        key={id}
-                        width="100%"
-                        src={imagePic}
-                        alt={`Gallery ${id}`}
-                    />
-                ))}
+                {slides &&
+                    slides.map(({ bannerURL, id }) => (
+                        <img
+                            key={id}
+                            width="100%"
+                            src={bannerURL}
+                            alt={`Gallery ${id}`}
+                        />
+                    ))}
             </Slide>
         </Box>
     );
