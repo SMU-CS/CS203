@@ -1,36 +1,44 @@
-import { Box, List, ListItem } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
+import { EventDetailsType } from "../../../types/event";
+import TicketPricingTable from "../table/TicketPricingTable";
 
-const pricing = [
-    { ticketType: "Standard", category: "A", price: "50" },
-    { ticketType: "Standard", category: "B", price: "20" },
-];
+interface TicketPricingType {
+    event: EventDetailsType;
+}
 
-const TicketPricing = () => {
-    const ListStyle = {
-        listStyleType: "disc",
-        pl: 4,
-        "& .MuiListItem-root": { display: "list-item" },
-        fontSize: "1rem",
-        lineHeight: "5px",
-        left: "-1rem",
-    };
-
+const TicketPricing: React.FC<TicketPricingType> = ({ event }) => {
     return (
         <Box sx={{ fontSize: "1rem", fontFamily: "Lato" }}>
-            <List sx={ListStyle}>
-                {pricing.map((Element) => (
-                    <ListItem>
-                        {Element.ticketType +
-                            " - Cat." +
-                            Element.category +
-                            ": $" +
-                            Element.price}
-                    </ListItem>
+            <TicketPricingTable
+                activities={event.activities}
+                eventName={event.name}
+                eventVenue={event.location}
+            />
+            <ul>
+                {event.activities.map((activity) => (
+                    <li>
+                        <Typography variant="subtitle1">
+                            {activity.startDateTime}
+                        </Typography>
+                        <ul>
+                            {activity.ticketTypes.map((tix) => (
+                                <li>
+                                    <Typography variant="subtitle1">{`${
+                                        tix.type
+                                    }: $${tix.price.toFixed(2)}`}</Typography>
+                                </li>
+                            ))}
+                        </ul>
+                    </li>
                 ))}
-            </List>
-            *You can only make a purchase request of maximum 4 tickets in total
-            for each event, you are left with 4 tickets for this purchase
-            request
+            </ul>
+            <Container sx={{ my: "1.5rem" }}>
+                <Typography variant="subtitle1">
+                    *You can only make a purchase request of maximum 4 tickets
+                    in total for each event, you are left with 4 tickets for
+                    this purchase request
+                </Typography>
+            </Container>
         </Box>
     );
 };
