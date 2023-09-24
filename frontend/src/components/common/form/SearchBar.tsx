@@ -1,12 +1,11 @@
 import React, { Fragment, useState } from "react";
-import { useForm, FormProvider, useFormContext } from "react-hook-form";
-import { Grid, InputBase, Paper, TextField } from "@mui/material";
+import { Grid, InputBase, Paper } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import SearchButton from "../buttons/SearchButton";
-import { EventDetailsType } from "../../../types/event";
+import { EventListingType } from "../../../types/event";
 
 interface SearchBarProps {
-    data: EventDetailsType[];
+    data?: EventListingType[];
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ data }) => {
@@ -83,10 +82,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ data }) => {
                                 border: "1px solid gray",
                             }}
                         >
-                            {data
+                            {data && data
                                 .filter((item) => {
                                     const searchTerm = value.toLowerCase();
-                                    const title = item.title.toLowerCase();
+                                    const title = item.name.toLowerCase();
 
                                     return (
                                         searchTerm &&
@@ -97,7 +96,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ data }) => {
                                 .slice(0, 10)
                                 .map((item) => (
                                     <div
-                                        onClick={() => onSearch(item.title)}
+                                        onClick={() => onSearch(item.name)}
                                         className="dropdown-row"
                                         key={item.id}
                                         style={{
@@ -107,7 +106,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ data }) => {
                                             borderBottom: "1px solid #ccc",
                                         }}
                                     >
-                                        {item.title}
+                                        {item.name}
                                     </div>
                                 ))}
                         </div>
