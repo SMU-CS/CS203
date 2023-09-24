@@ -4,53 +4,42 @@ import {
     CardMedia,
     Grid,
     Typography,
-    useTheme,
-    useMediaQuery,
     CardActionArea,
     CardProps,
 } from "@mui/material";
-import { formatDateStrToDateWithDayStr } from "../../../functions/formatter";
 import { useNavigate } from "react-router-dom";
-import { EventDetailsType } from "../../../types/event";
+import { EventListingType } from "../../../types/event";
 
 interface EventCardProps extends CardProps {
-    event: EventDetailsType;
+    event: EventListingType;
 }
 
 const EventCard: React.FC<EventCardProps> = ({ event, ...props }) => {
-    const { title, startDate, endDate, location, imagePic, id } = event;
+    const { name, start_datetime, end_datetime, location, bannerURL, id } = event;
     const navigate = useNavigate();
-    const theme = useTheme();
-    const smResponsive = useMediaQuery(theme.breakpoints.down("md"));
-    const xsResponsive = useMediaQuery(theme.breakpoints.down("sm"));
 
     return (
         <Card {...props}>
-            <CardActionArea onClick={() => navigate(`/events/detail/${id}`)}>
+            <CardActionArea onClick={() => navigate(`/event/${id}`)}>
                 <CardMedia
                     sx={{ width: "100%", height: "10rem" }}
-                    image={imagePic}
+                    image={bannerURL}
                 />
                 <CardContent>
                     <Grid
                         container
                         justifyContent="space-between"
-                        height={
-                            xsResponsive
-                                ? "120px"
-                                : smResponsive
-                                ? "150px"
-                                : "200px"
-                        }
+                        sx={{
+                            height: { xs: "120px", sm: "150px", md: "200px" },
+                        }}
                         direction="column"
                     >
                         <Grid item>
                             <Typography variant="body2">
-                                {formatDateStrToDateWithDayStr(startDate)} ~{" "}
-                                {formatDateStrToDateWithDayStr(endDate)}
+                                {`${start_datetime} ~ ${end_datetime}`}
                             </Typography>
                             <Typography variant="body1" fontWeight="bold">
-                                {title}
+                                {name}
                             </Typography>
                         </Grid>
                         <Grid item>
