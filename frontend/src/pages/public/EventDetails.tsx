@@ -1,5 +1,4 @@
-import { Box, Divider, useMediaQuery } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { Box, Divider } from "@mui/material";
 import Heading from "../../components/common/headings/Heading";
 import TabBar from "../../components/event/TabBar/TabBar";
 import EventBanner from "../../components/event/card/EventBanner";
@@ -9,78 +8,79 @@ import EventAdmissionPolicy from "../../components/event/card/EventAdmissionPoli
 import TicketPricing from "../../components/event/card/TicketPricing";
 import WaysToBuyTickets from "../../components/event/card/WaysToBuyTickets";
 import Breadcrumb from "../../components/event/Breadcrumb";
+import { useQuery } from "@tanstack/react-query";
+import { getEvent } from "../../axios/event/event";
+import { useParams } from "react-router";
 
 const EventDetails = () => {
+    const { id } = useParams();
 
-    const theme = useTheme(); 
-    const smResponsive = useMediaQuery(theme.breakpoints.down("md"));
-    const xsResponsive = useMediaQuery(theme.breakpoints.down("sm"));
+    const { data: event } = useQuery({
+        queryKey: ["eventDetails", id],
+        queryFn: () => getEvent(id),
+    });
 
     const DividerStyle = {
-        width: '100%',
+        width: "100%",
         margin: "16px",
     };
 
     return (
         <>
-            <TabBar></TabBar>
-            <Breadcrumb></Breadcrumb>
-            <div>
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignContent: "center",
-                        paddingTop: "1vh",
-                        paddingInline: xsResponsive
-                            ? "120px"
-                            : smResponsive
-                            ? "150px"
-                            : "220px"
-                    }}
-                >
+            <TabBar />
+            <Breadcrumb />
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignContent: "center",
+                    paddingTop: "1vh",
+                    paddingInline: {
+                        xs: "120px",
+                        sm: "150px",
+                        md: "220px",
+                    },
+                }}
+            >
+                {event && (
+                    <>
+                        <EventBanner event={event} />
+                        <Heading color="primary" variant="h2">
+                            Event Details
+                        </Heading>
+                        <EventDescription>{event.description}</EventDescription>
+                        <Divider light sx={DividerStyle} />
+                        <Heading color="primary" variant="h2">
+                            Ticket Pricing
+                        </Heading>
+                        <TicketPricing event={event}></TicketPricing>
+                    </>
+                )}
 
-                    <EventBanner></EventBanner>
+                <Divider light sx={DividerStyle} />
 
-                    <Heading color='primary' variant='h2'>
-                        Event Details
-                    </Heading>
+                <Heading color="primary" variant="h2">
+                    Exchange & Refund Policy Details
+                </Heading>
 
-                    <EventDescription></EventDescription>
+                <EventExchangeRefundPolicy></EventExchangeRefundPolicy>
 
-                    <Divider light sx={DividerStyle} />
+                <Divider light sx={DividerStyle} />
 
-                    <Heading color='primary' variant='h2'>
-                        Ticket Pricing
-                    </Heading>
+                <Heading color="primary" variant="h2">
+                    Admission Policy
+                </Heading>
 
-                    <TicketPricing></TicketPricing>
+                <EventAdmissionPolicy></EventAdmissionPolicy>
 
-                    <Divider light sx={DividerStyle} />
+                <Divider light sx={DividerStyle} />
 
-                    <Heading color='primary' variant='h2'>
-                        Exchange & Refund Policy Details
-                    </Heading>
+                <Heading color="primary" variant="h2">
+                    Ways To Buy Tickets
+                </Heading>
 
-                    <EventExchangeRefundPolicy></EventExchangeRefundPolicy>
-
-                    <Divider light sx={DividerStyle} />
-
-                    <Heading color='primary' variant='h2'>
-                        Admission Policy
-                    </Heading>
-
-                    <EventAdmissionPolicy></EventAdmissionPolicy>
-
-                    <Divider light sx={DividerStyle} />
-
-                    <Heading color='primary' variant='h2'>
-                        Ways To Buy Tickets
-                    </Heading>
-
-                    <WaysToBuyTickets></WaysToBuyTickets>
-                </Box>
-            </div>
+                <WaysToBuyTickets></WaysToBuyTickets>
+            </Box>
         </>
     );
 };
