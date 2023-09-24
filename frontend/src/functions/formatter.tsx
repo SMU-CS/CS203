@@ -3,21 +3,11 @@
  * @param {string} inputDate 
  * @returns {string} date with day
  */
-const formatDateStrToDateWithDayStr = (inputDate: string) => {
-    const [day, monthStr, year] = inputDate.split("/");
-    const month = new Date(
-        parseInt(year),
-        parseInt(monthStr) - 1
-    ).toLocaleString("en-US", { month: "short" });
+export const formatDateToDateWithDay = (date: Date) => {
 
-    const formattedDate = new Date(`${year}-${parseInt(monthStr)}-${day}`);
-    const dayOfWeek = formattedDate.toLocaleDateString("en-US", {
-        weekday: "short",
-    });
+    const utcDate = date.toUTCString()
+    const dayOfWeek = utcDate.substring(0, 3)
+    const dateStr = utcDate.substring(4, 16)
 
-    return `${day} ${month} ${year} (${
-        
-        dayOfWeek})`;
+    return `${dateStr} (${dayOfWeek}.)`
 };
-
-export { formatDateStrToDateWithDayStr };
