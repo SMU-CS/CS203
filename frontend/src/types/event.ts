@@ -1,28 +1,21 @@
 import { Activity } from "./activity";
 
-/**
- * An interface for EventDetails
- * @returns {interface}
- */
-export interface EventDetailsType {
-    id: string;
-    title: string;
-    startDate: string;
-    endDate: string;
-    location: string;
-    imagePic: string;
+export interface EventListingType {
+    id: number
+    name: string
+    start_datetime: string
+    end_datetime: string
+    location: string
+    bannerURL: string
 }
 
-export interface EventType {
-    event_id: string;
-    name: string;
-    category: string;
-    artist: string;
-    description: string;
-    event_banner_url: string;
-    event_seatmap_url: string;
-    status: string;
-    type: string;
-    sequence: string;
-    activities?: Activity[];
+export interface EventDetailsType {
+    id: number
+    name: string
+    category: string
+    artist: string
+    description: string
+    bannerURL: string
+    seatMapURL: string
+    activities: Activity[]
 }
