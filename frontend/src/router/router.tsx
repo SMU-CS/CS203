@@ -3,7 +3,6 @@ import App from "../App";
 import Home from "../pages/Home";
 import PublicRoute from "./routes/PublicRoute";
 import Login from "../pages/public/Login";
-import Landing from "../pages/public/Landing";
 import EventListing from "../pages/public/EventListing";
 import EventDetails from "../pages/public/EventDetails";
 import PurchaseRequest from "../pages/public/PurchaseRequest";
@@ -17,7 +16,6 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: (
-            //for now use Home page to test components
             <PublicRoute>
                 <Home />
             </PublicRoute>
@@ -25,11 +23,11 @@ const router = createBrowserRouter([
         //errorElement: <Error404 />,
     },
     {
-        path: "/App",
+        path: "App",
         element: <App />,
     },
     {
-        path: "/Login",
+        path: "Login",
         element: (
             <PublicRoute>
                 <Login />
@@ -37,15 +35,7 @@ const router = createBrowserRouter([
         ),
     },
     {
-        path: "/Landing",
-        element: (
-            <PublicRoute>
-                <Landing />
-            </PublicRoute>
-        ),
-    },
-    {
-        path: "/EventListing",
+        path: "event",
         element: (
             <PublicRoute>
                 <EventListing />
@@ -53,7 +43,7 @@ const router = createBrowserRouter([
         ),
     },
     {
-        path: "/EventDetails",
+        path: "event/:id",
         element: (
             <PublicRoute>
                 <EventDetails />
@@ -61,7 +51,7 @@ const router = createBrowserRouter([
         ),
     },
     {
-        path: "/PurchaseRequest",
+        path: "purchase/:id",
         element: (
             <PublicRoute>
                 <PurchaseRequest />
@@ -69,7 +59,7 @@ const router = createBrowserRouter([
         ),
     },
     {
-        path: "/PurchaseRequestConfirmation",
+        path: "confirmation/:id",
         element: (
             <PublicRoute>
                 <PurchaseRequestConfirmation />
