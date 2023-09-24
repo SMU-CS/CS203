@@ -1,13 +1,12 @@
-import BannerImg from "../../../assets/illustrations/TwiceConcertBanner.jpg";
-import {
-    Box,
-    Card,
-    CardContent,
-    Typography,
-} from "@mui/material";
+import { Box, Card, CardContent, Typography } from "@mui/material";
 import defaultTheme from "../../../assets/theme/defaultTheme";
+import { EventDetailsType } from "../../../types/event";
 
-const EventCard = () => {
+interface EventCardProps {
+    event: EventDetailsType;
+}
+
+const EventCard: React.FC<EventCardProps> = ({ event }) => {
     const BoxStyles = {
         alignItems: "center",
         display: "flex",
@@ -39,7 +38,7 @@ const EventCard = () => {
 
     return (
         <Box sx={BoxStyles}>
-            <img src={BannerImg} style={ImgStyles}></img>
+            <img src={event.bannerURL} style={ImgStyles}></img>
 
             <Card sx={CardStyles}>
                 <CardContent sx={CardContentStyles}>
@@ -52,18 +51,11 @@ const EventCard = () => {
                     >
                         <br />
                     </Box>
-                    <Typography
-                        variant='subtitle1'
-                        fontWeight={"bold"}
-                    >
-                        TWICE 5TH WORLD TOUR ‘READY TO BE’ IN SINGAPORE
+                    <Typography variant="subtitle1" fontWeight={"bold"}>
+                        {event.name}
                     </Typography>
-                    <Typography
-                        sx={{mb: 1.5}}
-                        variant='subtitle1'
-                    >
-                        02 Sep 2023 (Sat.) ~ 03 Sep 2023 (Sun.) @ Singapore
-                        Indoor Stadium
+                    <Typography sx={{ mb: 1.5 }} variant="subtitle1">
+                        {`${event.start_datetime} ~ ${event.end_datetime}`}
                     </Typography>
                     <Box
                         bgcolor={defaultTheme.palette.primary.dark}
