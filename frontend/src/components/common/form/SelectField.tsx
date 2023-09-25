@@ -46,12 +46,13 @@ const SelectField: React.FC<SelectFieldProps> = ({
                     variant={variant}
                     error={Boolean(error)}
                 >
-                    <InputLabel><Typography variant="subtitle1">{label}</Typography></InputLabel>
+                    <InputLabel>
+                        <Typography variant="subtitle1">{label}</Typography>
+                    </InputLabel>
                     <Select
                         label={label}
                         multiple={multiple}
                         {...field}
-                        value={field.value || (multiple ? [] : "")}
                         renderValue={(selected) =>
                             multiple && selected instanceof Array ? (
                                 <Box display="flex" flexWrap="wrap" gap="1">
