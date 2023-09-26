@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import GallerySection from "../components/public/gallery/GallerySection";
 import EventCard from "../components/event/card/EventCard";
 import { Grid } from "@mui/material";
@@ -5,9 +6,12 @@ import Heading from "../components/common/headings/Heading";
 import { useQuery } from "@tanstack/react-query";
 import { listEvents } from "../axios/event/event";
 import { EventListingType } from "../types/event";
+import { useTitle } from "../custom-hooks/useTitle";
 
 const Home = () => {
-    const { data: latestEvents  } = useQuery({
+    const [setTitle] = useTitle("Server Error");
+
+    const { data: latestEvents } = useQuery({
         queryKey: ["latestEvents"],
         queryFn: () => listEvents(false),
     });
@@ -15,6 +19,12 @@ const Home = () => {
         queryKey: ["featuredEvents"],
         queryFn: () => listEvents(true),
     });
+
+    useEffect(() => {
+        if (latestEvents && featuredEvents) {
+            setTitle("EzTix");
+        }
+    }, [setTitle, latestEvents, featuredEvents]);
 
     return (
         <>

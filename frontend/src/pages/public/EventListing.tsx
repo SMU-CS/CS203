@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Grid } from "@mui/material";
 import BGPic from "../../assets/illustrations/PurpleNeonBG.jpeg";
 import Heading from "../../components/common/headings/Heading";
@@ -7,12 +7,21 @@ import CategoryBarSlider from "../../components/public/CategoryBarSlider/Categor
 import EventCard from "../../components/event/card/EventCard";
 import { useQuery } from "@tanstack/react-query";
 import { listEvents } from "../../axios/event/event";
+import { useTitle } from "../../custom-hooks/useTitle";
 
 const EventListing: React.FC = () => {
+    const [setTitle] = useTitle("Server Error")
+
     const { data: events } = useQuery({
         queryKey: ["events"],
         queryFn: () => listEvents(false),
     });
+
+    useEffect(() => {
+        if(events){
+           setTitle("Event Listing") 
+        }
+    },[setTitle, events])
 
     return (
         <Grid container direction="column">
