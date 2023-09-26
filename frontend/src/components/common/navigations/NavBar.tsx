@@ -14,17 +14,23 @@ import NavLogo from "./subcomponents/NavLogo";
 import HamburgerMenu from "./subcomponents/HamburgerMenu";
 import ProfileMenu from "./subcomponents/ProfileMenu";
 import NavPageButton from "./subcomponents/NavPageButton";
+import { useNavigate } from "react-router-dom";
 
 const pages = {
-    customer: ["Home", "Event Listing", "Order History"],
-    admin: ["Event Management", "User Management"],
-    manager: ["Event Approval", "User Approval"],
-    guest: ["Home", "Event Listing"],
+    customer: [
+        { text: "Home", link: "/" },
+        { text: "Event Listing", link: "/event" },
+        { text: "Order History", link: "/order" },
+    ],
+    guest: [
+        { text: "Home", link: "/" },
+        { text: "Event Listing", link: "/event" },
+    ],
 };
 const authPages = ["Login", "Register"];
 
 interface NavBarProps extends AppBarProps {
-    role: "customer" | "admin" | "manager" | "guest";
+    role: "customer" | "guest";
 }
 
 const NavBar: React.FC<NavBarProps> = ({ role, ...props }) => {
@@ -34,6 +40,8 @@ const NavBar: React.FC<NavBarProps> = ({ role, ...props }) => {
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
         null
     );
+
+    const navigate = useNavigate();
 
     return (
         <AppBar
@@ -61,11 +69,14 @@ const NavBar: React.FC<NavBarProps> = ({ role, ...props }) => {
                             display={{ xs: "none", md: "flex" }}
                             flexDirection="row"
                         >
-                            {pages[role].map((page) => (
+                            {pages[role].map(({ text, link }) => (
                                 <NavPageButton
-                                    key={page}
-                                    page={page}
-                                    onClick={() => setAnchorElNav(null)}
+                                    key={text}
+                                    page={text}
+                                    onClick={() => {
+                                        setAnchorElNav(null);
+                                        navigate(link);
+                                    }}
                                 />
                             ))}
                         </Grid>
