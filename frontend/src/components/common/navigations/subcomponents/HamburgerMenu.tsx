@@ -8,9 +8,10 @@ import {
 } from "@mui/material";
 import React from "react";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useNavigate } from "react-router-dom";
 
 interface HamburgerMenuProps extends BoxProps {
-    pages: string[];
+    pages: { text: string; link: string }[];
     setAnchorElNav: (value: React.SetStateAction<HTMLElement | null>) => void;
     anchorElNav: HTMLElement | null;
 }
@@ -21,6 +22,8 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
     anchorElNav,
     ...props
 }) => {
+    const navigate = useNavigate();
+
     return (
         <Box
             {...props}
@@ -54,9 +57,15 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
                     display: { xs: "block", md: "none" },
                 }}
             >
-                {pages.map((page) => (
-                    <MenuItem key={page} onClick={() => setAnchorElNav(null)}>
-                        <Typography textAlign="center">{page}</Typography>
+                {pages.map(({ text, link }) => (
+                    <MenuItem
+                        key={text}
+                        onClick={() => {
+                            setAnchorElNav(null);
+                            navigate(link);
+                        }}
+                    >
+                        <Typography textAlign="center">{text}</Typography>
                     </MenuItem>
                 ))}
             </Menu>
