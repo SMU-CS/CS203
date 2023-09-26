@@ -46,7 +46,7 @@ const NavBar: React.FC<NavBarProps> = ({ role, ...props }) => {
     return (
         <AppBar
             {...props}
-            position="static"
+            position="sticky"
             sx={{ backgroundColor: "#651FFF" }}
         >
             <Container maxWidth="xl">

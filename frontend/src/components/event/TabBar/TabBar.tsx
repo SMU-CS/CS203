@@ -16,11 +16,16 @@ const TabBar = () => {
     return (
         <Box
             sx={{
+                top: { xs: "63px", sm: "66px", md: "70px" },
+                width: "100%",
+                zIndex: 0,
+                position: "sticky",
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
                 borderBottom: 1,
                 borderColor: "divider",
+                bgcolor: "white",
             }}
         >
             <Tabs aria-label="tab">
