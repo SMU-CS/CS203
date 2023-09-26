@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Box, Divider } from "@mui/material";
 import Heading from "../../components/common/headings/Heading";
 import TabBar from "../../components/event/TabBar/TabBar";
@@ -11,14 +12,20 @@ import Breadcrumb from "../../components/event/Breadcrumb";
 import { useQuery } from "@tanstack/react-query";
 import { getEvent } from "../../axios/event/event";
 import { useParams } from "react-router";
+import { useTitle } from "../../custom-hooks/useTitle";
 
 const EventDetails = () => {
+    const [setTitle] = useTitle("Event Details");
     const { id } = useParams();
 
     const { data: event } = useQuery({
         queryKey: ["eventDetails", id],
         queryFn: () => getEvent(id),
     });
+
+    useEffect(() => {
+        setTitle(event?.name || "Event not Found!");
+    }, [event?.name, setTitle]);
 
     const DividerStyle = {
         width: "100%",
