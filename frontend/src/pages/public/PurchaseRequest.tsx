@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getEvent } from "../../axios/event/event";
 import SeatMapDialog from "../../components/public/dialog/SeatMapDialog";
 import { useTitle } from "../../custom-hooks/useTitle";
+import BreadCrumb from "../../components/event/Breadcrumb";
 
 const PurchaseRequest: React.FC = () => {
     const [setTitle] = useTitle("Server Error");
@@ -25,18 +26,21 @@ const PurchaseRequest: React.FC = () => {
     }, [setTitle, event]);
 
     return (
-        event && (
-            <Container maxWidth="md">
-                <EventBanner event={event} />
-                <Heading variant="h1" color="primary">
-                    Purchase Request
-                </Heading>
-                <Box padding="1rem" />
-                <SeatMapDialog src={event.seatMapURL} />
-                <Box padding="1rem" />
-                <MakePRTable activities={event.activities} />
-            </Container>
-        )
+        <>
+            <BreadCrumb />
+            {event && (
+                <Container maxWidth="md">
+                    <EventBanner event={event} />
+                    <Heading variant="h1" color="primary">
+                        Purchase Request
+                    </Heading>
+                    <Box padding="1rem" />
+                    <SeatMapDialog src={event.seatMapURL} />
+                    <Box padding="1rem" />
+                    <MakePRTable activities={event.activities} />
+                </Container>
+            )}
+        </>
     );
 };
 
