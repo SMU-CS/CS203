@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Heading from "../../components/common/headings/Heading";
 import EventBanner from "../../components/event/card/EventBanner";
 import { Box, Container } from "@mui/material";
-import Button from "../../components/common/buttons/Button";
 import MakePRTable from "../../components/public/table/make-pr-table/MakePRTable";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -33,7 +32,7 @@ const PurchaseRequest: React.FC = () => {
                     Purchase Request
                 </Heading>
                 <Box padding="1rem" />
-                <Button variant="contained">View Seat Map</Button>
+                <SeatMapDialog src={event.seatMapURL} />
                 <Box padding="1rem" />
                 <MakePRTable activities={event.activities} />
             </Container>
