@@ -1,4 +1,5 @@
-import { Box, List, ListItem } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
+import Heading from "../../common/headings/Heading";
 
 const policies = [
     "Admission to show/venue by full ticket only. Printed/electronic tickets must be produced for admission.",
@@ -12,24 +13,20 @@ const policies = [
 
 const EventAdmissionPolicy = () => {
     return (
-        <Box
-            sx={{
-                fontSize: "1rem",
-                fontFamily: "Lato",
-            }}
-        >
-            <List
-                sx={{
-                    listStyleType: "disc",
-                    pl: 4,
-                    "& .MuiListItem-root": { display: "list-item" },
-                }}
-            >
-                {policies.map((policy: string) => (
-                    <ListItem>{policy}</ListItem>
-                ))}
-            </List>
-        </Box>
+        <Grid item>
+            <Grid container direction="column" gap={5}>
+                <Heading color="primary" variant="h2">
+                    Admission Policy
+                </Heading>
+                <ul>
+                    {policies.map((policy, index) => (
+                        <li key={index}>
+                            <Typography variant="subtitle1">{policy}</Typography>
+                        </li>
+                    ))}
+                </ul>
+            </Grid>
+        </Grid>
     );
 };
 
