@@ -1,119 +1,56 @@
-import React, { Fragment, useState } from "react";
+import React from "react";
 import { Grid, InputBase, Paper } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import SearchButton from "../buttons/SearchButton";
-import { EventListingType } from "../../../types/event";
+import { Controller, useFormContext } from "react-hook-form";
 
-interface SearchBarProps {
-    data?: EventListingType[];
-}
-
-const SearchBar: React.FC<SearchBarProps> = ({ data }) => {
-    const [value, setValue] = useState("");
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-    const onChange = (event: {
-        target: { value: React.SetStateAction<string> };
-    }) => {
-        setValue(event.target.value);
-    };
-
-    const onSearch = (searchTerm: any) => {
-        setValue(searchTerm);
-        console.log("search ", searchTerm);
-        setIsDropdownOpen(false);
-    };
+const SearchBar: React.FC = ({}) => {
+    const { control } = useFormContext();
 
     return (
-        <Fragment>
-            <Paper
-                elevation={3}
-                sx={{
-                    width: "52.875rem",
-                    height: "3.75rem",
-                    borderRadius: "0.25rem",
-                    border: "1px solid rgba(0, 0, 0, 0.42)",
-                    position: "relative",
-                }}
+        <Paper
+            elevation={3}
+            sx={{
+                borderRadius: "100px",
+                border: "1px solid rgba(0, 0, 0, 0.42)",
+                px: "1rem",
+                py: "0.5rem",
+                width:{xs:"90vw", sm:"75vw", md:"60vw"}
+            }}
+        >
+            <Grid
+                spacing={1}
+                wrap="nowrap"
+                container
+                direction="row"
+                alignItems="center"
             >
-                <Grid
-                    container
-                    direction="row"
-                    xs={12}
-                    sx={{
-                        height: "100%",
-                        alignContent: "center",
-                        alignItems: "center",
-                       justifyContent: "space-evenly"
-                    }}
-                >
-                    <Grid item xs={0.9} sx={{ ml: "1rem", mt: "0.5rem" }}>
-                        <SearchIcon sx={{ fontSize: 45, opacity: "54%" }} />
-                    </Grid>
-                    <Grid item xs={9}>
-                        <InputBase
-                            value={value}
-                            fullWidth={true}
-                            placeholder="Search for concert in listing"
-                            onChange={onChange}
-                            onFocus={() => setIsDropdownOpen(true)}
-                            sx={{
-                                "& .MuiInputBase-input": {
-                                    padding: "8px 16px",
-                                    textAlign: "start",
-                                },
-                            }}
-                        />
-                    </Grid>
-                    <SearchButton onClick={() => onSearch(value)}>
-                        Search
-                    </SearchButton>
-                    {isDropdownOpen && (
-                        <div
-                            className="dropdown"
-                            style={{
-                                position: "absolute",
-                                top: "100%",
-                                left: 0,
-                                marginLeft: "5rem",
-                                backgroundColor: "white",
-                                display: "flex",
-                                flexDirection: "column",
-                                border: "1px solid gray",
-                            }}
-                        >
-                            {data && data
-                                .filter((item) => {
-                                    const searchTerm = value.toLowerCase();
-                                    const title = item.name.toLowerCase();
-
-                                    return (
-                                        searchTerm &&
-                                        title.startsWith(searchTerm) &&
-                                        title !== searchTerm
-                                    );
-                                })
-                                .slice(0, 10)
-                                .map((item) => (
-                                    <div
-                                        onClick={() => onSearch(item.name)}
-                                        className="dropdown-row"
-                                        key={item.id}
-                                        style={{
-                                            padding: "8px 16px",
-                                            cursor: "pointer",
-                                            textAlign: "start",
-                                            borderBottom: "1px solid #ccc",
-                                        }}
-                                    >
-                                        {item.name}
-                                    </div>
-                                ))}
-                        </div>
-                    )}
+                <Grid item display="flex" flexWrap="wrap" alignItems="center">
+                    <SearchIcon
+                        sx={{
+                            fontSize: {
+                                xs: "1.3rem",
+                                sm: "1.7rem",
+                                md: "2rem",
+                            },
+                            opacity: "54%",
+                        }}
+                    />
                 </Grid>
-            </Paper>
-        </Fragment>
+                <Grid item>
+                    <Controller
+                        name="search"
+                        control={control}
+                        render={({ field }) => (
+                            <InputBase
+                                fullWidth
+                                {...field}
+                                placeholder="Search for concert in listing"
+                            />
+                        )}
+                    />
+                </Grid>
+            </Grid>
+        </Paper>
     );
 };
 
