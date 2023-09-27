@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Heading from "../../components/common/headings/Heading";
-import EventBanner from "../../components/event/card/EventBanner";
+import EventBanner from "../../components/event/banner/EventBanner";
 import { Box, Container } from "@mui/material";
 import MakePRTable from "../../components/public/table/make-pr-table/MakePRTable";
 import { useParams } from "react-router-dom";
