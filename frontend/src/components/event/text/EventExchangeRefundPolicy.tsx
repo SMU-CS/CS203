@@ -1,4 +1,5 @@
-import { Box, List, ListItem } from "@mui/material";
+import { Grid, List, ListItem, Typography } from "@mui/material";
+import Heading from "../../common/headings/Heading";
 
 const policies = [
     "The Organiser/Venue Owner reserves the right without refund or compensation to refuse admission/evict any person(s) whose conduct is disorderly or inappropriate or who poses a threat to security, or to the enjoyment of the Event by others.",
@@ -10,15 +11,22 @@ const policies = [
 
 const EventExchangeRefundPolicy = () => {
     return (
-        <Box sx={{ fontSize: "1rem", fontFamily: "Lato" }}>
-            <List>
-                {policies.map((policy: string, index: number) => (
-                    <ListItem key={policy + index}>
-                        {index + 1 + ". " + policy}
-                    </ListItem>
-                ))}
-            </List>
-        </Box>
+        <Grid item>
+            <Grid container direction="column" gap={5}>
+                <Heading color="primary" variant="h2">
+                    Exchange & Refund Policy Details
+                </Heading>
+                <List>
+                    {policies.map((policy, index) => (
+                        <ListItem key={policy + index}>
+                            <Typography variant="subtitle1">
+                                {index + 1 + ". " + policy}
+                            </Typography>
+                        </ListItem>
+                    ))}
+                </List>
+            </Grid>
+        </Grid>
     );
 };
 
