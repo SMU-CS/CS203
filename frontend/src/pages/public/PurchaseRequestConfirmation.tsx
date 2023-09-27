@@ -1,5 +1,5 @@
 import React from "react";
-import EventBanner from "../../components/event/card/EventBanner";
+import EventBanner from "../../components/event/banner/EventBanner";
 import Heading from "../../components/common/headings/Heading";
 import { Container, Box, Grid } from "@mui/material";
 import SalesRoundStepper from "../../components/event/stepper/SalesRoundStepper";
