@@ -18,7 +18,7 @@ const TabBar = () => {
             sx={{
                 top: { xs: "63px", sm: "66px", md: "70px" },
                 width: "100%",
-                zIndex: 0,
+                zIndex: 1100,
                 position: "sticky",
                 display: "flex",
                 justifyContent: "space-between",
