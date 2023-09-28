@@ -13,6 +13,7 @@ import { getEvent } from "../../axios/event/event";
 import { useParams } from "react-router";
 import { useTitle } from "../../custom-hooks/useTitle";
 import SectionDivider from "../../components/event/layout/divider/SectionDivider";
+import EventBannerSkeleton from "../../components/event/banner/EventBannerSkeleton";
 
 const EventDetails = () => {
     const [setTitle] = useTitle("Event Details");
@@ -31,22 +32,35 @@ const EventDetails = () => {
         <>
             <TabBar />
             <Breadcrumb />
-            {event && (
-                <Container maxWidth="lg">
-                    <Grid container gap={7} my="3rem">
-                        <EventBanner event={event} />
-                        <EventDescription>{event.description}</EventDescription>
-                        <SectionDivider />
-                        <TicketPricing event={event}></TicketPricing>
-                        <SectionDivider />
-                        <EventExchangeRefundPolicy />
-                        <SectionDivider />
-                        <EventAdmissionPolicy />
-                        <SectionDivider />
-                        <WaysToBuyTickets />
-                    </Grid>
-                </Container>
-            )}
+
+            <Container maxWidth="lg">
+                <Grid container gap={7} my="3rem">
+                    {!event ? (
+                        <>
+                            <EventBannerSkeleton />
+                        </>
+                    ) : (
+                        <>
+                            <EventBanner event={event} />
+                            <EventDescription>
+                                {event.description}
+                            </EventDescription>
+                            <SectionDivider />
+                            <TicketPricing event={event}></TicketPricing>
+                        </>
+                    )}
+                    <SectionDivider />
+                    <EventExchangeRefundPolicy />
+                    <SectionDivider />
+                    {event && (
+                        <>
+                            <EventAdmissionPolicy />
+                            <SectionDivider />
+                        </>
+                    )}
+                    <WaysToBuyTickets />
+                </Grid>
+            </Container>
         </>
     );
 };

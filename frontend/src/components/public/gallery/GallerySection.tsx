@@ -6,7 +6,7 @@ import { Box, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 interface GallerySectionProps {
-    slides?: EventListingType[];
+    slides: EventListingType[];
 }
 
 const GallerySection: React.FC<GallerySectionProps> = ({ slides }) => {
@@ -29,16 +29,15 @@ const GallerySection: React.FC<GallerySectionProps> = ({ slides }) => {
                     },
                 ]}
             >
-                {slides &&
-                    slides.map(({ bannerURL, id }) => (
-                        <img
-                            onClick={() => navigate(`/event/${id}`)}
-                            key={id}
-                            width="100%"
-                            src={bannerURL}
-                            alt={`Gallery ${id}`}
-                        />
-                    ))}
+                {slides.map(({ bannerURL, id }) => (
+                    <img
+                        onClick={() => navigate(`/event/${id}`)}
+                        key={id}
+                        width="100%"
+                        src={bannerURL}
+                        alt={`Gallery ${id}`}
+                    />
+                ))}
             </Slide>
         </Box>
     );

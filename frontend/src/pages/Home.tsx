@@ -7,10 +7,11 @@ import { useQuery } from "@tanstack/react-query";
 import { listEvents } from "../axios/event/event";
 import { EventListingType } from "../types/event";
 import { useTitle } from "../custom-hooks/useTitle";
+import EventCardSkeleton from "../components/event/card/EventCardSkeleton";
+import GallerySectionSkeleton from "../components/public/gallery/GallerySectionSkeleton";
 
 const Home = () => {
-    const [setTitle] = useTitle("Server Error");
-
+    // Backend Queries
     const { data: latestEvents } = useQuery({
         queryKey: ["latestEvents"],
         queryFn: () => listEvents(false),
@@ -20,6 +21,9 @@ const Home = () => {
         queryFn: () => listEvents(true),
     });
 
+    // Page title metadate manipulation
+    const [setTitle] = useTitle("Server Error");
+
     useEffect(() => {
         if (latestEvents && featuredEvents) {
             setTitle("EzTix");
@@ -28,7 +32,12 @@ const Home = () => {
 
     return (
         <>
-            <GallerySection slides={featuredEvents} />
+            {!featuredEvents ? (
+                <GallerySectionSkeleton />
+            ) : (
+                <GallerySection slides={featuredEvents} />
+            )}
+
             <Grid container direction="column">
                 <Grid
                     item
@@ -45,25 +54,28 @@ const Home = () => {
                         rowGap={5}
                         mb="3rem"
                     >
-                        {latestEvents &&
-                            latestEvents
-                                ?.slice(0, 6)
-                                .map(
-                                    (
-                                        details: EventListingType,
-                                        index: number
-                                    ) => (
-                                        <Grid
-                                            xs={9}
-                                            sm={5}
-                                            lg={3}
-                                            key={index}
-                                            item
-                                        >
-                                            <EventCard event={details} />
-                                        </Grid>
-                                    )
-                                )}
+                        {!latestEvents
+                            ? [1, 2, 3, 4, 5, 6].map((num) => (
+                                  <EventCardSkeleton purpose="home" key={num} />
+                              ))
+                            : latestEvents
+                                  ?.slice(0, 6)
+                                  .map(
+                                      (
+                                          details: EventListingType,
+                                          index: number
+                                      ) => (
+                                          <Grid
+                                              xs={9}
+                                              sm={5}
+                                              lg={3}
+                                              key={index}
+                                              item
+                                          >
+                                              <EventCard event={details} />
+                                          </Grid>
+                                      )
+                                  )}
                     </Grid>
                 </Grid>
             </Grid>
