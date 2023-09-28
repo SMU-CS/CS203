@@ -22,7 +22,7 @@ export const listEvents = async (isFeatured?: boolean) => {
             })
         ) as EventListingType[];
     } catch (e) {
-        console.log(e);
+        throw e
     }
 };
 
@@ -51,6 +51,6 @@ export const getEvent = async (id?: number | string) => {
 
         return event as EventDetailsType;
     } catch (e) {
-        console.log(e);
+        throw e
     }
 };
