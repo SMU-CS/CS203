@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { listEvents } from "../../axios/event/event";
 import { useTitle } from "../../custom-hooks/useTitle";
 import { FormProvider, useForm } from "react-hook-form";
+import EventCardSkeleton from "../../components/event/card/EventCardSkeleton";
 
 const EventListing: React.FC = () => {
     const [setTitle] = useTitle("Server Error");
@@ -79,18 +80,21 @@ const EventListing: React.FC = () => {
                         <Grid item xs={1.9} sm={1.5} lg={1.4} />
                         <Grid item xs={10}>
                             <Grid container gap={5}>
-                                {events &&
-                                    events.map((details, index) => (
-                                        <Grid
-                                            xs={10}
-                                            sm={5}
-                                            lg={3.5}
-                                            key={index}
-                                            item
-                                        >
-                                            <EventCard event={details} />
-                                        </Grid>
-                                    ))}
+                                {!events
+                                    ? [1, 2, 3, 4, 5, 6].map((num) => (
+                                          <EventCardSkeleton purpose="listing" key={num} />
+                                      ))
+                                    : events.map((details, index) => (
+                                          <Grid
+                                              xs={10}
+                                              sm={5}
+                                              lg={3.5}
+                                              key={index}
+                                              item
+                                          >
+                                              <EventCard event={details} />
+                                          </Grid>
+                                      ))}
                             </Grid>
                         </Grid>
 
