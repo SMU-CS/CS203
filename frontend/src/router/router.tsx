@@ -7,6 +7,10 @@ import EventListing from "../pages/public/EventListing";
 import EventDetails from "../pages/public/EventDetails";
 import PurchaseRequest from "../pages/public/PurchaseRequest";
 import PurchaseRequestConfirmation from "../pages/public/PurchaseRequestConfirmation";
+import ProfileDetails from "../pages/customer/ProfileDetails";
+import ChangePasswordCard from "../components/customer/ChangePasswordCard/ChangePasswordCard";
+import PaymentMethodsCard from "../components/customer/PaymentMethodsCard/PaymentMethodsCard";
+import ProfileDetailsCard from "../components/customer/ProfileDetailsCard.tsx/ProfileDetailsCard";
 
 /**
     Creates a browser router with react-router-dom
@@ -65,6 +69,32 @@ const router = createBrowserRouter([
                 <PurchaseRequestConfirmation />
             </PublicRoute>
         ),
+    },
+    {
+        path: "/profile/:id/*",
+        element: (
+            <PublicRoute>
+                <ProfileDetails />
+            </PublicRoute>
+        ),
+        children: [
+            {
+                path: "",
+                element: <ProfileDetailsCard />,
+            },
+            {
+                path: "profiledetails",
+                element: <ProfileDetailsCard />,
+            },
+            {
+                path: "changepassword",
+                element: <ChangePasswordCard />,
+            },
+            {
+                path: "paymentmethods",
+                element: <PaymentMethodsCard />,
+            },
+        ],
     },
 ]);
 
