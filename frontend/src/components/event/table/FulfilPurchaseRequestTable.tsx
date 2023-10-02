@@ -77,13 +77,19 @@ const FulfilPurchaseRequestTable: React.FC<FulfilPurchaseRequestTableProps> = ({
                             <TableCell align="left" width={"10%"}>
                                 <Checkbox
                                     color="primary"
-                                    checked={selectedActivities.includes(activity.id)}
-                                    onChange={() => handleActivitySelect(activity.id)}
+                                    checked={selectedActivities.includes(
+                                        activity.id
+                                    )}
+                                    onChange={() =>
+                                        handleActivitySelect(activity.id)
+                                    }
                                 />
                             </TableCell>
                             <TableCell align="left" width={"40%"}>
                                 <Typography variant="subtitle2">
-                                    {activity.startDateTime + " " + activity.location}
+                                    {activity.startDateTime +
+                                        " " +
+                                        activity.location}
                                 </Typography>
                             </TableCell>
                             <TableCell align="left" width={"25%"}>
