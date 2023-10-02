@@ -26,7 +26,7 @@ const FulfilPurchaseRequestPage = () => {
                 {
                     id: "1",
                     type: "Standard - Cat. A",
-                    price: 50.00,
+                    price: 50.0,
                     description: "nil",
                 },
             ],
@@ -40,7 +40,7 @@ const FulfilPurchaseRequestPage = () => {
                 {
                     id: "2",
                     type: "Standard - Cat. B",
-                    price: 25.00,
+                    price: 25.0,
                     description: "nil",
                 },
             ],
@@ -69,7 +69,7 @@ const FulfilPurchaseRequestPage = () => {
                         <Heading color="primary" variant="h2">
                             Fulfil Purchase Request
                         </Heading>
-                        <Box sx={{pt:"2rem", pb:"2rem"}}>
+                        <Box sx={{ pt: "2rem", pb: "2rem" }}>
                             <FulfilPurchaseRequestTable
                                 activities={activities}
                             ></FulfilPurchaseRequestTable>
