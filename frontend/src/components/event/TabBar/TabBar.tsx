@@ -1,15 +1,12 @@
-import { Box, Button, Tab, Tabs } from "@mui/material";
+import { Box, Button, Tab, TabProps, Tabs } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 
-const tabLabels = [
-    "Event Details",
-    "Ticket Pricing",
-    "Exchange & Refund Policy",
-    "Admission Policy",
-    "Ways to Buy Tickets",
-];
+interface TabBarProps extends TabProps {
+    labels: string[];
+    displayBuyTicketButton: boolean;
+}
 
-const TabBar = () => {
+const TabBar: React.FC<TabBarProps> = ({ labels, displayBuyTicketButton }) => {
     const navigate = useNavigate();
     const { id } = useParams();
 
@@ -29,18 +26,20 @@ const TabBar = () => {
             }}
         >
             <Tabs aria-label="tab">
-                {tabLabels.map((tabText: string, index: number) => (
+                {labels.map((tabText: string, index: number) => (
                     <Tab key={tabText + index} label={tabText} />
                 ))}
             </Tabs>
 
-            <Button
-                onClick={() => navigate(`/purchase/${id}`)}
-                variant="outlined"
-                sx={{ margin: "12px" }}
-            >
-                Buy Ticket
-            </Button>
+            {displayBuyTicketButton && (
+                <Button
+                    onClick={() => navigate(`/purchase/${id}`)}
+                    variant="outlined"
+                    sx={{ margin: "12px" }}
+                >
+                    Buy Ticket
+                </Button>
+            )}
         </Box>
     );
 };

@@ -28,9 +28,17 @@ const EventDetails = () => {
         setTitle(event?.name || "Event not Found!");
     }, [event?.name, setTitle]);
 
+    const tabLabels = [
+        "Event Details",
+        "Ticket Pricing",
+        "Exchange & Refund Policy",
+        "Admission Policy",
+        "Ways to Buy Tickets",
+    ];
+
     return (
         <>
-            <TabBar />
+            <TabBar labels={tabLabels} displayBuyTicketButton={true} />
             <Breadcrumb />
 
             <Container maxWidth="lg">

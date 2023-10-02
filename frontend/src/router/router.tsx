@@ -7,6 +7,7 @@ import EventListing from "../pages/public/EventListing";
 import EventDetails from "../pages/public/EventDetails";
 import PurchaseRequest from "../pages/public/PurchaseRequest";
 import PurchaseRequestConfirmation from "../pages/public/PurchaseRequestConfirmation";
+import OrderHistory from "../pages/customer/OrderHistory";
 
 /**
     Creates a browser router with react-router-dom
@@ -63,6 +64,14 @@ const router = createBrowserRouter([
         element: (
             <PublicRoute>
                 <PurchaseRequestConfirmation />
+            </PublicRoute>
+        ),
+    },
+    {
+        path: "OrderHistory",
+        element: (
+            <PublicRoute>
+                <OrderHistory />
             </PublicRoute>
         ),
     },
