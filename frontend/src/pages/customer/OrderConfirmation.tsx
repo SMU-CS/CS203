@@ -30,7 +30,6 @@ const transaction = [
 ];
 
 const OrderConfirmation = () => {
-
     const navigate = useNavigate();
     const { id } = useParams();
 
@@ -65,7 +64,11 @@ const OrderConfirmation = () => {
                             sx={{ my: "2rem" }}
                         >
                             <CheckCircleRoundedIcon color="primary" />
-                            <Typography sx={{ mx: "0.5rem" }}>
+                            <Typography
+                                variant="body1"
+                                fontWeight="bold"
+                                sx={{ mx: "0.5rem" }}
+                            >
                                 Your payment has been received, thank you for
                                 supporting EzTix!
                             </Typography>
@@ -77,7 +80,11 @@ const OrderConfirmation = () => {
                             FacilityCharge={10}
                         ></OrderConfirmationTable>
 
-                        <Grid container direction={"row"} justifyContent={"flex-end"}>
+                        <Grid
+                            container
+                            direction={"row"}
+                            justifyContent={"flex-end"}
+                        >
                             <Button
                                 color="primary"
                                 variant="contained"
