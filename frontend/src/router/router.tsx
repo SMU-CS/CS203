@@ -68,7 +68,7 @@ const router = createBrowserRouter([
         ),
     },
     {
-        path: "FulFilPurchaseRequest",
+        path: "fulfil/:id",
         element: (
             <PublicRoute>
                 <FulfilPurchaseRequestPage />
