@@ -23,6 +23,7 @@ const FulfilPurchaseRequestTable: React.FC<FulfilPurchaseRequestTableProps> = ({
     ...props
 }) => {
     const theme = useTheme();
+    // activities.map((activity) => activity.id)
 
     const [selectedActivities, setSelectedActivities] = useState<string[]>([]);
 
@@ -85,6 +86,7 @@ const FulfilPurchaseRequestTable: React.FC<FulfilPurchaseRequestTableProps> = ({
                                     }
                                 />
                             </TableCell>
+                            
                             <TableCell align="left" width={"40%"}>
                                 <Typography variant="subtitle2">
                                     {activity.startDateTime +
