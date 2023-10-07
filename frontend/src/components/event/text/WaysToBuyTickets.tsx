@@ -1,5 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import Heading from "../../common/headings/Heading";
+import EventTabAnchor from "../TabBar/EventTabAnchor";
 
 const ways = [
     {
@@ -36,6 +37,7 @@ const ways = [
 const WaysToBuyTickets = () => {
     return (
         <>
+            <EventTabAnchor id="ways" />
             <Grid item mx="2rem">
                 <Grid container direction="column" gap={5}>
                     <Heading color="primary" variant="h2">

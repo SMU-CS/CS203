@@ -1,5 +1,6 @@
 import { Grid, List, ListItem, Typography } from "@mui/material";
 import Heading from "../../common/headings/Heading";
+import EventTabAnchor from "../TabBar/EventTabAnchor";
 
 const policies = [
     "The Organiser/Venue Owner reserves the right without refund or compensation to refuse admission/evict any person(s) whose conduct is disorderly or inappropriate or who poses a threat to security, or to the enjoyment of the Event by others.",
@@ -12,6 +13,7 @@ const policies = [
 const EventExchangeRefundPolicy = () => {
     return (
         <Grid item>
+            <EventTabAnchor id="exchange"/>
             <Grid container direction="column" gap={5}>
                 <Heading color="primary" variant="h2">
                     Exchange & Refund Policy Details

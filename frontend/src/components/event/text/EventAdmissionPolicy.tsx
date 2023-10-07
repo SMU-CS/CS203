@@ -1,5 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import Heading from "../../common/headings/Heading";
+import EventTabAnchor from "../TabBar/EventTabAnchor";
 
 const policies = [
     "Admission to show/venue by full ticket only. Printed/electronic tickets must be produced for admission.",
@@ -14,6 +15,7 @@ const policies = [
 const EventAdmissionPolicy = () => {
     return (
         <Grid item>
+            <EventTabAnchor id="admission"/>
             <Grid container direction="column" gap={5}>
                 <Heading color="primary" variant="h2">
                     Admission Policy
