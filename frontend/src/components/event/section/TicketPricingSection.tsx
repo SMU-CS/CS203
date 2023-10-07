@@ -4,6 +4,7 @@ import TicketPricingTable from "../table/TicketPricingTable";
 import EventMaxTix from "../text/EventMaxTix";
 import ActivityList from "../list/ActivityList";
 import Heading from "../../common/headings/Heading";
+import EventTabAnchor from "../TabBar/EventTabAnchor";
 
 interface TicketPricingSectionType {
     event: EventDetailsType;
@@ -14,6 +15,7 @@ const TicketPricingSection: React.FC<TicketPricingSectionType> = ({
 }) => {
     return (
         <Grid item>
+            <EventTabAnchor id="pricing" />
             <Grid container direction="column" gap={5}>
                 <Heading color="primary" variant="h2">
                     Ticket Pricing
