@@ -9,7 +9,7 @@ import EventExchangeRefundPolicy from "../../components/event/text/EventExchange
 import EventAdmissionPolicy from "../../components/event/text/EventAdmissionPolicy";
 import TicketPricing from "../../components/event/section/TicketPricingSection";
 import WaysToBuyTickets from "../../components/event/text/WaysToBuyTickets";
-import Breadcrumb from "../../components/event/Breadcrumb";
+import EventBreadcrumb from "../../components/event/navigations/EventBreadcrumb";
 import { useQuery } from "@tanstack/react-query";
 import { getEvent } from "../../axios/event/event";
 import { useParams } from "react-router";
@@ -36,7 +36,7 @@ const EventDetails = () => {
     return (
         <>
             <TabBar active={activeTab} />
-            <Breadcrumb />
+            {event && <EventBreadcrumb page="event-details" event={event}/>}
 
             <Container maxWidth="lg">
                 <Grid container gap={7} my="3rem">
