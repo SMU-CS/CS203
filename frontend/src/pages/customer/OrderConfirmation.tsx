@@ -39,64 +39,45 @@ const OrderConfirmation = () => {
     });
 
     return (
-        <>
-            <Container maxWidth="lg">
-                <Grid container gap={7} my="3rem">
-                    {!event ? (
-                        <>
-                            <EventBannerSkeleton />
-                        </>
-                    ) : (
-                        <>
-                            <EventBanner event={event} />
-                        </>
-                    )}
-                    <Grid
-                        justifyContent={"center"}
-                        width={"50rem"}
-                        mx={"11rem"}
-                    >
-                        <Heading color="primary">Order Confirmation</Heading>
+        <Container maxWidth="lg">
+            <Grid container gap={7} my="3rem">
+                {!event ? (
+                    <>
+                        <EventBannerSkeleton />
+                    </>
+                ) : (
+                    <>
+                        <EventBanner event={event} />
+                    </>
+                )}
+                <Heading color="primary">Order Confirmation</Heading>
+                <CheckCircleRoundedIcon color="primary" />
+                <Typography
+                    variant="body1"
+                    fontWeight="bold"
+                    sx={{ mx: "0.5rem" }}
+                >
+                    Your payment has been received, thank you for supporting
+                    EzTix!
+                </Typography>
+            </Grid>
 
-                        <Grid
-                            display={"flex"}
-                            direction={"row"}
-                            sx={{ my: "2rem" }}
-                        >
-                            <CheckCircleRoundedIcon color="primary" />
-                            <Typography
-                                variant="body1"
-                                fontWeight="bold"
-                                sx={{ mx: "0.5rem" }}
-                            >
-                                Your payment has been received, thank you for
-                                supporting EzTix!
-                            </Typography>
-                        </Grid>
+            <OrderConfirmationTable
+                Transactions={transaction}
+                ServiceFee={10}
+                FacilityCharge={10}
+            ></OrderConfirmationTable>
 
-                        <OrderConfirmationTable
-                            Transactions={transaction}
-                            ServiceFee={10}
-                            FacilityCharge={10}
-                        ></OrderConfirmationTable>
-
-                        <Grid
-                            container
-                            direction={"row"}
-                            justifyContent={"flex-end"}
-                        >
-                            <Button
-                                color="primary"
-                                variant="contained"
-                                onClick={() => navigate(`/event/${id}`)}
-                            >
-                                Browse Other Events
-                            </Button>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Container>
-        </>
+            <Grid container direction="row" justifyContent="flex-end">
+                <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={() => navigate(`/event/`)}
+                >
+                    Browse Other Events
+                </Button>
+            </Grid>
+        </Container>
     );
 };
 

@@ -23,18 +23,18 @@ const OrderConfirmationTable: React.FC<OrderConfirmationTableProps> = ({
     ServiceFee,
     FacilityCharge,
 }) => {
-    const TotalPrice = Transactions.reduce(
+    const totalPrice = Transactions.reduce(
         (accumulator, purchase) => accumulator + purchase.price,
         0
     );
 
-    const sc = (TotalPrice / 100) * ServiceFee;
+    const sc = (totalPrice / 100) * ServiceFee;
 
     return (
         <>
             <Grid sx={{ my: "2rem" }}>
                 <Typography variant="body2">
-                    <Grid my={"1rem"}>
+                    <Grid my="1rem">
                         {Transactions.map((purchase) => (
                             <PurchaseRequestItem
                                 item={purchase}
@@ -44,14 +44,14 @@ const OrderConfirmationTable: React.FC<OrderConfirmationTableProps> = ({
 
                     <SectionDivider />
 
-                    <Grid my={"1rem"}>
+                    <Grid my="1rem">
                         <Grid
                             container
                             justifyContent="space-between"
                             sx={{ my: "1.5rem" }}
                         >
                             <Grid item>Total:</Grid>
-                            <Grid item>{"$" + TotalPrice.toFixed(2)}</Grid>
+                            <Grid item>{"$" + totalPrice.toFixed(2)}</Grid>
                         </Grid>
 
                         <Grid container justifyContent="space-between">
@@ -67,12 +67,12 @@ const OrderConfirmationTable: React.FC<OrderConfirmationTableProps> = ({
 
                     <SectionDivider />
                 </Typography>
-                <Typography variant="body1" fontWeight={"bold"}>
-                    <Grid container justifyContent="space-between" my={"1rem"}>
+                <Typography variant="body1" fontWeight="bold">
+                    <Grid container justifyContent="space-between" my="1rem">
                         <Grid item>Total Paid:</Grid>
                         <Grid item>
                             {"$" +
-                                (TotalPrice + sc + FacilityCharge).toFixed(2)}
+                                (totalPrice + sc + FacilityCharge).toFixed(2)}
                         </Grid>
                     </Grid>
                 </Typography>

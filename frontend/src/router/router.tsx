@@ -68,7 +68,7 @@ const router = createBrowserRouter([
         ),
     },
     {
-        path: "OrderConfirmation",
+        path: "order/:id",
         element: (
             <PublicRoute>
                 <OrderConfirmation />
