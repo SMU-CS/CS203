@@ -17,13 +17,13 @@ import {
 interface FulfilPurchaseRequestTableProps extends TableProps {
     activities: Activity[];
 }
-
 const FulfilPurchaseRequestTable: React.FC<FulfilPurchaseRequestTableProps> = ({
     activities,
     ...props
 }) => {
     const theme = useTheme();
-    // activities.map((activity) => activity.id)
+
+    // activities.map((activity) => console.log(activity.ticketTypes));
 
     const [selectedActivities, setSelectedActivities] = useState<string[]>([]);
 
@@ -86,11 +86,11 @@ const FulfilPurchaseRequestTable: React.FC<FulfilPurchaseRequestTableProps> = ({
                                     }
                                 />
                             </TableCell>
-                            
+
                             <TableCell align="left" width={"40%"}>
                                 <Typography variant="subtitle2">
                                     {activity.startDateTime +
-                                        " " +
+                                        " @ " +
                                         activity.location}
                                 </Typography>
                             </TableCell>
