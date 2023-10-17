@@ -19,7 +19,8 @@ const OrderHistory = () => {
 
     return (
         <>
-            <TabBar labels={labels}></TabBar>
+            <TabBar labels={labels} displayBuyTicketButton={false}></TabBar>
+
             <Grid container spacing={2} justifyContent={"center"}>
                 {events &&
                     events.map((details) => (

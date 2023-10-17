@@ -1,4 +1,5 @@
-import { Box, Button, Tab, TabProps, Tabs } from "@mui/material";
+import { Button, Grid, Tab, TabProps, Tabs } from "@mui/material";
+import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 interface TabBarProps extends TabProps {
@@ -10,8 +11,14 @@ const TabBar: React.FC<TabBarProps> = ({ labels, displayBuyTicketButton }) => {
     const navigate = useNavigate();
     const { id } = useParams();
 
+    const [value, setValue] = React.useState(0);
+
+  const handleChange = (event: any, newValue: React.SetStateAction<number>) => {
+    setValue(newValue);
+  };
+
     return (
-        <Box
+        <Grid
             sx={{
                 top: { xs: "63px", sm: "66px", md: "70px" },
                 width: "100%",
@@ -25,7 +32,7 @@ const TabBar: React.FC<TabBarProps> = ({ labels, displayBuyTicketButton }) => {
                 bgcolor: "white",
             }}
         >
-            <Tabs aria-label="tab">
+            <Tabs aria-label="tab" indicatorColor="primary" value={value} onChange={handleChange}>
                 {labels.map((tabText: string, index: number) => (
                     <Tab key={tabText + index} label={tabText} />
                 ))}
@@ -40,7 +47,7 @@ const TabBar: React.FC<TabBarProps> = ({ labels, displayBuyTicketButton }) => {
                     Buy Ticket
                 </Button>
             )}
-        </Box>
+        </Grid>
     );
 };
 
