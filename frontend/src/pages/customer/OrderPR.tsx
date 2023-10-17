@@ -4,7 +4,7 @@ import { listEvents } from "../../axios/event/event";
 import { Grid } from "@mui/material";
 import OrderCard from "../../components/event/card/OrderCard";
 
-const OrderHistory = () => {
+const OrderPR = () => {
     const formState = useForm();
     const { watch } = formState;
     const [searchVal, categoryVal] = watch(["search", "category"]);
@@ -34,7 +34,7 @@ const OrderHistory = () => {
                         >
                             <OrderCard
                                 event={details}
-                                ChipPurchaseStatus={"Processing"}
+                                ChipPurchaseStatus={"Pending"}
                                 ButtonPurchaseStatus="Fulfil Purchase Request"
                             />
                         </Grid>
@@ -44,4 +44,4 @@ const OrderHistory = () => {
     );
 };
 
-export default OrderHistory;
+export default OrderPR;

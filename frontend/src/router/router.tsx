@@ -7,7 +7,7 @@ import EventListing from "../pages/public/EventListing";
 import EventDetails from "../pages/public/EventDetails";
 import PurchaseRequest from "../pages/public/PurchaseRequest";
 import PurchaseRequestConfirmation from "../pages/public/PurchaseRequestConfirmation";
-import OrderHistory from "../pages/customer/OrderHistory";
+import OrderDetails from "../pages/customer/OrderDetails";
 
 /**
     Creates a browser router with react-router-dom
@@ -68,10 +68,10 @@ const router = createBrowserRouter([
         ),
     },
     {
-        path: "OrderHistory",
+        path: "Orders",
         element: (
             <PublicRoute>
-                <OrderHistory />
+                <OrderDetails />
             </PublicRoute>
         ),
     },
