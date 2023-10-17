@@ -4,6 +4,7 @@ import { listEvents } from "../../axios/event/event";
 import { Grid } from "@mui/material";
 import OrderCard from "../../components/event/card/OrderCard";
 import TabBar from "../../components/event/TabBar/TabBar";
+import EventTabBar from "../../components/event/TabBar/EventTabBar";
 
 const OrderHistory = () => {
     const formState = useForm();
@@ -15,11 +16,10 @@ const OrderHistory = () => {
         queryFn: () => listEvents(false),
     });
 
-    const labels = ["Purchase Requests", "Order History"];
-
     return (
         <>
-            <TabBar labels={labels}></TabBar>
+            <EventTabBar active={"description"} ></EventTabBar>
+
             <Grid container spacing={2} justifyContent={"center"}>
                 {events &&
                     events.map((details) => (
