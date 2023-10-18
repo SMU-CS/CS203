@@ -3,10 +3,10 @@ import EventBanner from "../../components/event/banner/EventBanner";
 import { useQuery } from "@tanstack/react-query";
 import { getEvent } from "../../axios/event/event";
 import EventBannerSkeleton from "../../components/event/banner/EventBannerSkeleton";
-import { Button, Container, Grid, Typography } from "@mui/material";
+import { Button, Container, Grid } from "@mui/material";
 import Heading from "../../components/common/headings/Heading";
-import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import OrderConfirmationTable from "../../components/event/list/OrderConfirmationTable";
+import PurchaseRequestSuccess from "../../components/pr/text/PurchaseRequestSuccess";
 
 const transaction = [
     {
@@ -42,24 +42,15 @@ const OrderConfirmation = () => {
         <Container maxWidth="lg">
             <Grid container gap={7} my="3rem">
                 {!event ? (
-                    <>
-                        <EventBannerSkeleton />
-                    </>
+                    <EventBannerSkeleton />
                 ) : (
-                    <>
-                        <EventBanner event={event} />
-                    </>
+                    <EventBanner event={event} />
                 )}
                 <Heading color="primary">Order Confirmation</Heading>
-                <CheckCircleRoundedIcon color="primary" />
-                <Typography
-                    variant="body1"
-                    fontWeight="bold"
-                    sx={{ mx: "0.5rem" }}
-                >
-                    Your payment has been received, thank you for supporting
-                    EzTix!
-                </Typography>
+                <PurchaseRequestSuccess
+                    message="Your payment has been received, thank you for supporting
+                    EzTix!"
+                />
             </Grid>
 
             <OrderConfirmationTable
