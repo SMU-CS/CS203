@@ -8,6 +8,8 @@ import EventDetails from "../pages/public/EventDetails";
 import PurchaseRequest from "../pages/public/PurchaseRequest";
 import PurchaseRequestConfirmation from "../pages/public/PurchaseRequestConfirmation";
 import OrderDetails from "../pages/customer/OrderDetails";
+import FulfilPurchaseRequestPage from "../pages/order/FulfilPurchaseRequestPage";
+import OrderConfirmation from "../pages/customer/OrderConfirmation";
 
 /**
     Creates a browser router with react-router-dom
@@ -72,6 +74,22 @@ const router = createBrowserRouter([
         element: (
             <PublicRoute>
                 <OrderDetails />
+            </PublicRoute>
+        ),
+    },
+    {
+        path: "fulfil/:id",
+        element: (
+            <PublicRoute>
+                <FulfilPurchaseRequestPage />
+            </PublicRoute>
+        ),
+    },
+    {
+        path: "order/:id",
+        element: (
+            <PublicRoute>
+                <OrderConfirmation />
             </PublicRoute>
         ),
     },
