@@ -10,6 +10,8 @@ import PurchaseRequestConfirmation from "../pages/public/PurchaseRequestConfirma
 import OrderDetails from "../pages/customer/OrderDetails";
 import FulfilPurchaseRequestPage from "../pages/order/FulfilPurchaseRequestPage";
 import OrderConfirmation from "../pages/customer/OrderConfirmation";
+import OrderPR from "../pages/customer/OrderPR";
+import OrderHistory from "../pages/customer/OrderHistory";
 
 /**
     Creates a browser router with react-router-dom
@@ -70,12 +72,22 @@ const router = createBrowserRouter([
         ),
     },
     {
-        path: "Orders",
+        path: "orders",
         element: (
             <PublicRoute>
                 <OrderDetails />
             </PublicRoute>
         ),
+        children: [
+            {
+                path:"/orders/purchase-request",
+                element: <OrderPR />
+            },
+            {
+                path:"/orders/history",
+                element: <OrderHistory />
+            }
+        ]
     },
     {
         path: "fulfil/:id",

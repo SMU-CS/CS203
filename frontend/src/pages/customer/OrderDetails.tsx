@@ -1,32 +1,36 @@
-import OrderHistory from "./OrderHistory";
-import React from "react";
-import { Grid, Tab } from "@mui/material";
-import TabPanel from "@mui/lab/TabPanel";
-import { TabContext, TabList } from "@mui/lab";
-import OrderPR from "./OrderPR";
+import { Grid, Tab, Tabs } from "@mui/material";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+
+const paths = [
+    {
+        label: "Purchase Request",
+        path: "/orders/purchase-request",
+    },
+    {
+        label: "Order History",
+        path: "/orders/history",
+    },
+];
 
 const OrderDetails = () => {
-    const [value, setValue] = React.useState("1");
-
-    const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-        setValue(newValue);
-    };
+    const navigate = useNavigate();
+    const location = useLocation();
 
     return (
         <Grid sx={{ width: "100%", typography: "body1" }}>
-            <TabContext value={value}>
-                <Grid sx={{ borderBottom: 1, borderColor: "divider" }}>
-                    <TabList
-                        onChange={handleChange}
-                        aria-label="lab API tabs example"
-                    >
-                        <Tab label="Purchase Request" value="1" />
-                        <Tab label="Order History" value="2" />
-                    </TabList>
-                </Grid>
-                <TabPanel value="1"><OrderPR/></TabPanel>
-                <TabPanel value="2"><OrderHistory/></TabPanel>
-            </TabContext>
+            <Grid sx={{ borderBottom: 1, borderColor: "divider" }}>
+                <Tabs value={location.pathname}>
+                    {paths.map(({ path, label }) => (
+                        <Tab
+                            key={path}
+                            label={label}
+                            value={path}
+                            onClick={() => navigate(path)}
+                        />
+                    ))}
+                </Tabs>
+            </Grid>
+            <Outlet />
         </Grid>
     );
 };
