@@ -7,6 +7,7 @@ import EventListing from "../pages/public/EventListing";
 import EventDetails from "../pages/public/EventDetails";
 import PurchaseRequest from "../pages/public/PurchaseRequest";
 import PurchaseRequestConfirmation from "../pages/public/PurchaseRequestConfirmation";
+import OrderDetails from "../pages/customer/OrderDetails";
 import FulfilPurchaseRequestPage from "../pages/order/FulfilPurchaseRequestPage";
 import OrderConfirmation from "../pages/customer/OrderConfirmation";
 
@@ -65,6 +66,14 @@ const router = createBrowserRouter([
         element: (
             <PublicRoute>
                 <PurchaseRequestConfirmation />
+            </PublicRoute>
+        ),
+    },
+    {
+        path: "Orders",
+        element: (
+            <PublicRoute>
+                <OrderDetails />
             </PublicRoute>
         ),
     },
