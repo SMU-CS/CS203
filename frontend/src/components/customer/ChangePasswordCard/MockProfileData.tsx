@@ -1,6 +1,6 @@
-import { profile } from "../../../types/profile";
+import { Profile } from "../../../types/profile";
 
-const mockProfileData: profile[] = [
+const mockProfileData: Profile[] = [
     {
         id: 1,
         first_name: "John",

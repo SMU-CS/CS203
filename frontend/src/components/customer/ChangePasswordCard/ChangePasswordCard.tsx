@@ -1,79 +1,68 @@
-import React, { useState } from "react";
-import { Paper, Grid, Button, TextField, Divider } from "@mui/material";
+import React from "react";
+import { Paper, Grid, Button, Divider } from "@mui/material";
 import Heading from "../../common/headings/Heading";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, FormProvider, FieldErrors } from "react-hook-form";
 import mockProfileData from "./MockProfileData";
-import { useNavigate } from "react-router-dom";
+import { Profile } from "../../../types/profile";
+import TextField from "../../common/form/TextField";
 
-interface FormValues {
-    currentPassword: string;
-    newPassword: string;
-    confirmPassword: string;
+interface PasswordProfile extends Profile {
+    current_password: string;
+    new_password: string;
+    confirm_password: string;
 }
 
+function getPasswordById(userId: number) {
+    const user = mockProfileData.find((profile) => profile.id === userId);
+    console.log(user);
+    if (user) {
+        return user.password;
+    }
+    return null;
+}
 
 const ChangePasswordCard: React.FC = () => {
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-        getValues,
-        reset,
-    } = useForm<FormValues>();
+    const formState = useForm<PasswordProfile>({
+        defaultValues: {
+            current_password: "",
+            new_password: "",
+            confirm_password: "",
+        },
+    });
+    const { handleSubmit, setError, watch, reset: resetForm } = formState;
 
-    const [currentPasswordError, setCurrentPasswordError] = useState<
-        string | null
-    >(null);
+    const onSubmit = (data: PasswordProfile) => {
+        const userId = 1;
+        console.log("data", data);
+        const password = getPasswordById(userId);
+        console.log(password);
 
-    const navigate = useNavigate();
-
-
-    const onSubmit = (data: FormValues) => {
-        //unsure how to find the user id (make it dynamic, using 1 as just an example)
-        const userProfile = mockProfileData.find((profile) => {
-            return profile.id === 1;
-        });
-
-        if (!userProfile) {
-            return;
-        }
-
-        const currentPasswordFromData = userProfile.password;
-
-        if (data.currentPassword !== currentPasswordFromData) {
-            setCurrentPasswordError("Current Password is incorrect");
-            return;
-        } else if (data.newPassword.length < 8) {
-            return;
-        }
-        console.log(data);
-        if (!errors.currentPassword && !errors.newPassword && !errors.confirmPassword) {
-            // Clear form fields
-            reset({
-                currentPassword: "",
-                newPassword: "",
-                confirmPassword: "",
+        if (password === null) {
+            setError("current_password", {
+                type: "validate",
+                message: "User not found",
             });
-    
-            // Refresh the page
-            navigate(window.location.pathname, { replace: true });
+        } else if (data.current_password !== password) {
+            setError("current_password", {
+                type: "validate",
+                message: "Incorrect current password",
+            });
         }
     };
 
-    const handleCancel = () => {
-        reset({
-            currentPassword: "",
-            newPassword: "",
-            confirmPassword: "",
-        });
-        setCurrentPasswordError(null);
+    const onError = (errors: FieldErrors<PasswordProfile>) => {
+        console.log(errors);
+    };
+
+    const handleClear = () => {
+        resetForm();
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <Paper elevation={2} sx={{ mt: "3rem", mb: "3rem" }}>
+        <FormProvider {...formState}>
+            <Paper elevation={2} sx={{ my: "3rem" }}>
                 <Grid container direction="column" gap="2rem">
-                    <Grid item sx={{ ml: "2rem", mr: "2rem", mt: "2rem" }}>
+                    <Grid item sx={{ margin: "2rem 2rem 2rem" }}>
                         <Heading
                             variant="h2"
                             color="secondary"
@@ -82,59 +71,16 @@ const ChangePasswordCard: React.FC = () => {
                             Change Password
                         </Heading>
                     </Grid>
-                    <Grid item sx={{ ml: "2rem", mr: "2rem" }}>
-                        <Controller
-                            name="currentPassword"
-                            control={control}
-                            defaultValue=""
+                    <Grid item sx={{ mx: "2rem" }}>
+                        <TextField
+                            name="current_password"
+                            label="Current Password"
+                            type="password"
+                            variant="outlined"
                             rules={{
-                                required: "Current Password is required",
+                                required: `Current Password is required`,
                             }}
-                            render={({ field }) => (
-                                <TextField
-                                    label="Current Password"
-                                    type="password"
-                                    variant="outlined"
-                                    size="medium"
-                                    InputLabelProps={{
-                                        sx: {
-                                            fontFamily: "Lato",
-                                            fontSize: "1rem",
-                                            fontWeight: "400",
-                                        },
-                                    }}
-                                    {...field}
-                                    onChange={(e) => {
-                                        setCurrentPasswordError(null);
-                                        field.onChange(e.target.value);
-                                    }}
-                                />
-                            )}
                         />
-                        {errors.currentPassword && (
-                            <div
-                                className="error"
-                                style={{
-                                    color: "red",
-
-                                    fontSize: "1rem",
-                                }}
-                            >
-                                {errors.currentPassword.message}
-                            </div>
-                        )}
-                        {currentPasswordError && (
-                            <div
-                                className="error"
-                                style={{
-                                    color: "red",
-
-                                    fontSize: "1rem",
-                                }}
-                            >
-                                {currentPasswordError}
-                            </div>
-                        )}
                     </Grid>
                     <Grid item>
                         <Grid
@@ -142,100 +88,42 @@ const ChangePasswordCard: React.FC = () => {
                             direction="row"
                             gap={3}
                             sx={{
-                                ml: "2rem",
-                                mr: "2rem",
+                                mx: "2rem",
                             }}
                         >
                             <Grid item>
-                                <Controller
-                                    name="newPassword"
-                                    control={control}
-                                    defaultValue=""
+                                <TextField
+                                    name="new_password"
+                                    label="New Password"
+                                    type="password"
+                                    variant="outlined"
                                     rules={{
-                                        required: "New Password is required",
-                                        minLength: {
-                                            value: 8,
-                                            message:
-                                                "Password must have at least 8 characters",
-                                        },
+                                        required: `New Password is required`,
                                     }}
-                                    render={({ field }) => (
-                                        <TextField
-                                            label="New Password"
-                                            type="password"
-                                            size="medium"
-                                            InputLabelProps={{
-                                                sx: {
-                                                    fontFamily: "Lato",
-                                                    fontSize: "1rem",
-                                                    fontWeight: "400",
-                                                },
-                                            }}
-                                            {...field}
-                                        />
-                                    )}
                                 />
-                                {errors.newPassword && (
-                                    <div
-                                        className="error"
-                                        style={{
-                                            color: "red",
-
-                                            fontSize: "1rem",
-                                        }}
-                                    >
-                                        {errors.newPassword.message}
-                                    </div>
-                                )}
                             </Grid>
                             <Grid item>
-                                <Controller
-                                    name="confirmPassword"
-                                    control={control}
-                                    defaultValue=""
+                                <TextField
+                                    name="confirm_password"
+                                    label="Confirm Password"
+                                    type="password"
+                                    variant="outlined"
                                     rules={{
-                                        required:
-                                            "Confirm Password is required",
-                                        validate: (value) =>
-                                            value ===
-                                                getValues("newPassword") ||
-                                            "Confirm password does not match new password",
+                                        required: `Confirm Password is required`,
+                                        validate: (val: string) => {
+                                            if (watch("new_password") != val) {
+                                                return "Passwords do not match";
+                                            }
+                                        },
                                     }}
-                                    render={({ field }) => (
-                                        <TextField
-                                            label="Confirm Password"
-                                            type="password"
-                                            variant="outlined"
-                                            size="medium"
-                                            InputLabelProps={{
-                                                sx: {
-                                                    fontFamily: "Lato",
-                                                    fontSize: "1rem",
-                                                    fontWeight: "400",
-                                                },
-                                            }}
-                                            {...field}
-                                        />
-                                    )}
                                 />
-                                {errors.confirmPassword && (
-                                    <div
-                                        className="error"
-                                        style={{
-                                            color: "red",
-                                            fontSize: "1rem",
-                                        }}
-                                    >
-                                        {errors.confirmPassword.message}
-                                    </div>
-                                )}
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item sx={{ mt: "1rem", ml: "2rem", mr: "2rem" }}>
+                    <Grid item sx={{ margin: "2rem 2rem 2rem" }}>
                         <Divider />
                     </Grid>
-                    <Grid item sx={{ ml: "2rem", mr: "2rem", mb: "2rem" }}>
+                    <Grid item sx={{ margin: "0rem 2rem 2rem 2rem" }}>
                         <Grid
                             container
                             direction="row"
@@ -246,17 +134,21 @@ const ChangePasswordCard: React.FC = () => {
                                 <Button
                                     type="button"
                                     variant="contained"
-                                    onClick={handleCancel}
                                     sx={{
                                         backgroundColor: "#000000",
                                         opacity: "38%",
                                     }}
+                                    onClick={handleClear}
                                 >
                                     Cancel
                                 </Button>
                             </Grid>
                             <Grid item>
-                                <Button type="submit" variant="contained">
+                                <Button
+                                    type="submit"
+                                    variant="contained"
+                                    onClick={handleSubmit(onSubmit, onError)}
+                                >
                                     Change Password
                                 </Button>
                             </Grid>
@@ -264,7 +156,7 @@ const ChangePasswordCard: React.FC = () => {
                     </Grid>
                 </Grid>
             </Paper>
-        </form>
+        </FormProvider>
     );
 };
 
