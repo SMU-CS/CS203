@@ -1,6 +1,6 @@
-import { creditcard } from "../../../types/creditcard";
+import { CreditCard } from "../../../types/creditcard";
 
-const mockPaymentsData: creditcard[] = [
+const mockPaymentsData: CreditCard[] = [
     {
         card_number: "1234 5678 9012 3456",
         card_name: "John Doe",

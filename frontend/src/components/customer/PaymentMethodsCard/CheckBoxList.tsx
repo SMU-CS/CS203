@@ -5,10 +5,10 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
-import { creditcard } from "../../../types/creditcard";
+import { CreditCard } from "../../../types/creditcard";
 
 interface CheckboxListProps {
-    data: creditcard[];
+    data: CreditCard[];
     onToggle: (value: number) => void;
     checked: number[];
 }

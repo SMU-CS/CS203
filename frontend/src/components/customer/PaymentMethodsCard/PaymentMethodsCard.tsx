@@ -10,14 +10,14 @@ import {
 import Heading from "../../common/headings/Heading";
 import mockPaymentsData from "./MockPaymentData";
 import CheckboxList from "./CheckBoxList";
-import { creditcard } from "../../../types/creditcard";
+import { CreditCard } from "../../../types/creditcard";
 
 const PaymentMethodsCard: React.FC = () => {
     const [paymentsData, setPaymentsData] =
-        useState<creditcard[]>(mockPaymentsData);
+        useState<CreditCard[]>(mockPaymentsData);
     const [checked, setChecked] = useState<number[]>([]);
 
-    const [newPayment, setNewPayment] = useState<creditcard>({
+    const [newPayment, setNewPayment] = useState<CreditCard>({
         card_number: "",
         card_name: "",
         cvv: "",
@@ -123,7 +123,7 @@ const PaymentMethodsCard: React.FC = () => {
             <Paper elevation={2} sx={{ mt: "3rem", mb: "3rem" }}>
                 <Grid container direction="column" gap={2}>
                     <Grid container direction="column">
-                        <Grid item sx={{ ml: "2rem", mr: "2rem", mt: "2rem" }}>
+                        <Grid item sx={{ margin:"2rem 2rem 2rem" }}>
                             <Heading
                                 variant="h2"
                                 color="secondary"
@@ -132,14 +132,14 @@ const PaymentMethodsCard: React.FC = () => {
                                 Saved Payment Methods
                             </Heading>
                         </Grid>
-                        <Grid item sx={{ mt: "-2rem", ml: "2rem", mr: "2rem" }}>
+                        <Grid item sx={{ margin:"-2rem 2rem 2rem" }}>
                             <CheckboxList
                                 data={paymentsData}
                                 onToggle={handleToggle}
                                 checked={checked}
                             />
                         </Grid>
-                        <Grid item sx={{ ml: "2rem", mr: "2rem" }}>
+                        <Grid item sx={{ mx: "2rem" }}>
                             <Grid
                                 container
                                 direction="row"
@@ -158,7 +158,7 @@ const PaymentMethodsCard: React.FC = () => {
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item sx={{ mt: "2rem", ml: "2rem", mr: "2rem" }}>
+                    <Grid item sx={{ margin:"2rem 2rem 2rem" }}>
                         <Grid container direction="column">
                             <Grid item>
                                 <Heading
@@ -312,12 +312,10 @@ const PaymentMethodsCard: React.FC = () => {
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item sx={{ ml: "2rem", mr: "2rem" }}></Grid>
-
-                    <Grid item sx={{ ml: "2rem", mr: "2rem" }}>
+                    <Grid item sx={{ mx: "2rem" }}>
                         <Divider />
                     </Grid>
-                    <Grid item sx={{ ml: "2rem", mr: "2rem", mb: "2rem" }}>
+                    <Grid item sx={{ margin:"2rem 2rem 2rem" }}>
                         <Grid
                             container
                             direction="row"
