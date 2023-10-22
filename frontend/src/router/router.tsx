@@ -10,7 +10,7 @@ import PurchaseRequestConfirmation from "../pages/public/PurchaseRequestConfirma
 import ProfileDetails from "../pages/customer/ProfileDetails";
 import ChangePasswordCard from "../components/customer/ChangePasswordCard/ChangePasswordCard";
 import PaymentMethodsCard from "../components/customer/PaymentMethodsCard/PaymentMethodsCard";
-import ProfileDetailsCard from "../components/customer/ProfileDetailsCard.tsx/ProfileDetailsCard";
+import ProfileDetailsCard from "../components/customer/ProfileDetailsCard/ProfileDetailsCard";
 
 /**
     Creates a browser router with react-router-dom
