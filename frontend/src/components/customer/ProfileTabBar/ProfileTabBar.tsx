@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Tab, Tabs, Paper } from "@mui/material";
-import { useParams, useNavigate } from "react-router-dom";
-import ProfileDetailsCard from "../ProfileDetailsCard.tsx/ProfileDetailsCard";
+import React, { useState } from "react";
+import { Tab, Tabs, Paper, Typography } from "@mui/material";
+import {useNavigate } from "react-router-dom";
+import ProfileDetailsCard from "../ProfileDetailsCard/ProfileDetailsCard";
 import ChangePasswordCard from "../ChangePasswordCard/ChangePasswordCard";
 import PaymentMethodsCard from "../PaymentMethodsCard/PaymentMethodsCard";
 
@@ -28,41 +28,36 @@ const tabs: TabData[] = [
         component: <PaymentMethodsCard />,
     },
 ];
+interface ProfileTabBarComponents {
+    pathname : String
+}
 
-const ProfileTabBar: React.FC = () => {
-    const { tab } = useParams<{ tab: string }>();
+const ProfileTabBar: React.FC<ProfileTabBarComponents> = ({pathname}) => {
+
     const navigate = useNavigate();
-    const [value, setValue] = useState<string>(
-        localStorage.getItem("selectedTab") || tab || "profiledetails"
-    );
 
-    const handleChange = (_event: React.ChangeEvent<{}>, newValue: string) => {
-        localStorage.setItem("selectedTab", newValue);
-        navigate(newValue);
-        setValue(newValue);
+    const handleChange = (_event: React.ChangeEvent<{}>, valueData: string) => {
+        navigate(valueData);
     };
-    useEffect(() => {
-        setValue(localStorage.getItem("selectedTab") || "profiledetails");
-    }, []);
-
+    
+    const valueData = pathname == "S3" ? "paymentmethods" : pathname == "S2" ? "changepassword" : "profiledetails";
+    console.log(valueData);
     return (
-        <div style={{ width: "100%", maxWidth: "100vw" }}>
-            <Paper elevation={4} sx={{ width: "100%", height: "4.5rem" }}>
-                <Tabs variant="standard" value={value} onChange={handleChange}>
+       
+            <Paper elevation={4} >
+                <Tabs variant="standard" value={valueData} onChange={handleChange}>
                     {tabs.map((item) => (
-                        <Tab
+                        <Tab 
                             key={item.value}
-                            sx={{
-                                width: "12rem",
-                                height: "4.5rem",
-                            }}
-                            label={<h3>{item.label}</h3>}
+                            sx={{ margin: { xs: "0.5rem", md: "0.8rem", lg: "1rem" } }}
+                            label={<Typography variant="body1" fontWeight="bold">{item.label}</Typography>}
                             value={item.value}
                         />
                     ))}
                 </Tabs>
             </Paper>
-        </div>
+    
+
     );
 };
 
