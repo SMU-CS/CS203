@@ -7,6 +7,10 @@ import EventListing from "../pages/public/EventListing";
 import EventDetails from "../pages/public/EventDetails";
 import PurchaseRequest from "../pages/public/PurchaseRequest";
 import PurchaseRequestConfirmation from "../pages/public/PurchaseRequestConfirmation";
+import ProfileDetails from "../pages/customer/ProfileDetails";
+import ChangePasswordCard from "../components/customer/ChangePasswordCard/ChangePasswordCard";
+import PaymentMethodsCard from "../components/customer/PaymentMethodsCard/PaymentMethodsCard";
+import ProfileDetailsCard from "../components/customer/ProfileDetailsCard/ProfileDetailsCard";
 import OrderDetails from "../pages/customer/OrderDetails";
 import FulfilPurchaseRequestPage from "../pages/order/FulfilPurchaseRequestPage";
 import OrderConfirmation from "../pages/customer/OrderConfirmation";
@@ -72,13 +76,13 @@ const router = createBrowserRouter([
         ),
     },
     {
-        path: "orders",
-        element: (
-            <PublicRoute>
-                <OrderDetails />
-            </PublicRoute>
-        ),
-        children: [
+          path: "orders",
+          element: (
+              <PublicRoute>
+                  <OrderDetails />
+                </PublicRoute>
+          ),
+         children: [
             {
                 path:"/orders/purchase-request",
                 element: <OrderPR />
@@ -88,6 +92,32 @@ const router = createBrowserRouter([
                 element: <OrderHistory />
             }
         ]
+    },
+    {
+        path: "/profile/:id/*",
+        element: (
+            <PublicRoute>
+                <ProfileDetails />
+            </PublicRoute>
+        ),
+        children: [
+            {
+                path: "",
+                element: <ProfileDetailsCard />,
+            },
+            {
+                path: "profiledetails",
+                element: <ProfileDetailsCard />,
+            },
+            {
+                path: "changepassword",
+                element: <ChangePasswordCard />,
+            },
+            {
+                path: "paymentmethods",
+                element: <PaymentMethodsCard />,
+            },
+        ],
     },
     {
         path: "fulfil/:id",
