@@ -11,6 +11,11 @@ import ProfileDetails from "../pages/customer/ProfileDetails";
 import ChangePasswordCard from "../components/customer/ChangePasswordCard/ChangePasswordCard";
 import PaymentMethodsCard from "../components/customer/PaymentMethodsCard/PaymentMethodsCard";
 import ProfileDetailsCard from "../components/customer/ProfileDetailsCard/ProfileDetailsCard";
+import OrderDetails from "../pages/customer/OrderDetails";
+import FulfilPurchaseRequestPage from "../pages/order/FulfilPurchaseRequestPage";
+import OrderConfirmation from "../pages/customer/OrderConfirmation";
+import OrderPR from "../pages/customer/OrderPR";
+import OrderHistory from "../pages/customer/OrderHistory";
 
 /**
     Creates a browser router with react-router-dom
@@ -71,6 +76,24 @@ const router = createBrowserRouter([
         ),
     },
     {
+          path: "orders",
+          element: (
+              <PublicRoute>
+                  <OrderDetails />
+                </PublicRoute>
+          ),
+         children: [
+            {
+                path:"/orders/purchase-request",
+                element: <OrderPR />
+            },
+            {
+                path:"/orders/history",
+                element: <OrderHistory />
+            }
+        ]
+    },
+    {
         path: "/profile/:id/*",
         element: (
             <PublicRoute>
@@ -95,6 +118,22 @@ const router = createBrowserRouter([
                 element: <PaymentMethodsCard />,
             },
         ],
+    },
+    {
+        path: "fulfil/:id",
+        element: (
+            <PublicRoute>
+                <FulfilPurchaseRequestPage />
+            </PublicRoute>
+        ),
+    },
+    {
+        path: "order/:id",
+        element: (
+            <PublicRoute>
+                <OrderConfirmation />
+            </PublicRoute>
+        ),
     },
 ]);
 

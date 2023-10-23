@@ -26,7 +26,7 @@ const EventBannerDetails: React.FC<EventBannerDetailsProps> = ({ event }) => {
                         {event.name}
                     </Typography>
                     <Typography variant="body2">
-                        {`${event.start_datetime} ~ ${event.end_datetime}`}
+                        {`${event.start_datetime} ~ ${event.end_datetime} @ ${event.location}`}
                     </Typography>
                 </Grid>
             </Grid>
