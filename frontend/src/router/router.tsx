@@ -16,6 +16,7 @@ import FulfilPurchaseRequestPage from "../pages/order/FulfilPurchaseRequestPage"
 import OrderConfirmation from "../pages/customer/OrderConfirmation";
 import OrderPR from "../pages/customer/OrderPR";
 import OrderHistory from "../pages/customer/OrderHistory";
+import BaseRoute from "./routes/BaseRoute";
 
 /**
     Creates a browser router with react-router-dom
@@ -25,9 +26,9 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: (
-            <PublicRoute>
+            <BaseRoute>
                 <Home />
-            </PublicRoute>
+            </BaseRoute>
         ),
         //errorElement: <Error404 />,
     },

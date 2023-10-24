@@ -1,20 +1,27 @@
-// import React, { ReactNode } from "react";
-// import { SnackbarProvider, enqueueSnackbar } from "notistack";
+import { useKeycloak } from "@react-keycloak/web";
+import React, { ReactNode, useEffect } from "react";
+import PublicRoute from "./PublicRoute";
+import NavBar from "../../components/common/navigations/NavBar";
 
-// interface BaseRouteProps {
-//     children: ReactNode;
-// }
+interface BaseRouteProps {
+  children: ReactNode;
+}
 
-// const BaseRoute: React.FC<BaseRouteProps> = ({ children }) => {
-    
+const BaseRoute: React.FC<BaseRouteProps> = ({ children }) => {
+  const { keycloak, initialized } = useKeycloak();
 
-//     return (
-//             <SnackbarProvider
-//                 maxSnack={3}
-//             >
-//                 {children}
-//             </SnackbarProvider>
-//     );
-// };
+  useEffect(() => {
+    console.log(keycloak)
+  }, [keycloak, initialized]);
 
-// export default BaseRoute;
+  return keycloak.authenticated ? (
+    <PublicRoute>{children}</PublicRoute>
+  ) : (
+    <>
+    <NavBar role="guest"/>
+    {children}
+    </>
+  );
+};
+
+export default BaseRoute;

@@ -1,14 +1,14 @@
 import NavBar from "../../components/common/navigations/NavBar";
 //import BaseRoute from "./BaseRoute";
 import { useNavigate } from "react-router-dom";
-import { ReactElement, useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 // import { queueSuccess } from "../../functions/formHandling";
 // import { enqueueSnackbar } from "notistack";
 // import jwtDecode from "jwt-decode";
 // import Cookies from "js-cookie";
 
 interface PublicRouteProps {
-    children: ReactElement
+    children: ReactNode
 }
 
 const PublicRoute:React.FC<PublicRouteProps> = ({ children }) => {
