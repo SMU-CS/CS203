@@ -9,15 +9,18 @@ import { Activity } from "../../types/activity";
 export const listEvents = async ({
     isFeatured,
     category,
+    search,
 }: {
     isFeatured?: boolean;
-    category?: String;
+    category?: string;
+    search?: string;
 }) => {
     try {
         const { data: events } = await eventInstance.get(``, {
             params: {
                 featuredOnly: isFeatured ? "true" : "false",
                 category: category ? category : "",
+                search: search ? search : "",
             },
         });
 
