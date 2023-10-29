@@ -21,7 +21,7 @@ const pages = {
   customer: [
     { text: "Home", link: "/" },
     { text: "Event Listing", link: "/event" },
-    { text: "Order History", link: "/order" },
+    { text: "Order History", link: "/orders/purchase-request" },
   ],
   guest: [
     { text: "Home", link: "/" },

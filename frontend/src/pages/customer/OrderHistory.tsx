@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import { listEvents } from "../../axios/event/event";
 import { Grid } from "@mui/material";
 import OrderCard from "../../components/event/card/OrderCard";
-import EventTabBar from "../../components/event/TabBar/EventTabBar";
 
 const OrderHistory = () => {
     const formState = useForm();
@@ -16,34 +15,29 @@ const OrderHistory = () => {
     });
 
     return (
-        <>
-            <EventTabBar active={"description"} ></EventTabBar>
-
-            <Grid container spacing={2} justifyContent={"center"}>
-                {events &&
-                    events.map((details) => (
-                        <Grid
-                            sx={{
-                                margin: {
-                                    xs: "1rem",
-                                    md: "1.5rem",
-                                    lg: "2rem",
-                                },
-                            }}
-                            xs={8}
-                            sm={5}
-                            lg={3}
-                            direction={"row"}
-                        >
-                            <OrderCard
-                                event={details}
-                                ChipPurchaseStatus={"Processing"}
-                                ButtonPurchaseStatus="Fulfil Purchase Request"
-                            />
-                        </Grid>
-                    ))}
-            </Grid>
-        </>
+        <Grid container spacing={2} justifyContent={"center"}>
+            {events &&
+                events.map((details) => (
+                    <Grid
+                        sx={{
+                            margin: {
+                                xs: "1rem",
+                                md: "1.5rem",
+                                lg: "2rem",
+                            },
+                        }}
+                        xs={8}
+                        sm={5}
+                        lg={3}
+                        direction={"row"}
+                    >
+                        <OrderCard
+                            event={details}
+                            status="processing"
+                        />
+                    </Grid>
+                ))}
+        </Grid>
     );
 };
 

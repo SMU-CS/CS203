@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 export const formatDateToDateWithDay = (date: Date) => {
     const utcDate = date.toUTCString();
     const dayOfWeek = utcDate.substring(0, 3);
@@ -11,3 +13,7 @@ export const formatDatetoDateTimeWithDay = (date: Date) => {
 
     return `${formatDateToDateWithDay(date)} ${timeStr.substring(0, 5)}`;
 };
+
+export const formatDayJStoBackendDateTime = (date: dayjs.Dayjs) => {
+    return date;
+}

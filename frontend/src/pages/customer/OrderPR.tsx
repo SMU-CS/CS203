@@ -32,11 +32,7 @@ const OrderPR = () => {
                             lg={3}
                             direction={"row"}
                         >
-                            <OrderCard
-                                event={details}
-                                ChipPurchaseStatus={"Pending"}
-                                ButtonPurchaseStatus="Fulfil Purchase Request"
-                            />
+                            <OrderCard event={details} status="pending" />
                         </Grid>
                     ))}
             </Grid>
