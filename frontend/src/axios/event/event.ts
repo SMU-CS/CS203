@@ -6,10 +6,19 @@ import {
 } from "../../functions/formatter";
 import { Activity } from "../../types/activity";
 
-export const listEvents = async (isFeatured?: boolean) => {
+export const listEvents = async ({
+    isFeatured,
+    category,
+}: {
+    isFeatured?: boolean;
+    category?: String;
+}) => {
     try {
         const { data: events } = await eventInstance.get(``, {
-            params: { featuredOnly: isFeatured ? "true" : "false" },
+            params: {
+                featuredOnly: isFeatured ? "true" : "false",
+                category: category ? category : "",
+            },
         });
 
         return (events as EventListingType[]).map(
@@ -22,7 +31,7 @@ export const listEvents = async (isFeatured?: boolean) => {
             })
         ) as EventListingType[];
     } catch (e) {
-        throw e
+        throw e;
     }
 };
 
@@ -51,6 +60,6 @@ export const getEvent = async (id?: number | string) => {
 
         return event as EventDetailsType;
     } catch (e) {
-        throw e
+        throw e;
     }
 };

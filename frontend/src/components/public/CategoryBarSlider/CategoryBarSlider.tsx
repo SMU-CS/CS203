@@ -14,7 +14,7 @@ import MusicNoteIcon from "@mui/icons-material/MusicNote";
 import { Controller, useFormContext } from "react-hook-form";
 
 const tabs = [
-    { label: "All", value: "all", Icon: AllInclusiveIcon },
+    { label: "All", value: "", Icon: AllInclusiveIcon },
     { label: "Concert", value: "concert", Icon: LocalActivityIcon },
     { label: "Musical", value: "musical", Icon: PianoIcon },
     { label: "Theatre", value: "theatre", Icon: TheaterComedyIcon },

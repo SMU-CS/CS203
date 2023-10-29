@@ -19,7 +19,7 @@ const EventListing: React.FC = () => {
 
     const { data: events } = useQuery({
         queryKey: ["events", searchVal, categoryVal],
-        queryFn: () => listEvents(false),
+        queryFn: () => listEvents({category: categoryVal}),
     });
 
     useEffect(() => {
