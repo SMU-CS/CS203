@@ -18,7 +18,6 @@ import MakePRTableRows from "./sub-components/MakePRTableRows";
 import { Activity } from "../../../../types/activity";
 import Button from "../../../common/buttons/Button";
 import AddIcon from "@mui/icons-material/Add";
-// import { useKeycloak } from "@react-keycloak/web";
 
 interface MakePRTableProps extends TableProps {
     activities: Activity[];
@@ -43,8 +42,6 @@ const MakePRTable: React.FC<MakePRTableProps> = ({ activities, ...props }) => {
         control: control,
         name: "purchase_requests",
     });
-
-    // const {keycloak, initialized} = useKeycloak()
 
     return (
         <FormProvider {...form}>
@@ -97,11 +94,7 @@ const MakePRTable: React.FC<MakePRTableProps> = ({ activities, ...props }) => {
                     </Button>
                 </Grid>
                 <Grid item>
-                    <Button onClick={() => {
-                        // initialized && keycloak.authenticated ? 
-                        // // submit form here
-                        // : keycloak.login()
-                    }} variant="contained" color="primary">
+                    <Button variant="contained" color="primary">
                         Confirm Purchase Request
                     </Button>
                 </Grid>

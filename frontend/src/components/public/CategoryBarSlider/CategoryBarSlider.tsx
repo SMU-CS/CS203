@@ -39,7 +39,7 @@ const CategoryBarSlider: React.FC = () => {
             <Controller
                 name="category"
                 control={control}
-                defaultValue="all"
+                defaultValue=""
                 render={({ field }) => (
                     <Tabs
                         sx={{ width: "98vw" }}
