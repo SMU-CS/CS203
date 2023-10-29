@@ -38,6 +38,7 @@ const MakePRTableRows: React.FC<MakePRTableRowsProps> = ({
         <TableRow>
             <TableCell sx={{ width: "45%" }}>
                 <SelectField
+                    rules={{ required: "Please select a ticket datetime" }}
                     key={`purchase_requests.${index}.datetime_location`}
                     name={`purchase_requests.${index}.datetime_location`}
                     multiple={false}
@@ -54,6 +55,7 @@ const MakePRTableRows: React.FC<MakePRTableRowsProps> = ({
             </TableCell>
             <TableCell sx={{ width: "35%" }}>
                 <SelectField
+                    rules={{ required: "Please select a ticket type" }}
                     name={`purchase_requests.${index}.ticket_type`}
                     multiple={false}
                     label="Select Ticket Category"
@@ -65,6 +67,16 @@ const MakePRTableRows: React.FC<MakePRTableRowsProps> = ({
             </TableCell>
             <TableCell sx={{ width: "15%" }}>
                 <TextField
+                    rules={{
+                        min: {
+                            value: 1,
+                            message: "Min. is 1",
+                        },
+                        max: {
+                            value: 4,
+                            message: "Max. is 1",
+                        },
+                    }}
                     name={`purchase_requests.${index}.quantity`}
                     type="number"
                 />

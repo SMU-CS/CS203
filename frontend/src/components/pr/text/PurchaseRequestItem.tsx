@@ -1,29 +1,26 @@
 import React from "react";
 import { Grid, Typography } from "@mui/material";
-
-interface PRItemType {
-    ticket_type_id: string;
-    activity_id: string;
-    type: string;
-    price: number;
-    quantity: number;
-    datetime: string;
-    location: string;
-}
+import { PurchaseRequestItemWithDetails } from "../../../types/pr";
+import { formatDateToDateWithDay } from "../../../functions/formatter";
 
 interface PurchaseRequestItemProps {
-    item: PRItemType;
+    item: PurchaseRequestItemWithDetails;
+    location: string
 }
 
-const PurchaseRequestItem: React.FC<PurchaseRequestItemProps> = ({ item }) => {
+const PurchaseRequestItem: React.FC<PurchaseRequestItemProps> = ({ item , location}) => {
     return (
         <Grid item xs={12}>
             <Grid spacing={1} container>
                 <Grid item xs={1}>
-                    <Typography variant="body2">x{item.quantity}</Typography>
+                    <Typography variant="body2">
+                        x{item.quantityRequested}
+                    </Typography>
                 </Grid>
                 <Grid item xs={9}>
-                    <Typography variant="body2">{`${item.datetime} @ ${item.location} < ${item.type} >`}</Typography>
+                    <Typography variant="body2">{`${formatDateToDateWithDay(
+                        new Date(item.eventStartDateTime)
+                    )} @ ${location} < ${item.ticketType} >`}</Typography>
                 </Grid>
                 <Grid item xs={2}>
                     <Typography variant="body2">

@@ -2,94 +2,79 @@ import React from "react";
 import EventBanner from "../../components/event/banner/EventBanner";
 import Heading from "../../components/common/headings/Heading";
 import { Container, Box, Grid } from "@mui/material";
-import SalesRoundStepper from "../../components/event/stepper/SalesRoundStepper";
+// import SalesRoundStepper from "../../components/event/stepper/SalesRoundStepper";
 import PurchaseRequestSuccess from "../../components/pr/text/PurchaseRequestSuccess";
 import PurchaseRequestItem from "../../components/pr/text/PurchaseRequestItem";
 import Button from "../../components/common/buttons/Button";
-import { useNavigate } from "react-router-dom";
-
-const salesrounds = [
-    {
-        sales_round_id: "1",
-        activity_id: "1",
-        round_start: "18 Sep 2023",
-        round_end: "20 Sep 2023",
-        purchase_start: "20 Sep 2023",
-        purchase_end: "22 Sep 2023",
-        sales_type: "online",
-    },
-    {
-        sales_round_id: "2",
-        activity_id: "1",
-        round_start: "20 Sep 2023",
-        round_end: "22 Sep 2023",
-        purchase_start: "22 Sep 2023",
-        purchase_end: "24 Sep 2023",
-        sales_type: "online",
-    },
-    {
-        sales_round_id: "3",
-        activity_id: "1",
-        round_start: "22 Sep 2023",
-        round_end: "24 Sep 2023",
-        purchase_start: "24 Sep 2023",
-        purchase_end: "26 Sep 2023",
-        sales_type: "online",
-    },
-];
-
-const transaction = [
-    {
-        ticket_type_id: "1",
-        activity_id: "1",
-        type: "Standard - Cat A",
-        price: 50,
-        quantity: 1,
-        datetime: "02 Sep 2023 (Sat.) 06:00pm",
-        location: "Singapore Indoor Stadium",
-    },
-    {
-        ticket_type_id: "2",
-        activity_id: "1",
-        type: "Standard - Cat B",
-        price: 20,
-        quantity: 1,
-        datetime: "02 Sep 2023 (Sat.) 06:00pm",
-        location: "Singapore Indoor Stadium",
-    },
-];
+import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { getPRconfirmation } from "../../axios/event/purchase_request";
+import { EventDetailsType } from "../../types/event";
+import { useKeycloak } from "@react-keycloak/web";
+import { formatDateToDateWithDay } from "../../functions/formatter";
 
 const PurchaseRequestConfirmation: React.FC = () => {
+    const { id } = useParams();
     const navigate = useNavigate();
+    const { keycloak } = useKeycloak();
+
+    const { data: pr } = useQuery({
+        queryKey: ["prConfirmation", id],
+        queryFn: () => getPRconfirmation(id, keycloak.token),
+    });
 
     return (
-        <Container maxWidth="md">
-            <EventBanner />
-            <Heading variant="h1" color="primary">
-                Purchase Request Confirmation
-            </Heading>
-            <Box py="3rem">
-                <SalesRoundStepper salesrounds={salesrounds} />
-            </Box>
-            <PurchaseRequestSuccess />
-            <Grid container my="2rem">
-                {transaction.map((item) => (
-                    <PurchaseRequestItem
-                        key={item.ticket_type_id}
-                        item={item}
-                    />
-                ))}
-            </Grid>
-            <Grid my="4rem" container display="flex" direction="row-reverse">
-                <Button
-                    onClick={() => navigate("/")}
-                    variant="contained"
-                    color="primary"
+        !!pr && (
+            <Container maxWidth="md">
+                <EventBanner
+                    event={
+                        {
+                            id: pr.id,
+                            name: pr.name,
+                            start_datetime: formatDateToDateWithDay(
+                                new Date(pr.startDateTime)
+                            ),
+                            end_datetime: formatDateToDateWithDay(
+                                new Date(pr.endDateTime)
+                            ),
+                            description: pr.description,
+                            bannerURL: pr.bannerURL,
+                            location: pr.location,
+                        } as EventDetailsType
+                    }
+                />
+                <Heading variant="h1" color="primary">
+                    Purchase Request Confirmation
+                </Heading>
+                <Box py="3rem">
+                    {/* <SalesRoundStepper salesrounds={salesrounds} /> */}
+                </Box>
+                <PurchaseRequestSuccess message="Your Purchase Request has been successfully submitted!" />
+                <Grid container my="2rem">
+                    {pr.purchaseRequest.purchaseRequestItems.map((item) => (
+                        <PurchaseRequestItem
+                            key={item.ticketType}
+                            item={item}
+                            location={pr.location}
+                        />
+                    ))}
+                </Grid>
+                <Grid
+                    my="4rem"
+                    container
+                    display="flex"
+                    direction="row-reverse"
                 >
-                    Browse Other Events
-                </Button>
-            </Grid>
-        </Container>
+                    <Button
+                        onClick={() => navigate("/")}
+                        variant="contained"
+                        color="primary"
+                    >
+                        Browse Other Events
+                    </Button>
+                </Grid>
+            </Container>
+        )
     );
 };
 

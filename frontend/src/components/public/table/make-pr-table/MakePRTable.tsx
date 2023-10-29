@@ -18,12 +18,21 @@ import MakePRTableRows from "./sub-components/MakePRTableRows";
 import { Activity } from "../../../../types/activity";
 import Button from "../../../common/buttons/Button";
 import AddIcon from "@mui/icons-material/Add";
+import { PurchaseRequestForm, PurchaseRequestItem } from "../../../../types/pr";
+import { createPR } from "../../../../axios/event/purchase_request";
+import { useNavigate } from "react-router-dom";
+import { useKeycloak } from "@react-keycloak/web";
 
 interface MakePRTableProps extends TableProps {
     activities: Activity[];
+    eventId: number;
 }
 
-const MakePRTable: React.FC<MakePRTableProps> = ({ activities, ...props }) => {
+const MakePRTable: React.FC<MakePRTableProps> = ({
+    activities,
+    eventId,
+    ...props
+}) => {
     const theme = useTheme();
     const form = useForm({
         defaultValues: {
@@ -32,7 +41,7 @@ const MakePRTable: React.FC<MakePRTableProps> = ({ activities, ...props }) => {
             ],
         },
     });
-    const { control } = form;
+    const { control, handleSubmit } = form;
     // For the dynamic purchase_requests field
     const {
         fields: purchase_requests,
@@ -42,6 +51,8 @@ const MakePRTable: React.FC<MakePRTableProps> = ({ activities, ...props }) => {
         control: control,
         name: "purchase_requests",
     });
+    const navigate = useNavigate();
+    const { keycloak } = useKeycloak();
 
     return (
         <FormProvider {...form}>
@@ -94,7 +105,29 @@ const MakePRTable: React.FC<MakePRTableProps> = ({ activities, ...props }) => {
                     </Button>
                 </Grid>
                 <Grid item>
-                    <Button variant="contained" color="primary">
+                    <Button
+                        onClick={handleSubmit(async (data) => {
+                            const payload: PurchaseRequestForm = {
+                                eventId: eventId,
+                                purchaseRequestItems:
+                                    data.purchase_requests.map(
+                                        ({ ticket_type, quantity }) =>
+                                            ({
+                                                ticketTypeId:
+                                                    parseInt(ticket_type),
+                                                quantityRequested:
+                                                    typeof quantity === "string"
+                                                        ? parseInt(quantity)
+                                                        : quantity,
+                                            } as PurchaseRequestItem)
+                                    ),
+                            };
+                            const id = await createPR(payload, keycloak.token);
+                            navigate(`/confirmation/${id}`);
+                        })}
+                        variant="contained"
+                        color="primary"
+                    >
                         Confirm Purchase Request
                     </Button>
                 </Grid>

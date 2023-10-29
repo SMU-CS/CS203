@@ -10,7 +10,7 @@ import {
     Typography,
 } from "@mui/material";
 import React from "react";
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller, FieldValues, RegisterOptions, useFormContext } from "react-hook-form";
 
 export interface DropdownChoices {
     text: string | number;
@@ -23,6 +23,7 @@ interface SelectFieldProps extends FormControlProps {
     label: string;
     multiple: boolean;
     choices: Array<DropdownChoices>;
+    rules?:  RegisterOptions<FieldValues, string>
 }
 
 const SelectField: React.FC<SelectFieldProps> = ({
@@ -31,6 +32,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
     label,
     choices,
     multiple,
+    rules,
     ...props
 }) => {
     const { control } = useFormContext();
@@ -39,6 +41,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
         <Controller
             control={control}
             name={name}
+            rules={rules}
             render={({ field, fieldState: { error } }) => (
                 <FormControl
                     {...props}
