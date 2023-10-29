@@ -1,20 +1,22 @@
-// import React, { ReactNode } from "react";
-// import { SnackbarProvider, enqueueSnackbar } from "notistack";
+import { useKeycloak } from "@react-keycloak/web";
+import React, { ReactNode } from "react";
+import PublicRoute from "./PublicRoute";
+import ProtectedRoute from "./ProtectedRoute";
 
-// interface BaseRouteProps {
-//     children: ReactNode;
-// }
+interface BaseRouteProps {
+  children: ReactNode;
+}
 
-// const BaseRoute: React.FC<BaseRouteProps> = ({ children }) => {
-    
+const BaseRoute: React.FC<BaseRouteProps> = ({ children }) => {
+  const { keycloak} = useKeycloak();
 
-//     return (
-//             <SnackbarProvider
-//                 maxSnack={3}
-//             >
-//                 {children}
-//             </SnackbarProvider>
-//     );
-// };
+  return keycloak.authenticated ? (
+    <ProtectedRoute>{children}</ProtectedRoute>
+  ) : (
+    <PublicRoute>
+    {children}
+    </PublicRoute>
+  );
+};
 
-// export default BaseRoute;
+export default BaseRoute;

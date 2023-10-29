@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "../App";
 import Home from "../pages/Home";
 import PublicRoute from "./routes/PublicRoute";
 import Login from "../pages/public/Login";
@@ -16,6 +15,9 @@ import FulfilPurchaseRequestPage from "../pages/order/FulfilPurchaseRequestPage"
 import OrderConfirmation from "../pages/customer/OrderConfirmation";
 import OrderPR from "../pages/customer/OrderPR";
 import OrderHistory from "../pages/customer/OrderHistory";
+import BaseRoute from "./routes/BaseRoute";
+import Error404 from "./routes/Error404";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 /**
     Creates a browser router with react-router-dom
@@ -25,15 +27,11 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: (
-            <PublicRoute>
+            <BaseRoute>
                 <Home />
-            </PublicRoute>
+            </BaseRoute>
         ),
-        //errorElement: <Error404 />,
-    },
-    {
-        path: "App",
-        element: <App />,
+        errorElement: <Error404 />,
     },
     {
         path: "Login",
@@ -46,59 +44,59 @@ const router = createBrowserRouter([
     {
         path: "event",
         element: (
-            <PublicRoute>
+            <BaseRoute>
                 <EventListing />
-            </PublicRoute>
+            </BaseRoute>
         ),
     },
     {
         path: "event/:id",
         element: (
-            <PublicRoute>
+            <BaseRoute>
                 <EventDetails />
-            </PublicRoute>
+            </BaseRoute>
         ),
     },
     {
         path: "purchase/:id",
         element: (
-            <PublicRoute>
+            <BaseRoute>
                 <PurchaseRequest />
-            </PublicRoute>
+            </BaseRoute>
         ),
     },
     {
         path: "confirmation/:id",
         element: (
-            <PublicRoute>
+            <ProtectedRoute>
                 <PurchaseRequestConfirmation />
-            </PublicRoute>
+            </ProtectedRoute>
         ),
     },
     {
-          path: "orders",
-          element: (
-              <PublicRoute>
-                  <OrderDetails />
-                </PublicRoute>
-          ),
-         children: [
+        path: "orders",
+        element: (
+            <ProtectedRoute>
+                <OrderDetails />
+            </ProtectedRoute>
+        ),
+        children: [
             {
-                path:"/orders/purchase-request",
-                element: <OrderPR />
+                path: "/orders/purchase-request",
+                element: <OrderPR />,
             },
             {
-                path:"/orders/history",
-                element: <OrderHistory />
-            }
-        ]
+                path: "/orders/history",
+                element: <OrderHistory />,
+            },
+        ],
     },
     {
-        path: "/profile/:id/*",
+        path: "/profile",
         element: (
-            <PublicRoute>
+            <ProtectedRoute>
                 <ProfileDetails />
-            </PublicRoute>
+            </ProtectedRoute>
         ),
         children: [
             {
@@ -122,17 +120,17 @@ const router = createBrowserRouter([
     {
         path: "fulfil/:id",
         element: (
-            <PublicRoute>
+            <ProtectedRoute>
                 <FulfilPurchaseRequestPage />
-            </PublicRoute>
+            </ProtectedRoute>
         ),
     },
     {
         path: "order/:id",
         element: (
-            <PublicRoute>
+            <ProtectedRoute>
                 <OrderConfirmation />
-            </PublicRoute>
+            </ProtectedRoute>
         ),
     },
 ]);
