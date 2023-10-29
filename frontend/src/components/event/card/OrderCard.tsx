@@ -11,11 +11,10 @@ import {
     Chip,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { EventListingType } from "../../../types/event";
+import { PurchaseRequestListing } from "../../../types/pr";
 
 interface OrderCardProps extends CardProps {
-    event: EventListingType;
-    status: "pending" | "processing" | "recurring" | "past";
+    event: PurchaseRequestListing;
 }
 
 const cardStats = {
@@ -48,8 +47,8 @@ const cardStats = {
     },
 };
 
-const OrderCard: React.FC<OrderCardProps> = ({ event, status, ...props }) => {
-    const { name, bannerURL, id } = event;
+const OrderCard: React.FC<OrderCardProps> = ({ event, ...props }) => {
+    const { eventName, bannerURL, id, status } = event;
     const navigate = useNavigate();
 
     return (
@@ -92,7 +91,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ event, status, ...props }) => {
                             fontWeight="bold"
                             mt={"0.5rem"}
                         >
-                            {name}
+                            {eventName}
                         </Typography>
                     </Grid>
                 </CardContent>
@@ -100,7 +99,11 @@ const OrderCard: React.FC<OrderCardProps> = ({ event, status, ...props }) => {
             <Grid sx={{ ml: "0.5rem", mb: "0.5rem" }}>
                 <CardActions>
                     <Button
-                        sx={{ bgcolor: cardStats[status].buttonColor }}
+                        color={
+                            cardStats[status].buttonColor as
+                                | "primary"
+                                | "secondary"
+                        }
                         variant="contained"
                     >
                         {cardStats[status].buttonText}

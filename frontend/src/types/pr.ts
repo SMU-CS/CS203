@@ -35,3 +35,10 @@ export interface PurchaseRequestConfirmationSuccess {
     salesRound: SalesRoundAbstract;
     purchaseRequest: PurchaseRequest;
 }
+
+export interface PurchaseRequestListing {
+    id: number;
+    eventName: string;
+    status: "pending" | "processing";
+    bannerURL: string;
+}

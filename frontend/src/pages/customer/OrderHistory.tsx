@@ -31,10 +31,10 @@ const OrderHistory = () => {
                         lg={3}
                         direction={"row"}
                     >
-                        <OrderCard
+                        {/* <OrderCard
                             event={details}
                             status="processing"
-                        />
+                        /> */}
                     </Grid>
                 ))}
         </Grid>

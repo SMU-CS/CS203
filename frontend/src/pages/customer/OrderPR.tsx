@@ -1,24 +1,22 @@
-import { useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
-import { listEvents } from "../../axios/event/event";
 import { Grid } from "@mui/material";
 import OrderCard from "../../components/event/card/OrderCard";
+import { useKeycloak } from "@react-keycloak/web";
+import { getAllPRs } from "../../axios/event/purchase_request";
 
 const OrderPR = () => {
-    const formState = useForm();
-    const { watch } = formState;
-    const [searchVal, categoryVal] = watch(["search", "category"]);
+    const { keycloak } = useKeycloak();
 
-    const { data: events } = useQuery({
-        queryKey: ["events", searchVal, categoryVal],
-        queryFn: () => listEvents({}),
+    const { data: prs } = useQuery({
+        queryKey: ["prListing", keycloak.token],
+        queryFn: () => getAllPRs(keycloak.token),
     });
 
     return (
         <>
             <Grid container spacing={2} justifyContent={"center"}>
-                {events &&
-                    events.map((details) => (
+                {prs &&
+                    prs.map((details) => (
                         <Grid
                             sx={{
                                 margin: {
@@ -32,7 +30,7 @@ const OrderPR = () => {
                             lg={3}
                             direction={"row"}
                         >
-                            <OrderCard event={details} status="pending" />
+                            <OrderCard event={details} />
                         </Grid>
                     ))}
             </Grid>
