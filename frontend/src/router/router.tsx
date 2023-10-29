@@ -18,6 +18,7 @@ import OrderHistory from "../pages/customer/OrderHistory";
 import BaseRoute from "./routes/BaseRoute";
 import Error404 from "./routes/Error404";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import Checkout from "../pages/customer/Checkout";
 
 /**
     Creates a browser router with react-router-dom
@@ -131,6 +132,14 @@ const router = createBrowserRouter([
             <ProtectedRoute>
                 <OrderConfirmation />
             </ProtectedRoute>
+        ),
+    },
+    {
+        path: "checkout/:id",
+        element: (
+            <PublicRoute>
+                <Checkout />
+            </PublicRoute>
         ),
     },
 ]);
