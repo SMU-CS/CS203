@@ -2,7 +2,6 @@ import React from "react";
 import EventBanner from "../../components/event/banner/EventBanner";
 import Heading from "../../components/common/headings/Heading";
 import { Container, Box, Grid } from "@mui/material";
-// import SalesRoundStepper from "../../components/event/stepper/SalesRoundStepper";
 import PurchaseRequestSuccess from "../../components/pr/text/PurchaseRequestSuccess";
 import PurchaseRequestItem from "../../components/pr/text/PurchaseRequestItem";
 import Button from "../../components/common/buttons/Button";
@@ -12,6 +11,7 @@ import { getPRconfirmation } from "../../axios/event/purchase_request";
 import { EventDetailsType } from "../../types/event";
 import { useKeycloak } from "@react-keycloak/web";
 import { formatDateToDateWithDay } from "../../functions/formatter";
+import SalesRoundStepper from "../../components/event/stepper/SalesRoundStepper";
 
 const PurchaseRequestConfirmation: React.FC = () => {
     const { id } = useParams();
@@ -47,7 +47,7 @@ const PurchaseRequestConfirmation: React.FC = () => {
                     Purchase Request Confirmation
                 </Heading>
                 <Box py="3rem">
-                    {/* <SalesRoundStepper salesrounds={salesrounds} /> */}
+                    <SalesRoundStepper salesrounds={pr.salesRound} />
                 </Box>
                 <PurchaseRequestSuccess message="Your Purchase Request has been successfully submitted!" />
                 <Grid container my="2rem">

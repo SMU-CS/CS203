@@ -160,7 +160,16 @@ const defaultTheme = createTheme({
             }
         },
 
-        caption: undefined,
+        caption: {
+            fontFamily: "Lato",
+            fontSize: "0.75rem",
+            [theme.breakpoints.down("md")]: {
+                fontSize: "0.7rem",
+            },
+            [theme.breakpoints.down("sm")]: {
+                fontSize: "0.65rem",
+            }
+        },
         overline: undefined,
     },
 
