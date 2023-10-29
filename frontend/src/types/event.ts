@@ -1,4 +1,5 @@
 import { Activity } from "./activity";
+import { AdmissionPolicy } from "./admissionpolicy";
 
 export interface EventListingType {
     id: number;
@@ -21,4 +22,5 @@ export interface EventDetailsType {
     seatMapURL: string;
     location: string;
     activities: Activity[];
+    admissionPolicies: AdmissionPolicy[];
 }
