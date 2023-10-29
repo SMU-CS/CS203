@@ -1,26 +1,21 @@
 import { useKeycloak } from "@react-keycloak/web";
-import React, { ReactNode, useEffect } from "react";
+import React, { ReactNode } from "react";
 import PublicRoute from "./PublicRoute";
-import NavBar from "../../components/common/navigations/NavBar";
+import ProtectedRoute from "./ProtectedRoute";
 
 interface BaseRouteProps {
   children: ReactNode;
 }
 
 const BaseRoute: React.FC<BaseRouteProps> = ({ children }) => {
-  const { keycloak, initialized } = useKeycloak();
-
-  useEffect(() => {
-    console.log(keycloak)
-  }, [keycloak, initialized]);
+  const { keycloak} = useKeycloak();
 
   return keycloak.authenticated ? (
-    <PublicRoute>{children}</PublicRoute>
+    <ProtectedRoute>{children}</ProtectedRoute>
   ) : (
-    <>
-    <NavBar role="guest"/>
+    <PublicRoute>
     {children}
-    </>
+    </PublicRoute>
   );
 };
 
