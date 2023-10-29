@@ -1,7 +1,7 @@
 import React from "react";
 import { Menu, MenuItem, Typography } from "@mui/material";
-
-const settings = ["Profile", "Logout"];
+import { useKeycloak } from "@react-keycloak/web";
+import { useNavigate } from "react-router-dom";
 
 interface ProfileMenuProps {
     setAnchorElUser: (value: React.SetStateAction<HTMLElement | null>) => void;
@@ -17,27 +17,44 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({
     setAnchorElUser,
     anchorElUser,
 }) => {
+    const { keycloak, initialized } = useKeycloak();
+    const navigate = useNavigate();
+
     return (
-        <Menu
-            anchorEl={anchorElUser}
-            anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-            }}
-            keepMounted
-            transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-            }}
-            open={Boolean(anchorElUser)}
-            onClose={() => setAnchorElUser(null)}
-        >
-            {settings.map((setting) => (
-                <MenuItem key={setting} onClick={() => setAnchorElUser(null)}>
-                    <Typography textAlign="center">{setting}</Typography>
+        initialized && (
+            <Menu
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={() => setAnchorElUser(null)}
+            >
+                <MenuItem
+                    onClick={() => {
+                        setAnchorElUser(null);
+                        navigate("/profile");
+                    }}
+                >
+                    <Typography textAlign="center">Profile</Typography>
                 </MenuItem>
-            ))}
-        </Menu>
+                <MenuItem
+                    onClick={() => {
+                        setAnchorElUser(null);
+                        keycloak.logout();
+                        navigate("/");
+                    }}
+                >
+                    <Typography textAlign="center">Logout</Typography>
+                </MenuItem>
+            </Menu>
+        )
     );
 };
 
