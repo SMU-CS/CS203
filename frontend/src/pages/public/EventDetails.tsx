@@ -36,7 +36,7 @@ const EventDetails = () => {
     return (
         <>
             <TabBar active={activeTab} />
-            {event && <EventBreadcrumb page="event-details" event={event} />}
+            {event && <EventBreadcrumb page="event-details" event={event}/>}
 
             <Container maxWidth="lg">
                 <Grid container gap={7} my="3rem">
@@ -88,9 +88,7 @@ const EventDetails = () => {
                                     if (inview) setActiveTab("admission");
                                 }}
                             >
-                                <EventAdmissionPolicy
-                                    policies={event.admissionPolicies}
-                                />
+                                <EventAdmissionPolicy />
                             </InView>
 
                             <SectionDivider />
