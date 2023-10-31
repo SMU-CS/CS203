@@ -39,6 +39,6 @@ export interface PurchaseRequestConfirmationSuccess {
 export interface PurchaseRequestListing {
     id: number;
     eventName: string;
-    status: "pending" | "processing";
+    status: "processing" | "processed";
     bannerURL: string;
 }

@@ -1,23 +1,21 @@
-import { useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
-import { listEvents } from "../../axios/event/event";
 import { Grid } from "@mui/material";
 import OrderCard from "../../components/event/card/OrderCard";
+import { getAllOrders } from "../../axios/event/order";
+import { useKeycloak } from "@react-keycloak/web";
 
 const OrderHistory = () => {
-    const formState = useForm();
-    const { watch } = formState;
-    const [searchVal, categoryVal] = watch(["search", "category"]);
+    const { keycloak } = useKeycloak();
 
-    const { data: events } = useQuery({
-        queryKey: ["events", searchVal, categoryVal],
-        queryFn: () => listEvents({}),
+    const { data: orders } = useQuery({
+        queryKey: ["events"],
+        queryFn: () => getAllOrders(keycloak.token),
     });
 
     return (
         <Grid container spacing={2} justifyContent={"center"}>
-            {events &&
-                events.map((details) => (
+            {orders &&
+                orders.map((details) => (
                     <Grid
                         sx={{
                             margin: {
@@ -31,10 +29,7 @@ const OrderHistory = () => {
                         lg={3}
                         direction={"row"}
                     >
-                        {/* <OrderCard
-                            event={details}
-                            status="processing"
-                        /> */}
+                        <OrderCard event={details} />
                     </Grid>
                 ))}
         </Grid>

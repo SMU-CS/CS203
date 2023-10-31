@@ -12,20 +12,23 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { PurchaseRequestListing } from "../../../types/pr";
+import { OrderListing } from "../../../types/order";
 
 interface OrderCardProps extends CardProps {
-    event: PurchaseRequestListing;
+    event: PurchaseRequestListing | OrderListing;
 }
 
+type StatusType = "processing" | "processed" | "recurring" | "past";
+
 const cardStats = {
-    pending: {
+    processing: {
         buttonColor: "primary",
         chipColor: "primary.dark",
         buttonText: "Fulfil Purchase Request",
         chipText: "Pending Payment",
     },
 
-    processing: {
+    processed: {
         buttonColor: "secondary",
         chipColor: "secondary.dark",
         buttonText: "View Purchase Request",
@@ -73,14 +76,19 @@ const OrderCard: React.FC<OrderCardProps> = ({ event, ...props }) => {
                             <Chip
                                 sx={{
                                     color: "#fff",
-                                    bgcolor: cardStats[status].chipColor,
+                                    bgcolor:
+                                        cardStats[status as StatusType]
+                                            .chipColor,
                                 }}
                                 label={
                                     <Typography
                                         fontFamily="subtitle2"
                                         fontWeight="bold"
                                     >
-                                        {cardStats[status].chipText}
+                                        {
+                                            cardStats[status as StatusType]
+                                                .chipText
+                                        }
                                     </Typography>
                                 }
                             />
@@ -100,13 +108,13 @@ const OrderCard: React.FC<OrderCardProps> = ({ event, ...props }) => {
                 <CardActions>
                     <Button
                         color={
-                            cardStats[status].buttonColor as
+                            cardStats[status as StatusType].buttonColor as
                                 | "primary"
                                 | "secondary"
                         }
                         variant="contained"
                     >
-                        {cardStats[status].buttonText}
+                        {cardStats[status as StatusType].buttonText}
                     </Button>
                 </CardActions>
             </Grid>

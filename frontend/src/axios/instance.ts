@@ -11,9 +11,4 @@ const configureInstance = (instanceUrl: string) => ({
 
 export const eventInstance = axios.create(configureInstance("event"));
 export const prInstance = axios.create(configureInstance("purchase-request"));
-
-// When authentication is done, switch the following APIs to use the withCredentials
-export const salesRoundInstance = axios.create(configureInstance("salesround"));
-export const ticketTypeInstance = axios.create(
-    configureInstance("ticket_type")
-);
+export const orderInstance = axios.create(configureInstance("order"));
