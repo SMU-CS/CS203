@@ -10,7 +10,7 @@ const defaultPages = [
 ];
 
 interface EventBreadCrumbProps {
-    page: "event-details" | "buy-tickets" | "pr-request";
+    page: "event-details" | "buy-tickets" | "pr-request" | "view-ticket";
     event: EventDetailsType;
 }
 
@@ -44,6 +44,14 @@ const EventBreadCrumb: React.FC<EventBreadCrumbProps> = ({ page, event }) => {
                     <EventBreadCrumbLinks
                         key="tickets"
                         text="Purchase Request Confirmation"
+                        to={`/view-purchase/${event.id}`}
+                        bold
+                    />
+                )}
+                {page === "view-ticket" && (
+                    <EventBreadCrumbLinks
+                        key="tickets"
+                        text="View Ticket"
                         to={`/view-purchase/${event.id}`}
                         bold
                     />
