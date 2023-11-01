@@ -73,7 +73,7 @@ const ViewTicketPage = () => {
                         <Grid item>
                             <Grid container gap={7} my="3rem">
                                 <Heading variant="h2" color="primary">
-                                    Order Confirmation
+                                    Purchase History
                                 </Heading>
                                 <PurchaseRequestSuccess
                                     message="Your payment has been received, thank you for supporting
