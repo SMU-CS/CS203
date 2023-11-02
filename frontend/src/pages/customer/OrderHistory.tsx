@@ -1,14 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { Grid } from "@mui/material";
 import OrderCard from "../../components/event/card/OrderCard";
-import { getAllOrders } from "../../axios/event/order";
+import { getAllOrders } from "../../axios/order/order";
 import { useKeycloak } from "@react-keycloak/web";
 
 const OrderHistory = () => {
     const { keycloak } = useKeycloak();
 
     const { data: orders } = useQuery({
-        queryKey: ["events"],
+        queryKey: ["orders"],
         queryFn: () => getAllOrders(keycloak.token),
     });
 
