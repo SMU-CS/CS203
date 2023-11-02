@@ -19,6 +19,7 @@ import BaseRoute from "./routes/BaseRoute";
 import Error404 from "./routes/Error404";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Checkout from "../pages/customer/Checkout";
+import ViewTicketPage from "../pages/order/ViewTicketPage";
 
 /**
     Creates a browser router with react-router-dom
@@ -139,6 +140,14 @@ const router = createBrowserRouter([
         element: (
             <PublicRoute>
                 <Checkout />
+            </PublicRoute>
+        ),
+    },
+    {
+        path: "view-ticket/:id",
+        element: (
+            <PublicRoute>
+                <ViewTicketPage />
             </PublicRoute>
         ),
     },
