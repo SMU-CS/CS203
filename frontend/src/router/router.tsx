@@ -102,19 +102,15 @@ const router = createBrowserRouter([
         ),
         children: [
             {
-                path: "",
+                path: "/profile/profiledetails",
                 element: <ProfileDetailsCard />,
             },
             {
-                path: "profiledetails",
-                element: <ProfileDetailsCard />,
-            },
-            {
-                path: "changepassword",
+                path: "/profile/changepassword",
                 element: <ChangePasswordCard />,
             },
             {
-                path: "paymentmethods",
+                path: "/profile/paymentmethods",
                 element: <PaymentMethodsCard />,
             },
         ],
