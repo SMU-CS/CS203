@@ -6,9 +6,9 @@ interface PurchaseRequestSuccessProps {
     message: string; //old message was: Your Purchase Request has been successfully submitted!
 }
 
-const PurchaseRequestSuccess: React.FC<PurchaseRequestSuccessProps> = (
-    {message}
-) => {
+const PurchaseRequestSuccess: React.FC<PurchaseRequestSuccessProps> = ({
+    message,
+}) => {
     return (
         <Grid
             container

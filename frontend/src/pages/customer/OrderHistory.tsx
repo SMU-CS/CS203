@@ -1,49 +1,38 @@
-import { useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
-import { listEvents } from "../../axios/event/event";
 import { Grid } from "@mui/material";
 import OrderCard from "../../components/event/card/OrderCard";
-import EventTabBar from "../../components/event/TabBar/EventTabBar";
+import { getAllOrders } from "../../axios/event/order";
+import { useKeycloak } from "@react-keycloak/web";
 
 const OrderHistory = () => {
-    const formState = useForm();
-    const { watch } = formState;
-    const [searchVal, categoryVal] = watch(["search", "category"]);
+    const { keycloak } = useKeycloak();
 
-    const { data: events } = useQuery({
-        queryKey: ["events", searchVal, categoryVal],
-        queryFn: () => listEvents(false),
+    const { data: orders } = useQuery({
+        queryKey: ["events"],
+        queryFn: () => getAllOrders(keycloak.token),
     });
 
     return (
-        <>
-            <EventTabBar active={"description"} ></EventTabBar>
-
-            <Grid container spacing={2} justifyContent={"center"}>
-                {events &&
-                    events.map((details) => (
-                        <Grid
-                            sx={{
-                                margin: {
-                                    xs: "1rem",
-                                    md: "1.5rem",
-                                    lg: "2rem",
-                                },
-                            }}
-                            xs={8}
-                            sm={5}
-                            lg={3}
-                            direction={"row"}
-                        >
-                            <OrderCard
-                                event={details}
-                                ChipPurchaseStatus={"Processing"}
-                                ButtonPurchaseStatus="Fulfil Purchase Request"
-                            />
-                        </Grid>
-                    ))}
-            </Grid>
-        </>
+        <Grid container spacing={2} justifyContent={"center"}>
+            {orders &&
+                orders.map((details) => (
+                    <Grid
+                        sx={{
+                            margin: {
+                                xs: "1rem",
+                                md: "1.5rem",
+                                lg: "2rem",
+                            },
+                        }}
+                        xs={8}
+                        sm={5}
+                        lg={3}
+                        direction={"row"}
+                    >
+                        <OrderCard event={details} />
+                    </Grid>
+                ))}
+        </Grid>
     );
 };
 

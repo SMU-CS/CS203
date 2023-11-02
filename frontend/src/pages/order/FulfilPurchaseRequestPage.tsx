@@ -1,27 +1,45 @@
 import { useQuery } from "@tanstack/react-query";
-import { getEvent } from "../../axios/event/event";
 import { useNavigate, useParams } from "react-router-dom";
 import Heading from "../../components/common/headings/Heading";
 import { Button, Grid } from "@mui/material";
 import FulfilPurchaseRequestTable from "../../components/event/table/FulfilPurchaseRequestTable";
 import EventBreadCrumb from "../../components/event/navigations/EventBreadcrumb";
 import EventBanner from "../../components/event/banner/EventBanner";
+import { useKeycloak } from "@react-keycloak/web";
+import { getPRconfirmation } from "../../axios/event/purchase_request";
+import { formatDateToDateWithDay } from "../../functions/formatter";
+import { EventDetailsType } from "../../types/event";
 
 const FulfilPurchaseRequestPage = () => {
     const { id } = useParams();
+    const { keycloak } = useKeycloak();
 
-    const { data: event } = useQuery({
-        queryKey: ["event", id],
-        queryFn: () => getEvent(0),
+    const { data: pr } = useQuery({
+        queryKey: ["prConfirmation", id],
+        queryFn: () => getPRconfirmation(id, keycloak.token),
     });
 
     const navigate = useNavigate();
 
     return (
         <>
-            {event && (
+            {pr && (
                 <>
-                    <EventBreadCrumb page="pr-request" event={event} />
+                    <EventBreadCrumb page="pr-request" event={
+                        {
+                            id: pr.id,
+                            name: pr.name,
+                            start_datetime: formatDateToDateWithDay(
+                                new Date(pr.startDateTime)
+                            ),
+                            end_datetime: formatDateToDateWithDay(
+                                new Date(pr.endDateTime)
+                            ),
+                            description: pr.description,
+                            bannerURL: pr.bannerURL,
+                            location: pr.location,
+                        } as EventDetailsType
+                    } />
                     <Grid
                         sx={{
                             display: "flex",
@@ -35,13 +53,27 @@ const FulfilPurchaseRequestPage = () => {
                             },
                         }}
                     >
-                        <EventBanner event={event} />
+                        <EventBanner event={
+                        {
+                            id: pr.id,
+                            name: pr.name,
+                            start_datetime: formatDateToDateWithDay(
+                                new Date(pr.startDateTime)
+                            ),
+                            end_datetime: formatDateToDateWithDay(
+                                new Date(pr.endDateTime)
+                            ),
+                            description: pr.description,
+                            bannerURL: pr.bannerURL,
+                            location: pr.location,
+                        } as EventDetailsType
+                    } />
                         <Heading color="primary" variant="h2">
                             Fulfil Purchase Request
                         </Heading>
                         <Grid sx={{ py: "2rem" }}>
                             <FulfilPurchaseRequestTable
-                                activities={event.activities}
+                                prItems={pr.purchaseRequest.purchaseRequestItems}
                             ></FulfilPurchaseRequestTable>
                         </Grid>
                         <Grid sx={{ display: "flex", justifyContent: "right" }}>

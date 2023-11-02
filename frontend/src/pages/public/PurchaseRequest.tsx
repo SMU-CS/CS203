@@ -39,7 +39,7 @@ const PurchaseRequest: React.FC = () => {
                         <Box padding="1rem" />
                         <SeatMapDialog src={event.seatMapURL} />
                         <Box padding="1rem" />
-                        <MakePRTable activities={event.activities} />
+                        <MakePRTable eventId={event.id} activities={event.activities} />
                     </Container>
                 </>
             )}

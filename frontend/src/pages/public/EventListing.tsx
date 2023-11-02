@@ -19,7 +19,7 @@ const EventListing: React.FC = () => {
 
     const { data: events } = useQuery({
         queryKey: ["events", searchVal, categoryVal],
-        queryFn: () => listEvents(false),
+        queryFn: () => listEvents({ category: categoryVal, search: searchVal }),
     });
 
     useEffect(() => {
@@ -82,7 +82,10 @@ const EventListing: React.FC = () => {
                             <Grid container gap={5}>
                                 {!events
                                     ? [1, 2, 3, 4, 5, 6].map((num) => (
-                                          <EventCardSkeleton purpose="listing" key={num} />
+                                          <EventCardSkeleton
+                                              purpose="listing"
+                                              key={num}
+                                          />
                                       ))
                                     : events.map((details, index) => (
                                           <Grid

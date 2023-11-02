@@ -8,40 +8,62 @@ import {
     Button,
     CardActionArea,
     CardActions,
+    Chip,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { EventListingType } from "../../../types/event";
-import OrderChip from "../chip/OrderChip";
+import { PurchaseRequestListing } from "../../../types/pr";
+import { OrderListing } from "../../../types/order";
 
 interface OrderCardProps extends CardProps {
-    event: EventListingType;
-    ChipPurchaseStatus: "Pending" | "Processing" | "Recurring" | "Past";
-    ButtonPurchaseStatus: string;
+    event: PurchaseRequestListing | OrderListing;
 }
 
-const CardMediaStyles = {
-    width: "100%",
-    height: { xs: "6rem", sm: "8rem", md: "10rem" },
+type StatusType = "processing" | "processed" | "recurring" | "past";
+
+const cardStats = {
+    processing: {
+        buttonColor: "primary",
+        chipColor: "primary.dark",
+        buttonText: "Fulfil Purchase Request",
+        chipText: "Pending Payment",
+    },
+
+    processed: {
+        buttonColor: "secondary",
+        chipColor: "secondary.dark",
+        buttonText: "View Purchase Request",
+        chipText: "Processing Request",
+    },
+
+    recurring: {
+        buttonColor: "primary",
+        chipColor: "primary.light",
+        buttonText: "View Ticket",
+        chipText: "Recurring Event",
+    },
+
+    past: {
+        buttonColor: "secondary",
+        chipColor: "disabled",
+        buttonText: "View History",
+        chipText: "Past Event",
+    },
 };
 
-const OrderCard: React.FC<OrderCardProps> = ({
-    event,
-    ChipPurchaseStatus,
-    ButtonPurchaseStatus,
-    ...props
-}) => {
-    const { name, bannerURL, id } = event;
+const OrderCard: React.FC<OrderCardProps> = ({ event, ...props }) => {
+    const { eventName, bannerURL, id, status } = event;
     const navigate = useNavigate();
-
-    const ButtonColor =
-        ChipPurchaseStatus === "Pending" || "Recurring"
-            ? "primary"
-            : "secondary";
 
     return (
         <Card {...props}>
             <CardActionArea onClick={() => navigate(`/event/${id}`)}>
-                <CardMedia sx={CardMediaStyles} image={bannerURL} />
+                <CardMedia
+                    sx={{
+                        width: "100%",
+                        height: { xs: "6rem", sm: "8rem", md: "10rem" },
+                    }}
+                    image={bannerURL}
+                />
                 <CardContent>
                     <Grid
                         container
@@ -51,25 +73,48 @@ const OrderCard: React.FC<OrderCardProps> = ({
                         direction="column"
                     >
                         <Grid item>
-                            <OrderChip
-                                ChipPurchaseStatus={ChipPurchaseStatus}
+                            <Chip
+                                sx={{
+                                    color: "#fff",
+                                    bgcolor:
+                                        cardStats[status as StatusType]
+                                            .chipColor,
+                                }}
+                                label={
+                                    <Typography
+                                        fontFamily="subtitle2"
+                                        fontWeight="bold"
+                                    >
+                                        {
+                                            cardStats[status as StatusType]
+                                                .chipText
+                                        }
+                                    </Typography>
+                                }
                             />
                         </Grid>
 
                         <Typography
                             variant="body1"
                             fontWeight="bold"
-                            my={"0.5rem"}
+                            mt={"0.5rem"}
                         >
-                            {name}
+                            {eventName}
                         </Typography>
                     </Grid>
                 </CardContent>
             </CardActionArea>
             <Grid sx={{ ml: "0.5rem", mb: "0.5rem" }}>
                 <CardActions>
-                    <Button color={ButtonColor} variant="contained">
-                        {ButtonPurchaseStatus}
+                    <Button
+                        color={
+                            cardStats[status as StatusType].buttonColor as
+                                | "primary"
+                                | "secondary"
+                        }
+                        variant="contained"
+                    >
+                        {cardStats[status as StatusType].buttonText}
                     </Button>
                 </CardActions>
             </Grid>

@@ -1,9 +1,5 @@
-export interface SalesRound {
-    id: number;
-    activity: string;
+export interface SalesRoundAbstract {
     roundStart: string;
     roundEnd: string;
-    purchaseStart: string;
-    purchaseEnd: string;
     salesType: string;
 }

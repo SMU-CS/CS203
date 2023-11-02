@@ -14,11 +14,11 @@ const Home = () => {
     // Backend Queries
     const { data: latestEvents } = useQuery({
         queryKey: ["latestEvents"],
-        queryFn: () => listEvents(false),
+        queryFn: () => listEvents({}),
     });
     const { data: featuredEvents } = useQuery({
         queryKey: ["featuredEvents"],
-        queryFn: () => listEvents(true),
+        queryFn: () => listEvents({ isFeatured: true }),
     });
 
     // Page title metadate manipulation
