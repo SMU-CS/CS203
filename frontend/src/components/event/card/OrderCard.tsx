@@ -26,6 +26,7 @@ const cardStats = {
         chipColor: "primary.dark",
         buttonText: "Fulfil Purchase Request",
         chipText: "Pending Payment",
+        location: "/fulfil",
     },
 
     processed: {
@@ -33,6 +34,7 @@ const cardStats = {
         chipColor: "secondary.dark",
         buttonText: "View Purchase Request",
         chipText: "Processing Request",
+        location: "/",
     },
 
     recurring: {
@@ -40,6 +42,7 @@ const cardStats = {
         chipColor: "primary.light",
         buttonText: "View Ticket",
         chipText: "Recurring Event",
+        location: "/view-ticket",
     },
 
     past: {
@@ -47,6 +50,7 @@ const cardStats = {
         chipColor: "disabled",
         buttonText: "View History",
         chipText: "Past Event",
+        location: "/view-ticket",
     },
 };
 
@@ -113,6 +117,13 @@ const OrderCard: React.FC<OrderCardProps> = ({ event, ...props }) => {
                                 | "secondary"
                         }
                         variant="contained"
+                        onClick={() =>
+                            navigate(
+                                `${
+                                    cardStats[status as StatusType].location
+                                }/${id}`
+                            )
+                        }
                     >
                         {cardStats[status as StatusType].buttonText}
                     </Button>
