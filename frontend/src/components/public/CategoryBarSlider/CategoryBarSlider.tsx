@@ -44,7 +44,6 @@ const CategoryBarSlider: React.FC = () => {
                     <Tabs
                         sx={{ width: "98vw" }}
                         {...field}
-                        value={field.value || false}
                         onChange={({}, newValue) =>
                             setValue(field.name, newValue)
                         }
