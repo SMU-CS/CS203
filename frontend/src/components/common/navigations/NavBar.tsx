@@ -28,7 +28,7 @@ const pages = {
     { text: "Event Listing", link: "/event" },
   ],
 };
-const authPages = ["Login", "Register", "Logout"];
+const authPages = ["Login", "Register"];
 
 interface NavBarProps extends AppBarProps {
   role: "customer" | "guest";
@@ -103,9 +103,7 @@ const NavBar: React.FC<NavBarProps> = ({ role, ...props }) => {
                       setAnchorElNav(null);
                       page === "Login"
                         ? keycloak.login()
-                        : page === "Register"
-                        ? keycloak.register()
-                        : keycloak.logout();
+                        : keycloak.register();
                     }}
                   />
                 ))}

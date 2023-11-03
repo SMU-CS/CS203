@@ -10,11 +10,11 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateField } from "@mui/x-date-pickers/DateField";
 
-interface TextFieldProps extends BaseTextFieldProps {
+interface ExpirationDateFieldProps extends BaseTextFieldProps {
     rules?: RegisterOptions<FieldValues, string>;
 }
 
-const DateOfBirthTextField: React.FC<TextFieldProps> = ({
+const ExpirationDateField: React.FC<ExpirationDateFieldProps> = ({
     name,
     label,
     type,
@@ -33,6 +33,8 @@ const DateOfBirthTextField: React.FC<TextFieldProps> = ({
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DateField
                         {...field}
+                        format="MM/YYYY"
+                        disablePast
                         slotProps={{
                             textField: {
                                 error: !!fieldState.error,
@@ -47,4 +49,4 @@ const DateOfBirthTextField: React.FC<TextFieldProps> = ({
     );
 };
 
-export default DateOfBirthTextField;
+export default ExpirationDateField;

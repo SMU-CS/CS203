@@ -1,6 +1,6 @@
 import React from "react";
 import Heading from "../../common/headings/Heading";
-import { useForm, FormProvider, FieldErrors } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import { Profile } from "../../../types/profile";
 
 import { Paper, Grid, Button, Divider, Container } from "@mui/material";
@@ -8,45 +8,22 @@ import TextField from "../../common/form/TextField";
 import DateOfBirthTextField from "../../common/form/DateOfBirthTextField";
 
 const textNames = [
-    { name: "first_name", label: "First Name", type: "text", key: "1" },
-    { name: "last_name", label: "Last Name", type: "text", key: "2" },
-    { name: "email", label: "Email", type: "text", key: "3" },
-    { name: "contact", label: "Contact", type: "text", key: "4" },
+    { name: "first_name", label: "First Name", type: "text" },
+    { name: "last_name", label: "Last Name", type: "text" },
+    { name: "email", label: "Email", type: "text" },
+    { name: "contact", label: "Contact", type: "text" },
     {
         name: "date_of_birth",
         label: "Date of Birth",
         type: "dateText",
-        key: "5",
     },
-    { name: "country", label: "Country", type: "text", key: "6" },
-    { name: "postal_code", label: "Postal Code", type: "text", key: "7" },
+    { name: "country", label: "Country", type: "text" },
+    { name: "postal_code", label: "Postal Code", type: "text" },
 ];
 
 const ProfileDetailsCard: React.FC = () => {
-    const formState = useForm<Profile>({
-        defaultValues: {
-            first_name: "",
-            last_name: "",
-            email: "",
-            contact: "",
-            date_of_birth: "",
-            country: "",
-            postal_code: "",
-        },
-    });
-    const { handleSubmit, reset: resetForm } = formState;
-
-    const onSubmit = (data: Profile) => {
-        console.log("data", data);
-    };
-
-    const onError = (errors: FieldErrors<Profile>) => {
-        console.log(errors);
-    };
-
-    const handleClear = () => {
-        resetForm();
-    };
+    const formState = useForm<Profile>();
+    const { handleSubmit, reset } = formState;
 
     return (
         <FormProvider {...formState}>
@@ -69,30 +46,24 @@ const ProfileDetailsCard: React.FC = () => {
                                 alignItems="flex-start"
                                 gap={3}
                             >
-                                {textNames.map((textName) => (
-                                    <Grid
-                                        item
-                                        key={textName.key}
-                                        xs={12}
-                                        sm={6}
-                                        md={4}
-                                    >
-                                        {textName.type == "text" ? (
+                                {textNames.map(({ name, label, type }) => (
+                                    <Grid item key={name} xs={12} sm={6} md={4}>
+                                        {type == "text" ? (
                                             <TextField
-                                                name={textName.name}
-                                                label={textName.label}
+                                                name={name}
+                                                label={label}
                                                 variant="outlined"
                                                 rules={{
-                                                    required: `${textName.label} is required`,
+                                                    required: `${label} is required`,
                                                 }}
                                             />
                                         ) : (
                                             <DateOfBirthTextField
-                                                name={textName.name}
-                                                label={textName.label}
+                                                name={name}
+                                                label={label}
                                                 required={true}
                                                 rules={{
-                                                    required: `${textName.label} is required`,
+                                                    required: `${label} is required`,
                                                 }}
                                             />
                                         )}
@@ -108,20 +79,17 @@ const ProfileDetailsCard: React.FC = () => {
                                     container
                                     direction="row"
                                     justifyContent="flex-end"
-                                    spacing={3}
+                                    gap={3}
                                     sx={{ my: "1.5rem" }}
                                 >
                                     <Grid item>
                                         <Button
                                             type="button"
                                             variant="contained"
-                                            sx={{
-                                                backgroundColor: "#000000",
-                                                opacity: "38%",
-                                            }}
-                                            onClick={handleClear}
+                                            color="inherit"
+                                            onClick={() => reset()}
                                         >
-                                            cancel
+                                            Cancel
                                         </Button>
                                     </Grid>
                                     <Grid item>
@@ -129,8 +97,12 @@ const ProfileDetailsCard: React.FC = () => {
                                             type="submit"
                                             variant="contained"
                                             onClick={handleSubmit(
-                                                onSubmit,
-                                                onError
+                                                (data) => {
+                                                    console.log("data", data);
+                                                },
+                                                (errors) => {
+                                                    console.log(errors);
+                                                }
                                             )}
                                         >
                                             Edit Profile

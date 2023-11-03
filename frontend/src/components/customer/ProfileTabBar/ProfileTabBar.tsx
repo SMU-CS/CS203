@@ -1,63 +1,51 @@
-import React, { useState } from "react";
+import React from "react";
 import { Tab, Tabs, Paper, Typography } from "@mui/material";
-import {useNavigate } from "react-router-dom";
-import ProfileDetailsCard from "../ProfileDetailsCard/ProfileDetailsCard";
-import ChangePasswordCard from "../ChangePasswordCard/ChangePasswordCard";
-import PaymentMethodsCard from "../PaymentMethodsCard/PaymentMethodsCard";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface TabData {
     label: string;
     value: string;
-    component: JSX.Element;
 }
 
 const tabs: TabData[] = [
     {
         label: "Profile Details",
-        value: "profiledetails",
-        component: <ProfileDetailsCard />,
+        value: "/profile",
     },
     {
         label: "Change Password",
-        value: "changepassword",
-        component: <ChangePasswordCard />,
+        value: "/profile/changepassword",
     },
     {
         label: "Payment Methods",
-        value: "paymentmethods",
-        component: <PaymentMethodsCard />,
+        value: "/profile/paymentmethods",
     },
 ];
-interface ProfileTabBarComponents {
-    pathname : String
-}
 
-const ProfileTabBar: React.FC<ProfileTabBarComponents> = ({pathname}) => {
-
+const ProfileTabBar: React.FC = ({}) => {
+    const location = useLocation();
     const navigate = useNavigate();
 
-    const handleChange = (_event: React.ChangeEvent<{}>, valueData: string) => {
-        navigate(valueData);
-    };
-    
-    const valueData = pathname == "S3" ? "paymentmethods" : pathname == "S2" ? "changepassword" : "profiledetails";
-    console.log(valueData);
     return (
-       
-            <Paper elevation={4} >
-                <Tabs variant="standard" value={valueData} onChange={handleChange}>
-                    {tabs.map((item) => (
-                        <Tab 
-                            key={item.value}
-                            sx={{ margin: { xs: "0.5rem", md: "0.8rem", lg: "1rem" } }}
-                            label={<Typography variant="body1" fontWeight="bold">{item.label}</Typography>}
-                            value={item.value}
-                        />
-                    ))}
-                </Tabs>
-            </Paper>
-    
-
+        <Paper elevation={4}>
+            <Tabs variant="standard" value={location.pathname}>
+                {tabs.map(({ value, label }) => (
+                    <Tab
+                        onClick={() => navigate(value)}
+                        key={value}
+                        sx={{
+                            margin: { xs: "0.5rem", md: "0.8rem", lg: "1rem" },
+                        }}
+                        label={
+                            <Typography variant="body1" fontWeight="bold">
+                                {label}
+                            </Typography>
+                        }
+                        value={value}
+                    />
+                ))}
+            </Tabs>
+        </Paper>
     );
 };
 
