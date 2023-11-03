@@ -10,7 +10,7 @@ interface TabData {
 const tabs: TabData[] = [
     {
         label: "Profile Details",
-        value: "/profile/profiledetails",
+        value: "/profile",
     },
     {
         label: "Change Password",

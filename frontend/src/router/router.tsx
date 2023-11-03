@@ -102,7 +102,7 @@ const router = createBrowserRouter([
         ),
         children: [
             {
-                path: "/profile/profiledetails",
+                path: "/profile",
                 element: <ProfileDetailsCard />,
             },
             {
