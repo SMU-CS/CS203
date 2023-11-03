@@ -19,7 +19,6 @@ const DateOfBirthTextField: React.FC<TextFieldProps> = ({
     label,
     type,
     rules,
-    required,
     ...props
 }) => {
     const { control } = useFormContext();
@@ -31,18 +30,17 @@ const DateOfBirthTextField: React.FC<TextFieldProps> = ({
             rules={rules}
             name={name ? name : "text field"}
             render={({ field, fieldState }) => (
-                <LocalizationProvider dateAdapter={AdapterDayjs} {...field}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DateField
-                        required={required}
-                        onError={(error, value) => {
-                            if (error) {
-                                console.log(`Error: ${error}`);
-                                console.log(`Associated value: ${value}`);
-                            }
+                        {...field}
+                        slotProps={{
+                            textField: {
+                                error: !!fieldState.error,
+                            },
                         }}
                         helperText={fieldState.error?.message}
-                        label="Date Of Birth"
-                    ></DateField>
+                        label={label}
+                    />
                 </LocalizationProvider>
             )}
         />
