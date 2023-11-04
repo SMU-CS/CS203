@@ -1,24 +1,59 @@
-import React from "react";
-// import PaymentMethodsCard from "../../components/customer/PaymentMethodsCard/PaymentMethodsCard";
+import React, { useEffect, useState } from "react";
 import PurchaseDetailsCard from "../../components/customer/PurchaseDetailsCard/PurchaseDetailsCard";
 import { Grid, Container, Divider } from "@mui/material";
 import Heading from "../../components/common/headings/Heading";
 import Button from "../../components/common/buttons/Button";
-import { useForm, FieldErrors } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useQueries, useQuery } from "@tanstack/react-query";
+import {
+    getPRItem,
+    getPRconfirmation,
+} from "../../axios/event/purchase_request";
+import { useKeycloak } from "@react-keycloak/web";
+import { PurchaseRequestItemWithDetails } from "../../types/pr";
+
+type Cart = { id: number; quantity: number }[];
 
 const Checkout: React.FC = () => {
-    const formState = useForm();
-    const { handleSubmit } = formState;
+    const { handleSubmit } = useForm();
+    const [items, setItems] = useState<Cart>([]);
     const navigate = useNavigate();
+    const { state } = useLocation();
+    const { id } = useParams();
+    const { keycloak } = useKeycloak();
 
-    const onSubmit = (data: any) => {
-        console.log("data", data);
-    };
+    useEffect(() => {
+        const itemsMap = new Map<string, number>();
+        Object.keys(state).forEach((key: string) => {
+            const itemId = key.split("-")[1];
+            if (!!state[key]) {
+                itemsMap.has(itemId)
+                    ? itemsMap.set(itemId, (itemsMap.get(itemId) as number) + 1)
+                    : itemsMap.set(itemId, 1);
+            }
+        });
 
-    const onError = (errors: FieldErrors) => {
-        console.log(errors);
-    };
+        const itemsAry: Cart = [];
+        itemsMap.forEach((value, key) =>
+            itemsAry.push({ id: parseInt(key), quantity: value })
+        );
+        console.log(state)
+        console.log(itemsMap)
+        setItems(itemsAry);
+    }, [state]);
+
+    const prItemDetails = useQueries({
+        queries: items.map(({ id, quantity }) => ({
+            queryKey: [`transaction-${id}`, items],
+            queryFn: () => getPRItem(id.toString(), quantity, keycloak.token),
+        })),
+    });
+
+    const { data: pr } = useQuery({
+        queryKey: ["event_pr", id],
+        queryFn: () => getPRconfirmation(id, keycloak.token),
+    });
 
     return (
         <Container maxWidth="xl">
@@ -38,7 +73,15 @@ const Checkout: React.FC = () => {
                             /> */}
                         </Grid>
                         <Grid item xs={6}>
-                            <PurchaseDetailsCard />
+                            {prItemDetails.every((data) => data.isSuccess) && pr && (
+                                <PurchaseDetailsCard
+                                    prItems={prItemDetails.map(
+                                        (prItem) =>
+                                            prItem.data as PurchaseRequestItemWithDetails
+                                    )}
+                                    eventName={pr.name}
+                                />
+                            )}
                         </Grid>
                     </Grid>
                 </Grid>
@@ -64,7 +107,14 @@ const Checkout: React.FC = () => {
                             <Button
                                 type="submit"
                                 variant="contained"
-                                onClick={handleSubmit(onSubmit, onError)}
+                                onClick={handleSubmit(
+                                    (data) => {
+                                        console.log("data", data);
+                                    },
+                                    (errors) => {
+                                        console.log(errors);
+                                    }
+                                )}
                             >
                                 Confirm Payment
                             </Button>

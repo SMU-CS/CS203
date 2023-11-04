@@ -1,40 +1,32 @@
 import React from "react";
-import { TableRow, TableCell, Typography, Checkbox } from "@mui/material";
-import { useForm, Controller } from "react-hook-form";
+import { TableRow, TableCell, Typography } from "@mui/material";
+import Checkbox from "../../../common/form/Checkbox";
 
 interface PurchaseRequestTableRowProps {
+    id: number;
+    index: number;
     startDateTime: string;
     ticketType: string;
     price: number;
 }
 
 const PurchaseRequestTableRow: React.FC<PurchaseRequestTableRowProps> = ({
+    id,
+    index,
     startDateTime,
     ticketType,
     price,
 }) => {
-    const { control } = useForm();
-
     const cells = [
         { text: `${startDateTime}`, width: "35%" },
         { text: `${ticketType}`, width: "40%" },
-        { text: `${price}`, width: "25%" },
+        { text: `$${price.toFixed(2)}`, width: "25%" },
     ];
 
     return (
         <TableRow>
             <TableCell width={"5%"}>
-                <Controller
-                    name="isChecked"
-                    control={control}
-                    defaultValue={false} 
-                    render={({ field }) => (
-                        <Checkbox
-                            color="primary"
-                            {...field}
-                        />
-                    )}
-                />
+                <Checkbox name={`${index}-${id}`} />
             </TableCell>
             {cells.map(({ text, width }, index) => (
                 <TableCell key={index} sx={{ width: width }}>
