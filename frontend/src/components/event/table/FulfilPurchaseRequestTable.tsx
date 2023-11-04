@@ -5,7 +5,6 @@ import {
     TableBody,
     TableRow,
     TableProps,
-    useTheme,
     Paper,
     TableCell,
 } from "@mui/material";
@@ -21,21 +20,20 @@ const FulfilPurchaseRequestTable: React.FC<FulfilPurchaseRequestTableProps> = ({
     prItems,
     ...props
 }) => {
-    const theme = useTheme();
-
     return (
         <TableContainer elevation={2} component={Paper}>
             <Table {...props}>
-                <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
+                <TableHead sx={{ bgcolor: "primary.light" }}>
                     <TableRow>
                         <TableCell />
-                        <PurchaseRequestTableHeaderCell></PurchaseRequestTableHeaderCell>
+                        <PurchaseRequestTableHeaderCell />
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {prItems.map(
                         (
                             {
+                                id,
                                 quantityRequested,
                                 ticketType,
                                 price,
@@ -43,8 +41,10 @@ const FulfilPurchaseRequestTable: React.FC<FulfilPurchaseRequestTableProps> = ({
                             },
                             index
                         ) =>
-                            [...Array(quantityRequested)].map((i) => (
+                            [...Array(quantityRequested)].map((i, index2) => (
                                 <PurchaseRequestTableRow
+                                    id={id}
+                                    index={index2}
                                     key={`${i}${index}`}
                                     startDateTime={formatDateToDateWithDay(
                                         new Date(eventStartDateTime)

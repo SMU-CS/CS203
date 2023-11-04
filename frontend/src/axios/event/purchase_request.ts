@@ -1,6 +1,7 @@
 import {
     PurchaseRequestConfirmationSuccess,
     PurchaseRequestForm,
+    PurchaseRequestItemWithDetails,
     PurchaseRequestListing,
 } from "../../types/pr";
 import { prInstance } from "../instance";
@@ -35,15 +36,36 @@ export const getPRconfirmation = async (id?: string, token?: string) => {
 
 export const getAllPRs = async (token?: string) => {
     try {
-        console.log(token)
         const { data: prs } = await prInstance.get(``, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
             withCredentials: true,
         });
-        return prs as PurchaseRequestListing[]
+        return prs as PurchaseRequestListing[];
     } catch (e) {
         throw e;
+    }
+};
+
+export const getPRItem = async (
+    id: string,
+    quantity: number,
+    token?: string
+) => {
+    try {
+        const { data: prItem } = await prInstance.get(`item/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            withCredentials: true,
+        });
+
+        return {
+            ...prItem,
+            quantityRequested: quantity,
+        } as PurchaseRequestItemWithDetails;
+    } catch (e) {
+        console.log(e);
     }
 };

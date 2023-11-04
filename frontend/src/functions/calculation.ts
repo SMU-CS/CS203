@@ -1,4 +1,6 @@
-export const calcTicketPrice = (transactions: PurchaseRequestItem[]) => {
+import { PurchaseRequestItemWithDetails } from "../types/pr";
+
+export const calcTicketPrice = (transactions: PurchaseRequestItemWithDetails[]) => {
     return transactions.reduce(
         (accumulator, purchase) => accumulator + purchase.price,
         0
@@ -6,14 +8,14 @@ export const calcTicketPrice = (transactions: PurchaseRequestItem[]) => {
 };
 
 export const calcServiceFee = (
-    transactions: PurchaseRequestItem[],
+    transactions: PurchaseRequestItemWithDetails[],
     serviceFee: number
 ) => {
     return (calcTicketPrice(transactions) / 100) * serviceFee;
 };
 
 export const calcTotalPrice = (
-    transactions: PurchaseRequestItem[],
+    transactions: PurchaseRequestItemWithDetails[],
     serviceFee: number,
     facilityCharge: number
 ) => {
@@ -25,7 +27,7 @@ export const calcTotalPrice = (
 };
 
 export const calculateTotalPrice = (
-    purchaseRequestItems: PurchaseDetails[]
+    purchaseRequestItems: PurchaseRequestItemWithDetails[]
 ) => {
     return purchaseRequestItems.reduce((acc, item) => acc + item.price, 0);
 };

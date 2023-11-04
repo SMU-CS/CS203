@@ -4,7 +4,7 @@ import { Controller, useFormContext } from "react-hook-form";
 
 interface CheckboxProps {
     name: string;
-    label: string;
+    label?: string;
 }
 
 const Checkbox: React.FC<CheckboxProps> = ({ name, label }) => {

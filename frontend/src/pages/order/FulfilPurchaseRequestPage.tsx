@@ -9,6 +9,7 @@ import { useKeycloak } from "@react-keycloak/web";
 import { getPRconfirmation } from "../../axios/event/purchase_request";
 import { formatDateToDateWithDay } from "../../functions/formatter";
 import { EventDetailsType } from "../../types/event";
+import { FormProvider, useForm } from "react-hook-form";
 
 const FulfilPurchaseRequestPage = () => {
     const { id } = useParams();
@@ -20,26 +21,31 @@ const FulfilPurchaseRequestPage = () => {
     });
 
     const navigate = useNavigate();
+    const formState = useForm();
+    const { handleSubmit } = formState;
 
     return (
         <>
             {pr && (
                 <>
-                    <EventBreadCrumb page="pr-request" event={
-                        {
-                            id: pr.id,
-                            name: pr.name,
-                            start_datetime: formatDateToDateWithDay(
-                                new Date(pr.startDateTime)
-                            ),
-                            end_datetime: formatDateToDateWithDay(
-                                new Date(pr.endDateTime)
-                            ),
-                            description: pr.description,
-                            bannerURL: pr.bannerURL,
-                            location: pr.location,
-                        } as EventDetailsType
-                    } />
+                    <EventBreadCrumb
+                        page="pr-request"
+                        event={
+                            {
+                                id: pr.id,
+                                name: pr.name,
+                                start_datetime: formatDateToDateWithDay(
+                                    new Date(pr.startDateTime)
+                                ),
+                                end_datetime: formatDateToDateWithDay(
+                                    new Date(pr.endDateTime)
+                                ),
+                                description: pr.description,
+                                bannerURL: pr.bannerURL,
+                                location: pr.location,
+                            } as EventDetailsType
+                        }
+                    />
                     <Grid
                         sx={{
                             display: "flex",
@@ -53,34 +59,42 @@ const FulfilPurchaseRequestPage = () => {
                             },
                         }}
                     >
-                        <EventBanner event={
-                        {
-                            id: pr.id,
-                            name: pr.name,
-                            start_datetime: formatDateToDateWithDay(
-                                new Date(pr.startDateTime)
-                            ),
-                            end_datetime: formatDateToDateWithDay(
-                                new Date(pr.endDateTime)
-                            ),
-                            description: pr.description,
-                            bannerURL: pr.bannerURL,
-                            location: pr.location,
-                        } as EventDetailsType
-                    } />
+                        <EventBanner
+                            event={
+                                {
+                                    id: pr.id,
+                                    name: pr.name,
+                                    start_datetime: formatDateToDateWithDay(
+                                        new Date(pr.startDateTime)
+                                    ),
+                                    end_datetime: formatDateToDateWithDay(
+                                        new Date(pr.endDateTime)
+                                    ),
+                                    description: pr.description,
+                                    bannerURL: pr.bannerURL,
+                                    location: pr.location,
+                                } as EventDetailsType
+                            }
+                        />
                         <Heading color="primary" variant="h2">
                             Fulfil Purchase Request
                         </Heading>
                         <Grid sx={{ py: "2rem" }}>
-                            <FulfilPurchaseRequestTable
-                                prItems={pr.purchaseRequest.purchaseRequestItems}
-                            ></FulfilPurchaseRequestTable>
+                            <FormProvider {...formState}>
+                                <FulfilPurchaseRequestTable
+                                    prItems={
+                                        pr.purchaseRequest.purchaseRequestItems
+                                    }
+                                />
+                            </FormProvider>
                         </Grid>
                         <Grid sx={{ display: "flex", justifyContent: "right" }}>
                             <Button
                                 color="primary"
                                 variant="contained"
-                                onClick={() => navigate(`/checkout/${id}`)} //update the url path to checkout page
+                                onClick={handleSubmit((data) =>
+                                    navigate(`/checkout/${id}`, { state: data })
+                                )}
                             >
                                 Make Payment
                             </Button>

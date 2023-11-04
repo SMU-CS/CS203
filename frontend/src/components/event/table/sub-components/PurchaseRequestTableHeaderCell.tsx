@@ -1,7 +1,7 @@
 import { TableCell, Typography } from "@mui/material";
 
 const headerRows = [
-    { text: "Datetime & location", width: "40%" },
+    { text: "Datetime", width: "40%" },
     { text: "Ticket Type", width: "40%" },
     { text: "Price", width: "20%" },
 ];

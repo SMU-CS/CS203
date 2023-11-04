@@ -6,6 +6,7 @@ export interface PurchaseRequestItem {
 }
 
 export interface PurchaseRequestItemWithDetails {
+    id: number;
     ticketType: string;
     quantityRequested: number;
     price: number;
