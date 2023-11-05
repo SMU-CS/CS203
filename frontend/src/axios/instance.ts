@@ -20,6 +20,16 @@ const configureInstance = (instanceUrl: string, server: "event" | "order") => ({
     setTimeout: 1000,
 });
 
+const configureKeyCloakInstance = (
+    type: "master" | "eztix",
+    hasAdmin: boolean
+) => ({
+    baseURL: `http://keycloak-alb-427916872.ap-southeast-1.elb.amazonaws.com${
+        hasAdmin ? "/admin" : ""
+    }/realms/${type}`,
+    setTimeout: 1000,
+});
+
 // Event microservice instances
 export const eventInstance = axios.create(configureInstance("event", "event"));
 export const prInstance = axios.create(
@@ -28,3 +38,14 @@ export const prInstance = axios.create(
 
 // Order microservice instances
 export const orderInstance = axios.create(configureInstance("order", "order"));
+
+// User Profile Keycloak service instance
+export const userKeycloakService = axios.create(
+    configureKeyCloakInstance("eztix", false)
+);
+export const adminTokenService = axios.create(
+    configureKeyCloakInstance("master", false)
+);
+export const adminKeycloakService = axios.create(
+    configureKeyCloakInstance("eztix", true)
+);
