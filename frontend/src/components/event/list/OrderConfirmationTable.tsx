@@ -1,27 +1,27 @@
 import { Grid, TableProps, Typography } from "@mui/material";
 import SectionDivider from "../layout/divider/SectionDivider";
 import PurchaseRequestItemConfirmation from "../../pr/text/PurchaseRequestItemConfirmation";
-import { calcServiceFee, calcTicketPrice, calcTotalPrice } from "../../../functions/calculation";
+import {
+    calcServiceFee,
+    calcTicketPrice,
+    calcTotalPrice,
+} from "../../../functions/calculation";
+import { OrderItems } from "../../../types/order";
 
 interface OrderConfirmationTableProps extends TableProps {
-    Transactions: PurchaseRequestItem[];
-    ServiceFee: number;
-    FacilityCharge: number;
+    orderItems: OrderItems[];
 }
 
 const OrderConfirmationTable: React.FC<OrderConfirmationTableProps> = ({
-    Transactions,
-    ServiceFee,
-    FacilityCharge,
+    orderItems,
 }) => {
-
     return (
         <>
             <Grid sx={{ my: "2rem" }}>
                 <Typography variant="body2">
                     <Grid my="1rem">
-                        {Transactions.map((purchase) => (
-                            <PurchaseRequestItemConfirmation item={purchase} />
+                        {orderItems.map((orderItem) => (
+                            <PurchaseRequestItemConfirmation item={orderItem} />
                         ))}
                     </Grid>
 
@@ -34,17 +34,21 @@ const OrderConfirmationTable: React.FC<OrderConfirmationTableProps> = ({
                             sx={{ my: "1.5rem" }}
                         >
                             <Grid item>Total:</Grid>
-                            <Grid item>{"$" + calcTicketPrice(Transactions).toFixed(2)}</Grid>
+                            <Grid item>
+                                {"$" + calcTicketPrice(orderItems).toFixed(2)}
+                            </Grid>
                         </Grid>
 
                         <Grid container justifyContent="space-between">
                             <Grid item>Service Charge:</Grid>
-                            <Grid item>{"$" + calcServiceFee(Transactions, ServiceFee).toFixed(2)}</Grid>
+                            <Grid item>
+                                {"$" + calcServiceFee(orderItems).toFixed(2)}
+                            </Grid>
                         </Grid>
 
                         <Grid container justifyContent="space-between">
                             <Grid item>Facility Charge:</Grid>
-                            <Grid item>{"$" + FacilityCharge.toFixed(2)}</Grid>
+                            <Grid item>{"$10.00"}</Grid>
                         </Grid>
                     </Grid>
 
@@ -54,8 +58,7 @@ const OrderConfirmationTable: React.FC<OrderConfirmationTableProps> = ({
                     <Grid container justifyContent="space-between" my="1rem">
                         <Grid item>Total Paid:</Grid>
                         <Grid item>
-                            {"$" +
-                                (calcTotalPrice(Transactions, ServiceFee, FacilityCharge)).toFixed(2)}
+                            {"$" + calcTotalPrice(orderItems, 10).toFixed(2)}
                         </Grid>
                     </Grid>
                 </Typography>

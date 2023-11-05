@@ -18,9 +18,17 @@ interface OrderCardProps extends CardProps {
     event: PurchaseRequestListing | OrderListing;
 }
 
-type StatusType = "processing" | "processed" | "recurring" | "past";
+type StatusType = PurchaseRequestListing["status"] | OrderListing["status"];
 
 const cardStats = {
+    submitted: {
+        buttonColor: "secondary",
+        chipColor: "secondary.dark",
+        buttonText: "View Submitted Request",
+        chipText: "Processing Request",
+        location: "/confirmation",
+    },
+
     processing: {
         buttonColor: "primary",
         chipColor: "primary.dark",
@@ -29,12 +37,12 @@ const cardStats = {
         location: "/fulfil",
     },
 
-    processed: {
-        buttonColor: "secondary",
-        chipColor: "secondary.dark",
-        buttonText: "View Purchase Request",
-        chipText: "Processing Request",
-        location: "/",
+    end: {
+        buttonColor: "success",
+        chipColor: "success",
+        buttonText: "View Purchased Items",
+        chipText: "Paid Purchase Request",
+        location: "/view-purchase",
     },
 
     recurring: {
@@ -50,7 +58,7 @@ const cardStats = {
         chipColor: "disabled",
         buttonText: "View History",
         chipText: "Past Event",
-        location: "/view-ticket",
+        location: "/view-past-event",
     },
 };
 

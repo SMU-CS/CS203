@@ -1,91 +1,112 @@
 import { useQuery } from "@tanstack/react-query";
-import { getEvent } from "../../axios/event/event";
 import { useNavigate, useParams } from "react-router-dom";
 import Heading from "../../components/common/headings/Heading";
-import { Button, Grid, Divider } from "@mui/material";
-import FulfilPurchaseRequestTable from "../../components/event/table/FulfilPurchaseRequestTable";
-import EventBreadCrumb from "../../components/event/navigations/EventBreadcrumb";
+import {
+    Button,
+    Grid,
+    Divider,
+    Container,
+    Box,
+    Typography,
+} from "@mui/material";
 import EventBanner from "../../components/event/banner/EventBanner";
-import EventTicket from "../../components/event/ticket/EventTicket";
 import OrderConfirmationTable from "../../components/event/list/OrderConfirmationTable";
 import PurchaseRequestSuccess from "../../components/pr/text/PurchaseRequestSuccess";
-const transaction = [
-    {
-        ticket_type_id: "1",
-        activity_id: "1",
-        type: "Standard - Cat A",
-        price: 50,
-        quantity: 1,
-        datetime: "02 Sep 2023 (Sat.) 06:00pm",
-        location: "Singapore Indoor Stadium",
-    },
-    {
-        ticket_type_id: "2",
-        activity_id: "1",
-        type: "Standard - Cat B",
-        price: 20,
-        quantity: 1,
-        datetime: "02 Sep 2023 (Sat.) 06:00pm",
-        location: "Singapore Indoor Stadium",
-    },
-];
+import ViewTicketTable from "../../components/event/table/ViewTicketTable";
+import { useKeycloak } from "@react-keycloak/web";
+import { EventDetailsType } from "../../types/event";
+import { getOrderById } from "../../axios/order/order";
+import { formatDateToDateWithDay } from "../../functions/formatter";
+import QRCode from "../../assets/illustrations/QRCode.png";
 
-const ViewTicketPage = () => {
+interface ViewTicketPageProps {
+    isRecurring: boolean;
+}
+
+const ViewTicketPage: React.FC<ViewTicketPageProps> = ({ isRecurring }) => {
     const { id } = useParams();
-
-    const { data: event } = useQuery({
-        queryKey: ["event", id],
-        queryFn: () => getEvent(0),
-    });
-
+    const { keycloak } = useKeycloak();
     const navigate = useNavigate();
+
+    const { data: order } = useQuery({
+        queryKey: ["order", id],
+        queryFn: () => getOrderById(id, keycloak.token),
+    });
 
     return (
         <>
-            {event && (
-                <>
-                    <EventBreadCrumb page="view-ticket" event={event} />
-                    <Grid
-                        sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            alignContent: "center",
-                            py: "1vh",
-                            paddingInline: {
-                                xs: "120px",
-                                sm: "150px",
-                                md: "220px",
-                            },
-                        }}
-                    >
-                        <EventBanner event={event} />
+            {order && (
+                <Container sx={{ mt: "3rem" }} maxWidth="md">
+                    <Grid direction="column" alignContent="center">
+                        <EventBanner
+                            event={
+                                {
+                                    id: order.eventId,
+                                    name: order.eventName,
+                                    category: order.eventCategory,
+                                    artist: order.eventArtist,
+                                    start_datetime: formatDateToDateWithDay(
+                                        new Date(order.eventStartTime)
+                                    ),
+                                    end_datetime: formatDateToDateWithDay(
+                                        new Date(order.eventEndTime)
+                                    ),
+                                    bannerURL: order.eventBannerURL,
+                                    seatMapURL: order.eventSeatMapURL,
+                                    location: order.eventLocation,
+                                } as EventDetailsType
+                            }
+                        />
 
-                        <EventTicket event={event} />
-
-                        <Grid sx={{ py: "2rem" }}>
-                            <FulfilPurchaseRequestTable
-                                activities={event.activities}
-                            />
-                        </Grid>
-                        <Grid item sx={{ py: "2rem" }}>
-                            <Divider />
-                        </Grid>
+                        {isRecurring && (
+                            <>
+                                <Grid container rowGap={3} sx={{ py: "2rem" }}>
+                                    <Heading color="primary" variant="h2">
+                                        View Ticket
+                                    </Heading>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            flexDirection: "column",
+                                        }}
+                                    >
+                                        <img src={QRCode} width="30%" />
+                                        <Typography
+                                            variant="body2"
+                                            fontWeight="bold"
+                                        >
+                                            Present this QR code to the staffs
+                                            during the event day
+                                        </Typography>
+                                    </Box>
+                                    <ViewTicketTable
+                                        orderItems={order.orderItems}
+                                    />
+                                </Grid>
+                                <Grid item sx={{ py: "2rem" }}>
+                                    <Divider />
+                                </Grid>
+                            </>
+                        )}
                         <Grid item>
                             <Grid container gap={7} my="3rem">
                                 <Heading variant="h2" color="primary">
                                     Purchase History
                                 </Heading>
                                 <PurchaseRequestSuccess
-                                    message="Your payment has been received, thank you for supporting
-                    EzTix!"
+                                    message={
+                                        isRecurring
+                                            ? "Your already paid for the ticket, thank you for supporting EzTix!"
+                                            : "We hope you’ve enjoyed the event, thank you for supporting EzTix!"
+                                    }
                                 />
                             </Grid>
                         </Grid>
                         <Grid item>
                             <OrderConfirmationTable
-                                Transactions={transaction}
-                                ServiceFee={10}
-                                FacilityCharge={10}
+                                orderItems={order.orderItems}
                             />
                         </Grid>
 
@@ -104,7 +125,7 @@ const ViewTicketPage = () => {
                             </Button>
                         </Grid>
                     </Grid>
-                </>
+                </Container>
             )}
         </>
     );

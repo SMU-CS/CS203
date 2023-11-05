@@ -1,7 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 import Home from "../pages/Home";
-import PublicRoute from "./routes/PublicRoute";
-import Login from "../pages/public/Login";
 import EventListing from "../pages/public/EventListing";
 import EventDetails from "../pages/public/EventDetails";
 import PurchaseRequest from "../pages/public/PurchaseRequest";
@@ -34,14 +32,6 @@ const router = createBrowserRouter([
             </BaseRoute>
         ),
         errorElement: <Error404 />,
-    },
-    {
-        path: "Login",
-        element: (
-            <PublicRoute>
-                <Login />
-            </PublicRoute>
-        ),
     },
     {
         path: "event",
@@ -142,9 +132,17 @@ const router = createBrowserRouter([
     {
         path: "view-ticket/:id",
         element: (
-            <PublicRoute>
-                <ViewTicketPage />
-            </PublicRoute>
+            <ProtectedRoute>
+                <ViewTicketPage isRecurring={true} />
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: "view-past-event/:id",
+        element: (
+            <ProtectedRoute>
+                <ViewTicketPage isRecurring={false} />
+            </ProtectedRoute>
         ),
     },
 ]);
