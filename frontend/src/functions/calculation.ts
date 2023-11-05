@@ -4,7 +4,7 @@ import { PurchaseRequestItemWithDetails } from "../types/pr";
 export const calcTicketPrice = (
     transactions: PurchaseRequestItemWithDetails[] | OrderItems[]
 ) => {
-    return transactions.reduce(
+    return (transactions as OrderItems[]).reduce(
         (accumulator, purchase) => accumulator + purchase.price,
         0
     );

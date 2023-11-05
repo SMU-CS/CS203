@@ -1,13 +1,8 @@
 import { Grid, Typography } from "@mui/material";
-import { EventDetailsType } from "../../../types/event";
 import EventTicketImg from "./EventTicketImg";
 import Heading from "../../common/headings/Heading";
 
-interface EventTicketProps {
-    event: EventDetailsType;
-}
-
-const EventTicket: React.FC<EventTicketProps> = ({ event }) => {
+const EventTicket: React.FC = () => {
     return (
         <Grid container direction="column" gap={3}>
             <Grid item>
@@ -23,7 +18,7 @@ const EventTicket: React.FC<EventTicketProps> = ({ event }) => {
                             width: { xs: "90%", sm: "80%", md: "70%" },
                         }}
                     >
-                        <EventTicketImg url={event.bannerURL} />
+                        <EventTicketImg />
                     </Grid>
                 </Grid>
                 <Grid container direction="row" justifyContent="center">

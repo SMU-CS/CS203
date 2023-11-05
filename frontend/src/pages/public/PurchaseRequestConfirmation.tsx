@@ -25,7 +25,7 @@ const PurchaseRequestConfirmation: React.FC = () => {
 
     return (
         !!pr && (
-            <Container maxWidth="md">
+            <Container sx={{ mt: "3rem" }} maxWidth="md">
                 <EventBanner
                     event={
                         {
