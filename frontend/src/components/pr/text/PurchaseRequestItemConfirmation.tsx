@@ -1,5 +1,7 @@
 import React from "react";
 import { Grid, Typography } from "@mui/material";
+import { OrderItems } from "../../../types/order";
+import { formatDateToDateWithDay } from "../../../functions/formatter";
 
 interface PRItemType {
     ticket_type_id: string;
@@ -12,7 +14,7 @@ interface PRItemType {
 }
 
 interface PurchaseRequestItemConfirmationProps {
-    item: PRItemType;
+    item: PRItemType | OrderItems;
 }
 
 const PurchaseRequestItemConfirmation: React.FC<
@@ -25,7 +27,13 @@ const PurchaseRequestItemConfirmation: React.FC<
                     <Typography variant="body2">x{item.quantity}</Typography>
                 </Grid>
                 <Grid width={"90%"}>
-                    <Typography variant="body2">{`${item.datetime} @ ${item.location} < ${item.type} >`}</Typography>
+                    <Typography variant="body2">{`${
+                        "datetime" in item
+                            ? item.datetime
+                            : formatDateToDateWithDay(new Date(item.startTime))
+                    } @ ${item.location} < ${
+                        "type" in item ? item.type : item.ticketType
+                    } >`}</Typography>
                 </Grid>
             </Grid>
             <Grid>

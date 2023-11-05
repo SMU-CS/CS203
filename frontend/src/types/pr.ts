@@ -1,3 +1,4 @@
+import { EventDetailsType } from "./event";
 import { SalesRoundAbstract } from "./salesround";
 
 export interface PurchaseRequestItem {
@@ -40,6 +41,13 @@ export interface PurchaseRequestConfirmationSuccess {
 export interface PurchaseRequestListing {
     id: number;
     eventName: string;
-    status: "processing" | "processed";
+    status: "submitted" | "processing" | "end";
     bannerURL: string;
+}
+
+export interface PurchaseRequestWithEvent extends PurchaseRequest {
+    id: number;
+    
+    event: EventDetailsType;
+
 }
