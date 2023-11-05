@@ -16,7 +16,10 @@ const NewPaymentMethodsSection: React.FC = () => {
                         New Payment Methods
                     </Heading>
                 </Grid>
+                <Grid item mx={4}>
                 <PaymentTextFields />
+
+                </Grid>
                 <Divider />
                 <Grid item>
                     <Grid
