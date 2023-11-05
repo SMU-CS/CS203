@@ -4,13 +4,18 @@ import {
     InputAdornment,
     TextField as MuiTextField,
 } from "@mui/material";
-import { useFormContext, Controller, RegisterOptions, FieldValues } from "react-hook-form";
+import {
+    useFormContext,
+    Controller,
+    RegisterOptions,
+    FieldValues,
+} from "react-hook-form";
 import { SvgIconComponent } from "@mui/icons-material";
 
 interface TextFieldProps extends BaseTextFieldProps {
     Icon?: SvgIconComponent;
     iconPosition?: "start" | "end";
-    rules?: RegisterOptions<FieldValues, string>
+    rules?: RegisterOptions<FieldValues, string>;
 }
 
 const TextField: React.FC<TextFieldProps> = ({
@@ -31,6 +36,7 @@ const TextField: React.FC<TextFieldProps> = ({
             {...props}
             control={control}
             rules={rules}
+            defaultValue=""
             name={name ? name : "text field"}
             render={({ field, fieldState }) => (
                 <MuiTextField

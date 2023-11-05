@@ -3,7 +3,7 @@ import PurchaseDetailsCard from "../../components/customer/PurchaseDetailsCard/P
 import { Grid, Container, Divider } from "@mui/material";
 import Heading from "../../components/common/headings/Heading";
 import Button from "../../components/common/buttons/Button";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import {
@@ -12,11 +12,13 @@ import {
 } from "../../axios/event/purchase_request";
 import { useKeycloak } from "@react-keycloak/web";
 import { PurchaseRequestItemWithDetails } from "../../types/pr";
+import PaymentCheckoutCard from "../../components/customer/checkout/PaymentCheckoutCard";
 
 type Cart = { id: number; quantity: number }[];
 
 const Checkout: React.FC = () => {
-    const { handleSubmit } = useForm();
+    const formState = useForm();
+    const { handleSubmit } = formState;
     const [items, setItems] = useState<Cart>([]);
     const navigate = useNavigate();
     const { state } = useLocation();
@@ -38,8 +40,8 @@ const Checkout: React.FC = () => {
         itemsMap.forEach((value, key) =>
             itemsAry.push({ id: parseInt(key), quantity: value })
         );
-        console.log(state)
-        console.log(itemsMap)
+        console.log(state);
+        console.log(itemsMap);
         setItems(itemsAry);
     }, [state]);
 
@@ -57,31 +59,32 @@ const Checkout: React.FC = () => {
 
     return (
         <Container maxWidth="xl">
-            <Grid container direction="column">
+            <Grid pt="3rem" container direction="column">
                 <Heading variant="h1" color="primary" sx={{ ml: "1rem" }}>
                     Checkout
                 </Heading>
                 <Grid item>
                     <Grid
                         container
-                        direction="row"
+                        direction="row-reverse"
                         justifyContent="space-around"
                     >
-                        <Grid item xs={5}>
-                            {/* <PaymentMethodsCard
-                                paymentMethodFormState={formState}
-                            /> */}
+                        <Grid item xs={12} md={6}>
+                            {prItemDetails.every((data) => data.isSuccess) &&
+                                pr && (
+                                    <PurchaseDetailsCard
+                                        prItems={prItemDetails.map(
+                                            (prItem) =>
+                                                prItem.data as PurchaseRequestItemWithDetails
+                                        )}
+                                        eventName={pr.name}
+                                    />
+                                )}
                         </Grid>
-                        <Grid item xs={6}>
-                            {prItemDetails.every((data) => data.isSuccess) && pr && (
-                                <PurchaseDetailsCard
-                                    prItems={prItemDetails.map(
-                                        (prItem) =>
-                                            prItem.data as PurchaseRequestItemWithDetails
-                                    )}
-                                    eventName={pr.name}
-                                />
-                            )}
+                        <Grid item xs={12} md={6}>
+                            <FormProvider {...formState}>
+                                <PaymentCheckoutCard />
+                            </FormProvider>
                         </Grid>
                     </Grid>
                 </Grid>
