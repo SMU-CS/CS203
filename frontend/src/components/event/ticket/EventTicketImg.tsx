@@ -2,11 +2,7 @@ import React from "react";
 import QRCode from "../../../assets/illustrations/QRCode.png";
 import { Box } from "@mui/material";
 
-interface EventTicketImgProps {
-    url: string;
-}
-
-const EventTicketImg: React.FC<EventTicketImgProps> = ({ url }) => {
+const EventTicketImg: React.FC = ({}) => {
     return (
         <Box
             sx={{

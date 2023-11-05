@@ -17,25 +17,7 @@ import SuccessMessage from "./components/common/snackbar/SuccessMessage";
 import InfoMessage from "./components/common/snackbar/InfoMessage";
 import { ReactKeycloakProvider } from "@react-keycloak/web";
 import keycloak from "./functions/keycloak";
-
-/*let initOptions = {
-    url: 'http://localhost:8080/',
-    realm: 'react-keycloak',
-    clientId: 'restClient',
-    onLoad: 'login-required',
-    KeycloakResponseType: 'code'
-}*/
-
-// const keycloak = new Keycloak({
-//     url: 'http://keycloak-alb-427916872.ap-southeast-1.elb.amazonaws.com/',
-//     realm: 'eztix',
-//     clientId: 'eztix-webapp'
-// });
-
-// keycloak.init({
-//     onLoad: 'check-sso',
-//     silentCheckSsoRedirectUri: `${location.origin}/silent-check-sso.html`
-// });
+import 'vite/modulepreload-polyfill'
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({

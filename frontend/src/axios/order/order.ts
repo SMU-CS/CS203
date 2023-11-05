@@ -17,7 +17,7 @@ export const getAllOrders = async (token?: string) => {
 
 export const getOrderById = async (id?: string, token?: string) => {
     try {
-        const { data: orderDirty } = await orderInstance.get(`${id}`, {
+        const { data: orderDirty } = await orderInstance.get(`/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -28,6 +28,20 @@ export const getOrderById = async (id?: string, token?: string) => {
             (item) => ({ ...item, location: orderDirty.eventLocation })
         );
         return { ...orderDirty, orderItems } as OrderDetails;
+    } catch (e) {
+        throw e;
+    }
+};
+
+export const checkout = async (id?: string, token?: string) => {
+    try {
+        const { data: receipt } = await orderInstance.post(`/checkout/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            withCredentials: true,
+        });
+        return receipt;
     } catch (e) {
         throw e;
     }

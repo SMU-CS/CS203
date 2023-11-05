@@ -8,27 +8,6 @@ import Heading from "../../components/common/headings/Heading";
 import OrderConfirmationTable from "../../components/event/list/OrderConfirmationTable";
 import PurchaseRequestSuccess from "../../components/pr/text/PurchaseRequestSuccess";
 
-const transaction = [
-    {
-        ticket_type_id: "1",
-        activity_id: "1",
-        type: "Standard - Cat A",
-        price: 50,
-        quantity: 1,
-        datetime: "02 Sep 2023 (Sat.) 06:00pm",
-        location: "Singapore Indoor Stadium",
-    },
-    {
-        ticket_type_id: "2",
-        activity_id: "1",
-        type: "Standard - Cat B",
-        price: 20,
-        quantity: 1,
-        datetime: "02 Sep 2023 (Sat.) 06:00pm",
-        location: "Singapore Indoor Stadium",
-    },
-];
-
 const OrderConfirmation = () => {
     const navigate = useNavigate();
     const { id } = useParams();
@@ -53,11 +32,7 @@ const OrderConfirmation = () => {
                 />
             </Grid>
 
-            <OrderConfirmationTable
-                Transactions={transaction}
-                ServiceFee={10}
-                FacilityCharge={10}
-            ></OrderConfirmationTable>
+            <OrderConfirmationTable orderItems={[]} />
 
             <Grid container direction="row" justifyContent="flex-end">
                 <Button
