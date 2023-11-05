@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Heading from "../../common/headings/Heading";
 import { useForm, FormProvider } from "react-hook-form";
-import { Profile } from "../../../types/profile";
+import { Profile, ProfileForm } from "../../../types/profile";
 
 import { Paper, Grid, Button, Divider, Container } from "@mui/material";
 import TextField from "../../common/form/TextField";
 import DateOfBirthTextField from "../../common/form/DateOfBirthTextField";
+import { useKeycloak } from "@react-keycloak/web";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import dayjs from "dayjs";
+import { updateUserProfile } from "../../../axios/profile/user";
 
 const textNames = [
     { name: "first_name", label: "First Name", type: "text" },
@@ -22,8 +26,62 @@ const textNames = [
 ];
 
 const ProfileDetailsCard: React.FC = () => {
-    const formState = useForm<Profile>();
-    const { handleSubmit, reset } = formState;
+    const formState = useForm<ProfileForm>();
+    const { handleSubmit, reset, setValue } = formState;
+    const {
+        keycloak: { loadUserProfile },
+        initialized,
+    } = useKeycloak();
+    const queryClient = useQueryClient();
+
+    const { data: profile } = useQuery({
+        queryKey: ["profileAttr", loadUserProfile],
+        queryFn: async () => {
+            const dirtyProfile = (await loadUserProfile()) as any;
+            console.log(dirtyProfile);
+            return {
+                id: dirtyProfile.id,
+                first_name: dirtyProfile.firstName,
+                last_name: dirtyProfile.lastName,
+                email: dirtyProfile.email,
+                contact: dirtyProfile.attributes.contact_number[0],
+                country: dirtyProfile.attributes.country[0],
+                date_of_birth: dirtyProfile.attributes.date_of_birth[0],
+                postal_code: dirtyProfile.attributes.postal_code[0],
+            } as Profile;
+        },
+        enabled: !!initialized,
+    });
+
+    const updateProfile = useMutation({
+        mutationFn: updateUserProfile,
+        onSuccess: () =>
+            queryClient.invalidateQueries({ queryKey: ["profileAttr"] }),
+    });
+
+    useEffect(() => {
+        if (!!profile) {
+            const {
+                id,
+                first_name,
+                last_name,
+                email,
+                contact,
+                date_of_birth,
+                country,
+                postal_code,
+            } = profile;
+
+            setValue("id", id);
+            setValue("first_name", first_name);
+            setValue("last_name", last_name);
+            setValue("email", email);
+            setValue("contact", contact);
+            setValue("date_of_birth", dayjs(date_of_birth));
+            setValue("country", country);
+            setValue("postal_code", postal_code);
+        }
+    }, [profile]);
 
     return (
         <FormProvider {...formState}>
@@ -97,9 +155,7 @@ const ProfileDetailsCard: React.FC = () => {
                                             type="submit"
                                             variant="contained"
                                             onClick={handleSubmit(
-                                                (data) => {
-                                                    console.log("data", data);
-                                                },
+                                                (data) => updateProfile.mutate(data),
                                                 (errors) => {
                                                     console.log(errors);
                                                 }
