@@ -16,6 +16,7 @@ import Error404 from "./routes/Error404";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Checkout from "../pages/customer/Checkout";
 import ViewTicketPage from "../pages/order/ViewTicketPage";
+import ViewPurchaseRequest from "../pages/customer/ViewPurchaseRequest";
 
 /**
     Creates a browser router with react-router-dom
@@ -132,6 +133,14 @@ const router = createBrowserRouter([
         element: (
             <ProtectedRoute>
                 <ViewTicketPage isRecurring={false} />
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: "view-purchase/:id",
+        element: (
+            <ProtectedRoute>
+                <ViewPurchaseRequest />
             </ProtectedRoute>
         ),
     },
