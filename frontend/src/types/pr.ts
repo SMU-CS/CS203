@@ -41,13 +41,12 @@ export interface PurchaseRequestConfirmationSuccess {
 export interface PurchaseRequestListing {
     id: number;
     eventName: string;
-    status: "submitted" | "processing" | "end";
+    status: "submitted" | "processing";
     bannerURL: string;
 }
 
 export interface PurchaseRequestWithEvent extends PurchaseRequest {
     id: number;
-    
-    event: EventDetailsType;
 
+    event: EventDetailsType;
 }
