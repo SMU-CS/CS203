@@ -36,14 +36,6 @@ const cardStats = {
         location: "/fulfil",
     },
 
-    end: {
-        buttonColor: "success",
-        chipColor: "#5CB85C",
-        buttonText: "View Purchased Items",
-        chipText: "Paid Purchase Request",
-        location: "/view-purchase",
-    },
-
     recurring: {
         buttonColor: "primary",
         chipColor: "primary.light",
