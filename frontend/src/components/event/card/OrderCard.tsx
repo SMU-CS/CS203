@@ -6,7 +6,6 @@ import {
     Typography,
     CardProps,
     Button,
-    CardActionArea,
     CardActions,
     Chip,
 } from "@mui/material";
@@ -68,54 +67,44 @@ const OrderCard: React.FC<OrderCardProps> = ({ event, ...props }) => {
 
     return (
         <Card {...props}>
-            <CardActionArea onClick={() => navigate(`/event/${id}`)}>
-                <CardMedia
+            <CardMedia
+                sx={{
+                    width: "100%",
+                    height: { xs: "6rem", sm: "8rem", md: "10rem" },
+                }}
+                image={bannerURL}
+            />
+            <CardContent>
+                <Grid
+                    container
                     sx={{
-                        width: "100%",
-                        height: { xs: "6rem", sm: "8rem", md: "10rem" },
+                        height: { xs: "120px", sm: "150px", md: "180px" },
                     }}
-                    image={bannerURL}
-                />
-                <CardContent>
-                    <Grid
-                        container
-                        sx={{
-                            height: { xs: "120px", sm: "150px", md: "180px" },
-                        }}
-                        direction="column"
-                    >
-                        <Grid item>
-                            <Chip
-                                sx={{
-                                    color: "#fff",
-                                    bgcolor:
-                                        cardStats[status as StatusType]
-                                            .chipColor,
-                                }}
-                                label={
-                                    <Typography
-                                        fontFamily="subtitle2"
-                                        fontWeight="bold"
-                                    >
-                                        {
-                                            cardStats[status as StatusType]
-                                                .chipText
-                                        }
-                                    </Typography>
-                                }
-                            />
-                        </Grid>
-
-                        <Typography
-                            variant="body1"
-                            fontWeight="bold"
-                            mt={"0.5rem"}
-                        >
-                            {eventName}
-                        </Typography>
+                    direction="column"
+                >
+                    <Grid item>
+                        <Chip
+                            sx={{
+                                color: "#fff",
+                                bgcolor:
+                                    cardStats[status as StatusType].chipColor,
+                            }}
+                            label={
+                                <Typography
+                                    fontFamily="subtitle2"
+                                    fontWeight="bold"
+                                >
+                                    {cardStats[status as StatusType].chipText}
+                                </Typography>
+                            }
+                        />
                     </Grid>
-                </CardContent>
-            </CardActionArea>
+
+                    <Typography variant="body1" fontWeight="bold" mt={"0.5rem"}>
+                        {eventName}
+                    </Typography>
+                </Grid>
+            </CardContent>
             <Grid sx={{ ml: "0.5rem", mb: "0.5rem" }}>
                 <CardActions>
                     <Button
