@@ -1,5 +1,6 @@
+import { StripeCart } from "../../types/cart";
 import { OrderDetails, OrderListing } from "../../types/order";
-import { orderInstance } from "../instance";
+import { checkoutInstance, orderInstance } from "../instance";
 
 export const getAllOrders = async (token?: string) => {
     try {
@@ -33,15 +34,20 @@ export const getOrderById = async (id?: string, token?: string) => {
     }
 };
 
-export const checkout = async (id?: string, token?: string) => {
+export const checkout = async (checkoutData: StripeCart, token?: string) => {
     try {
-        const { data: receipt } = await orderInstance.post(`/checkout/${id}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-            withCredentials: true,
-        });
-        return receipt;
+        const { data: url } = await checkoutInstance.post(
+            `/hosted`,
+            checkoutData,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                withCredentials: true,
+            }
+        );
+        window.location.href = url;
+        return;
     } catch (e) {
         throw e;
     }
