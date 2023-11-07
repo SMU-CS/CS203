@@ -52,3 +52,22 @@ export const checkout = async (checkoutData: StripeCart, token?: string) => {
         throw e;
     }
 };
+
+export const getOrderByPRId = async (id?: string, token?:string) => {
+    try{
+        const { data: orderDirty } = await orderInstance.get(`/purchase-request/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            withCredentials: true,
+        });
+
+        const orderItems = (orderDirty as OrderDetails).orderItems.map(
+            (item) => ({ ...item, location: orderDirty.eventLocation })
+        );
+        
+        return { ...orderDirty, orderItems } as OrderDetails;
+    }catch(e){
+        throw e
+    }
+}

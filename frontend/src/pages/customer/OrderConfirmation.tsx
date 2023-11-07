@@ -1,34 +1,57 @@
 import { useNavigate, useParams } from "react-router-dom";
 import EventBanner from "../../components/event/banner/EventBanner";
 import { useQuery } from "@tanstack/react-query";
-import { getEvent } from "../../axios/event/event";
 import EventBannerSkeleton from "../../components/event/banner/EventBannerSkeleton";
 import { Button, Container, Grid } from "@mui/material";
 import Heading from "../../components/common/headings/Heading";
 import OrderConfirmationTable from "../../components/event/list/OrderConfirmationTable";
 import PurchaseRequestSuccess from "../../components/pr/text/PurchaseRequestSuccess";
 import EventBreadcrumb from "../../components/event/navigations/EventBreadcrumb";
+import { getOrderByPRId } from "../../axios/order/order";
+import { formatDateToDateWithDay } from "../../functions/formatter";
+import { EventDetailsType } from "../../types/event";
 
 const OrderConfirmation = () => {
     const navigate = useNavigate();
     const { id } = useParams();
 
-    const { data: event } = useQuery({
-        queryKey: ["eventDetails", id],
-        queryFn: () => getEvent(id),
+    const { data: order } = useQuery({
+        queryKey: ["orderByPR", id],
+        queryFn: () => getOrderByPRId(id),
     });
 
     return (
         <>
-            {!!event && (
-                <EventBreadcrumb eventId={event.id} eventName={event.name} />
+            {!!order && (
+                <EventBreadcrumb
+                    eventId={order.eventId}
+                    eventName={order.eventName}
+                />
             )}
             <Container maxWidth="lg">
                 <Grid container gap={7} my="3rem">
-                    {!event ? (
+                    {!order ? (
                         <EventBannerSkeleton />
                     ) : (
-                        <EventBanner event={event} />
+                        <EventBanner
+                            event={
+                                {
+                                    id: order.eventId,
+                                    name: order.eventName,
+                                    category: order.eventCategory,
+                                    artist: order.eventArtist,
+                                    start_datetime: formatDateToDateWithDay(
+                                        new Date(order.eventStartTime)
+                                    ),
+                                    end_datetime: formatDateToDateWithDay(
+                                        new Date(order.eventEndTime)
+                                    ),
+                                    bannerURL: order.eventBannerURL,
+                                    seatMapURL: order.eventSeatMapURL,
+                                    location: order.eventLocation,
+                                } as EventDetailsType
+                            }
+                        />
                     )}
                     <Heading color="primary">Order Confirmation</Heading>
                     <PurchaseRequestSuccess
@@ -37,8 +60,9 @@ const OrderConfirmation = () => {
                     />
                 </Grid>
 
-                <OrderConfirmationTable orderItems={[]} />
-
+                {!!order && (
+                    <OrderConfirmationTable orderItems={order?.orderItems} />
+                )}
                 <Grid container direction="row" justifyContent="flex-end">
                     <Button
                         color="primary"

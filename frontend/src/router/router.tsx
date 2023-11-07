@@ -81,15 +81,6 @@ const router = createBrowserRouter([
             </ProtectedRoute>
         ),
     },
-    // {
-    //     path: "view-purchase/:id",
-    //     element: (
-    //         <ProtectedRoute>
-    //             <ViewPurchaseRequest />
-    //         </ProtectedRoute>
-    //     ),
-    // },
-    // Order Routes
     {
         path: "orders",
         element: (
