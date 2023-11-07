@@ -5,13 +5,13 @@ import { Typography } from "@mui/material";
 interface EventBreadCrumbLinksProps {
     to: string;
     bold?: boolean;
-    text: string;
+    children: string;
 }
 
 const EventBreadCrumbLinks: React.FC<EventBreadCrumbLinksProps> = ({
     to,
     bold,
-    text,
+    children,
 }) => {
     return (
         <Link to={to} style={{ color: "black", textDecoration: "none" }}>
@@ -19,7 +19,7 @@ const EventBreadCrumbLinks: React.FC<EventBreadCrumbLinksProps> = ({
                 fontWeight={bold ? "bold" : "normal"}
                 variant="subtitle1"
             >
-                {text}
+                {children}
             </Typography>
         </Link>
     );

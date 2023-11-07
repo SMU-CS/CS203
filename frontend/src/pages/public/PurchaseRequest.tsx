@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getEvent } from "../../axios/event/event";
 import SeatMapDialog from "../../components/public/dialog/SeatMapDialog";
 import { useTitle } from "../../custom-hooks/useTitle";
-import BreadCrumb from "../../components/event/navigations/EventBreadcrumb";
+import EventBreadcrumb from "../../components/event/navigations/EventBreadcrumb";
 
 const PurchaseRequest: React.FC = () => {
     const [setTitle] = useTitle("Server Error");
@@ -29,7 +29,7 @@ const PurchaseRequest: React.FC = () => {
         <>
             {event && (
                 <>
-                    <BreadCrumb event={event} page="pr-request" />
+                    <EventBreadcrumb eventId={event.id} eventName={event.name} />
 
                     <Container maxWidth="md">
                         <EventBanner event={event} />
@@ -39,7 +39,10 @@ const PurchaseRequest: React.FC = () => {
                         <Box padding="1rem" />
                         <SeatMapDialog src={event.seatMapURL} />
                         <Box padding="1rem" />
-                        <MakePRTable eventId={event.id} activities={event.activities} />
+                        <MakePRTable
+                            eventId={event.id}
+                            activities={event.activities}
+                        />
                     </Container>
                 </>
             )}
