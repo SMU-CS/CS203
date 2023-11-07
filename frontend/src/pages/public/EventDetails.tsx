@@ -36,7 +36,9 @@ const EventDetails = () => {
     return (
         <>
             <TabBar active={activeTab} />
-            {event && <EventBreadcrumb page="event-details" event={event}/>}
+            {event && (
+                <EventBreadcrumb eventId={event.id} eventName={event.name} />
+            )}
 
             <Container maxWidth="lg">
                 <Grid container gap={7} my="3rem">
