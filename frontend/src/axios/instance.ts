@@ -38,6 +38,9 @@ export const prInstance = axios.create(
 
 // Order microservice instances
 export const orderInstance = axios.create(configureInstance("order", "order"));
+export const checkoutInstance = axios.create(
+    configureInstance("checkout", "order")
+);
 
 // User Profile Keycloak service instance
 export const userKeycloakService = axios.create(
