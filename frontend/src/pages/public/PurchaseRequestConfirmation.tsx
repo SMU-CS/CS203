@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import EventBanner from "../../components/event/banner/EventBanner";
 import Heading from "../../components/common/headings/Heading";
 import { Container, Box, Grid } from "@mui/material";
@@ -13,16 +13,24 @@ import { useKeycloak } from "@react-keycloak/web";
 import { formatDateToDateWithDay } from "../../functions/formatter";
 import SalesRoundStepper from "../../components/event/stepper/SalesRoundStepper";
 import EventBreadcrumb from "../../components/event/navigations/EventBreadcrumb";
+import { useTitle } from "../../custom-hooks/useTitle";
 
 const PurchaseRequestConfirmation: React.FC = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { keycloak } = useKeycloak();
+    const [setTitle] = useTitle("Server Error");
 
     const { data: pr } = useQuery({
         queryKey: ["prConfirmation", id],
         queryFn: () => getPRconfirmation(id, keycloak.token),
     });
+
+    useEffect(() => {
+        if (!!pr) {
+            setTitle("PR Confirmation");
+        }
+    }, [setTitle, pr]);
 
     return (
         !!pr && (

@@ -3,14 +3,22 @@ import { Grid } from "@mui/material";
 import OrderCard from "../../components/event/card/OrderCard";
 import { useKeycloak } from "@react-keycloak/web";
 import { getAllPRs } from "../../axios/event/purchase_request";
+import { useTitle } from "../../custom-hooks/useTitle";
+import { useEffect } from "react";
 
 const OrderPR = () => {
     const { keycloak } = useKeycloak();
-
+    const [setTitle] = useTitle("Server Error");
     const { data: prs } = useQuery({
         queryKey: ["prListing", keycloak.token],
         queryFn: () => getAllPRs(keycloak.token),
     });
+
+    useEffect(() => {
+        if (!!prs) {
+            setTitle("Purchase Requests");
+        }
+    }, [setTitle, prs]);
 
     return (
         <>

@@ -19,6 +19,8 @@ import { getOrderById } from "../../axios/order/order";
 import { formatDateToDateWithDay } from "../../functions/formatter";
 import QRCode from "../../assets/illustrations/QRCode.png";
 import EventBreadcrumb from "../../components/event/navigations/EventBreadcrumb";
+import { useEffect } from "react";
+import { useTitle } from "../../custom-hooks/useTitle";
 
 interface ViewTicketPageProps {
     isRecurring: boolean;
@@ -28,11 +30,18 @@ const ViewTicketPage: React.FC<ViewTicketPageProps> = ({ isRecurring }) => {
     const { id } = useParams();
     const { keycloak } = useKeycloak();
     const navigate = useNavigate();
+    const [setTitle] = useTitle("Server Error");
 
     const { data: order } = useQuery({
         queryKey: ["order", id],
         queryFn: () => getOrderById(id, keycloak.token),
     });
+
+    useEffect(() => {
+        if (!!order) {
+            setTitle("Fulfil Purchase Requests");
+        }
+    }, [setTitle, order]);
 
     return (
         <>

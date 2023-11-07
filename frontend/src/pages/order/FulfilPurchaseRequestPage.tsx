@@ -10,19 +10,27 @@ import { getPRconfirmation } from "../../axios/event/purchase_request";
 import { formatDateToDateWithDay } from "../../functions/formatter";
 import { EventDetailsType } from "../../types/event";
 import { FormProvider, useForm } from "react-hook-form";
+import { useEffect } from "react";
+import { useTitle } from "../../custom-hooks/useTitle";
 
 const FulfilPurchaseRequestPage = () => {
     const { id } = useParams();
     const { keycloak } = useKeycloak();
+    const navigate = useNavigate();
+    const formState = useForm();
+    const { handleSubmit } = formState;
+    const [setTitle] = useTitle("Server Error");
 
     const { data: pr } = useQuery({
         queryKey: ["prConfirmation", id],
         queryFn: () => getPRconfirmation(id, keycloak.token),
     });
 
-    const navigate = useNavigate();
-    const formState = useForm();
-    const { handleSubmit } = formState;
+    useEffect(() => {
+        if (!!pr) {
+            setTitle("Fulfil Purchase Requests");
+        }
+    }, [setTitle, pr]);
 
     return (
         <>
