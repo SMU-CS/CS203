@@ -74,7 +74,7 @@ const MakePRTableRows: React.FC<MakePRTableRowsProps> = ({
                         },
                         max: {
                             value: 4,
-                            message: "Max. is 1",
+                            message: "Max. is 4",
                         },
                     }}
                     name={`purchase_requests.${index}.quantity`}

@@ -22,6 +22,8 @@ import { PurchaseRequestForm, PurchaseRequestItem } from "../../../../types/pr";
 import { createPR } from "../../../../axios/event/purchase_request";
 import { useNavigate } from "react-router-dom";
 import { useKeycloak } from "@react-keycloak/web";
+import { useMutation } from "@tanstack/react-query";
+import { enqueueSnackbar } from "notistack";
 
 interface MakePRTableProps extends TableProps {
     activities: Activity[];
@@ -53,6 +55,25 @@ const MakePRTable: React.FC<MakePRTableProps> = ({
     });
     const navigate = useNavigate();
     const { keycloak } = useKeycloak();
+
+    const submitRequest = useMutation({
+        mutationFn: (payload: PurchaseRequestForm) =>
+            createPR(payload, keycloak.token),
+        onSuccess: (id) => {
+            enqueueSnackbar("Your Purchase Request has been submitted", {
+                variant: "success",
+            });
+            navigate(`/confirmation/${id}`);
+        },
+        onError: () => {
+            enqueueSnackbar(
+                "Your Purchase Request has exceeded the ticket limit of 4!",
+                {
+                    variant: "error",
+                }
+            );
+        },
+    });
 
     return (
         <FormProvider {...form}>
@@ -122,8 +143,7 @@ const MakePRTable: React.FC<MakePRTableProps> = ({
                                             } as PurchaseRequestItem)
                                     ),
                             };
-                            const id = await createPR(payload, keycloak.token);
-                            navigate(`/confirmation/${id}`);
+                            submitRequest.mutate(payload);
                         })}
                         variant="contained"
                         color="primary"
