@@ -13,7 +13,6 @@ type PageType =
     | "purchase"
     | "confirmation"
     | "fulfil"
-    | "view-purchase"
     | "orders"
     | "view-ticket"
     | "view-past-event";
@@ -22,7 +21,6 @@ const additionalRoutes = {
     purchase: "Buy Ticket",
     confirmation: "Purchase Request Confirmation",
     fulfil: "Fulfill Purchase Request",
-    "view-purchase": "View Purchase Request",
     orders: "Payment Confirmation",
     "view-ticket": "View Ticket",
     "view-past-event": "View History",
