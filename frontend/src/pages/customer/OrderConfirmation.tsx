@@ -10,14 +10,16 @@ import EventBreadcrumb from "../../components/event/navigations/EventBreadcrumb"
 import { getOrderByPRId } from "../../axios/order/order";
 import { formatDateToDateWithDay } from "../../functions/formatter";
 import { EventDetailsType } from "../../types/event";
+import { useKeycloak } from "@react-keycloak/web";
 
 const OrderConfirmation = () => {
     const navigate = useNavigate();
     const { id } = useParams();
+    const { keycloak } = useKeycloak();
 
     const { data: order } = useQuery({
         queryKey: ["orderByPR", id],
-        queryFn: () => getOrderByPRId(id),
+        queryFn: () => getOrderByPRId(id, keycloak.token),
     });
 
     return (
