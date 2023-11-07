@@ -5,7 +5,8 @@ export const calcTicketPrice = (
     transactions: PurchaseRequestItemWithDetails[] | OrderItems[]
 ) => {
     return (transactions as OrderItems[]).reduce(
-        (accumulator, purchase) => accumulator + purchase.price,
+        (accumulator, purchase) =>
+            accumulator + purchase.price * purchase.quantity,
         0
     );
 };

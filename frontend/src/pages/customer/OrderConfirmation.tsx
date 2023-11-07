@@ -30,7 +30,7 @@ const OrderConfirmation = () => {
                     eventName={order.eventName}
                 />
             )}
-            <Container maxWidth="lg">
+            <Container maxWidth="lg" sx={{mb:"3rem"}}>
                 <Grid container gap={7} my="3rem">
                     {!order ? (
                         <EventBannerSkeleton />
