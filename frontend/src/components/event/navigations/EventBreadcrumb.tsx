@@ -39,7 +39,7 @@ const EventBreadCrumb: React.FC<EventBreadCrumbProps> = ({
     const currentPath = location.pathname.split("/")[1];
 
     return (
-        <Container maxWidth="xl" sx={{ m: "1rem" }}>
+        <Container maxWidth="xl" sx={{ p: "1rem" }}>
             <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />}>
                 {defaultPages.map(({ to, text }) => (
                     <EventBreadCrumbLinks key={text} to={to}>
