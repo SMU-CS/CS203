@@ -11,16 +11,25 @@ import { getOrderByPRId } from "../../axios/order/order";
 import { formatDateToDateWithDay } from "../../functions/formatter";
 import { EventDetailsType } from "../../types/event";
 import { useKeycloak } from "@react-keycloak/web";
+import { useEffect } from "react";
+import { useTitle } from "../../custom-hooks/useTitle";
 
 const OrderConfirmation = () => {
     const navigate = useNavigate();
     const { id } = useParams();
     const { keycloak } = useKeycloak();
+    const [setTitle] = useTitle("Server Error");
 
     const { data: order } = useQuery({
         queryKey: ["orderByPR", id],
         queryFn: () => getOrderByPRId(id, keycloak.token),
     });
+
+    useEffect(() => {
+        if (!!order) {
+            setTitle("Order Confirmation");
+        }
+    }, [setTitle, order]);
 
     return (
         <>

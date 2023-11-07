@@ -14,6 +14,7 @@ import { PurchaseRequestItemWithDetails } from "../../types/pr";
 import { Cart, StripeCart } from "../../types/cart";
 import { formatDateToDateWithDay } from "../../functions/formatter";
 import { checkout } from "../../axios/order/order";
+import { useTitle } from "../../custom-hooks/useTitle";
 
 const Checkout: React.FC = () => {
     const [items, setItems] = useState<Cart>([]);
@@ -21,6 +22,7 @@ const Checkout: React.FC = () => {
     const { state } = useLocation();
     const { id } = useParams();
     const { keycloak } = useKeycloak();
+    const [setTitle] = useTitle("Error");
 
     useEffect(() => {
         if (!state) {
@@ -42,6 +44,12 @@ const Checkout: React.FC = () => {
         );
         setItems(itemsAry);
     }, [state]);
+
+    useEffect(() => {
+        if (!!id) {
+            setTitle("Checkout");
+        }
+    }, [setTitle, id]);
 
     const prItemDetails = useQueries({
         queries: items.map(({ id, quantity }) => ({
