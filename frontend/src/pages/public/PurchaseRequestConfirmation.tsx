@@ -12,6 +12,7 @@ import { EventDetailsType } from "../../types/event";
 import { useKeycloak } from "@react-keycloak/web";
 import { formatDateToDateWithDay } from "../../functions/formatter";
 import SalesRoundStepper from "../../components/event/stepper/SalesRoundStepper";
+import EventBreadcrumb from "../../components/event/navigations/EventBreadcrumb";
 
 const PurchaseRequestConfirmation: React.FC = () => {
     const { id } = useParams();
@@ -25,55 +26,58 @@ const PurchaseRequestConfirmation: React.FC = () => {
 
     return (
         !!pr && (
-            <Container sx={{ mt: "3rem" }} maxWidth="md">
-                <EventBanner
-                    event={
-                        {
-                            id: pr.id,
-                            name: pr.name,
-                            start_datetime: formatDateToDateWithDay(
-                                new Date(pr.startDateTime)
-                            ),
-                            end_datetime: formatDateToDateWithDay(
-                                new Date(pr.endDateTime)
-                            ),
-                            description: pr.description,
-                            bannerURL: pr.bannerURL,
-                            location: pr.location,
-                        } as EventDetailsType
-                    }
-                />
-                <Heading variant="h1" color="primary">
-                    Purchase Request Confirmation
-                </Heading>
-                <Box py="3rem">
-                    <SalesRoundStepper salesrounds={pr.salesRound} />
-                </Box>
-                <PurchaseRequestSuccess message="Your Purchase Request has been successfully submitted!" />
-                <Grid container my="2rem">
-                    {pr.purchaseRequest.purchaseRequestItems.map((item) => (
-                        <PurchaseRequestItem
-                            key={item.ticketType}
-                            item={item}
-                            location={pr.location}
-                        />
-                    ))}
-                </Grid>
-                <Grid
-                    my="4rem"
-                    container
-                    display="flex"
-                    direction="row-reverse"
-                >
-                    <Button
-                        onClick={() => navigate("/")}
-                        variant="contained"
-                        color="primary"
+            <>
+                <EventBreadcrumb eventId={pr.id} eventName={pr.name} />
+                <Container sx={{ mt: "3rem" }} maxWidth="md">
+                    <EventBanner
+                        event={
+                            {
+                                id: pr.id,
+                                name: pr.name,
+                                start_datetime: formatDateToDateWithDay(
+                                    new Date(pr.startDateTime)
+                                ),
+                                end_datetime: formatDateToDateWithDay(
+                                    new Date(pr.endDateTime)
+                                ),
+                                description: pr.description,
+                                bannerURL: pr.bannerURL,
+                                location: pr.location,
+                            } as EventDetailsType
+                        }
+                    />
+                    <Heading variant="h1" color="primary">
+                        Purchase Request Confirmation
+                    </Heading>
+                    <Box py="3rem">
+                        <SalesRoundStepper salesrounds={pr.salesRound} />
+                    </Box>
+                    <PurchaseRequestSuccess message="Your Purchase Request has been successfully submitted!" />
+                    <Grid container my="2rem">
+                        {pr.purchaseRequest.purchaseRequestItems.map((item) => (
+                            <PurchaseRequestItem
+                                key={item.ticketType}
+                                item={item}
+                                location={pr.location}
+                            />
+                        ))}
+                    </Grid>
+                    <Grid
+                        my="4rem"
+                        container
+                        display="flex"
+                        direction="row-reverse"
                     >
-                        Browse Other Events
-                    </Button>
-                </Grid>
-            </Container>
+                        <Button
+                            onClick={() => navigate("/")}
+                            variant="contained"
+                            color="primary"
+                        >
+                            Browse Other Events
+                        </Button>
+                    </Grid>
+                </Container>
+            </>
         )
     );
 };

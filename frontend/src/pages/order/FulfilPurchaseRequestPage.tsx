@@ -28,24 +28,8 @@ const FulfilPurchaseRequestPage = () => {
         <>
             {pr && (
                 <>
-                    <EventBreadCrumb
-                        page="pr-request"
-                        event={
-                            {
-                                id: pr.id,
-                                name: pr.name,
-                                start_datetime: formatDateToDateWithDay(
-                                    new Date(pr.startDateTime)
-                                ),
-                                end_datetime: formatDateToDateWithDay(
-                                    new Date(pr.endDateTime)
-                                ),
-                                description: pr.description,
-                                bannerURL: pr.bannerURL,
-                                location: pr.location,
-                            } as EventDetailsType
-                        }
-                    />
+                    <EventBreadCrumb eventId={pr.id} eventName={pr.name} />
+
                     <Grid
                         sx={{
                             display: "flex",

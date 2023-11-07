@@ -2,59 +2,66 @@ import { Container } from "@mui/material";
 import { Breadcrumbs } from "@mui/material";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import EventBreadCrumbLinks from "./EventBreadcrumbLinks";
-import { EventDetailsType } from "../../../types/event";
+import { useLocation } from "react-router-dom";
 
 const defaultPages = [
     { to: "/", text: "Home" },
     { to: "/event", text: "Events" },
 ];
 
+type PageType =
+    | "purchase"
+    | "confirmation"
+    | "fulfil"
+    | "view-purchase"
+    | "orders"
+    | "view-ticket"
+    | "view-past-event";
+
+const additionalRoutes = {
+    purchase: "Buy Ticket",
+    confirmation: "Purchase Request Confirmation",
+    fulfil: "Fulfill Purchase Request",
+    "view-purchase": "View Purchase Request",
+    orders: "Payment Confirmation",
+    "view-ticket": "View Ticket",
+    "view-past-event": "View History",
+};
+
 interface EventBreadCrumbProps {
-    page: "event-details" | "buy-tickets" | "pr-request" | "view-ticket";
-    event: EventDetailsType;
+    eventId: string | number;
+    eventName: string;
 }
 
-const EventBreadCrumb: React.FC<EventBreadCrumbProps> = ({ page, event }) => {
+const EventBreadCrumb: React.FC<EventBreadCrumbProps> = ({
+    eventId,
+    eventName,
+}) => {
+    const location = useLocation();
+    const currentPath = location.pathname.split("/")[1];
+
     return (
         <Container maxWidth="xl" sx={{ m: "1rem" }}>
             <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />}>
                 {defaultPages.map(({ to, text }) => (
-                    <EventBreadCrumbLinks
-                        key={text}
-                        to={to}
-                        text={text}
-                    />
+                    <EventBreadCrumbLinks key={text} to={to}>
+                        {text}
+                    </EventBreadCrumbLinks>
                 ))}
 
                 <EventBreadCrumbLinks
-                    key={event.id}
-                    to={`/event/${event.id}`}
-                    text={event.name}
-                    bold={page === "event-details"}
-                />
-                {page === "buy-tickets" && (
-                    <EventBreadCrumbLinks
-                        key="tickets"
-                        text="Buy Tickets"
-                        to={`/purchase/${event.id}`}
-                        bold
-                    />
-                )}
-                {page === "pr-request" && (
-                    <EventBreadCrumbLinks
-                        key="tickets"
-                        text="Purchase Request Confirmation"
-                        to={`/view-purchase/${event.id}`}
-                        bold
-                    />
-                )}
-                {page === "view-ticket" && (
-                    <EventBreadCrumbLinks
-                        key="tickets"
-                        text="View Ticket"
-                        to={`/view-purchase/${event.id}`}
-                        bold
-                    />
+                    to={`/event/${eventId}`}
+                    bold={currentPath === "event"}
+                >
+                    {eventName}
+                </EventBreadCrumbLinks>
+
+                {currentPath !== "event" && (
+                    <EventBreadCrumbLinks to={``} bold>
+                        {additionalRoutes[currentPath as PageType]
+                            ? additionalRoutes[currentPath as PageType]
+                            : "View"}
+                    </EventBreadCrumbLinks>
                 )}
             </Breadcrumbs>
         </Container>

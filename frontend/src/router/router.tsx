@@ -23,6 +23,7 @@ import ViewPurchaseRequest from "../pages/customer/ViewPurchaseRequest";
     @returns { Router } returns a BrowserRouter
 */
 const router = createBrowserRouter([
+    // Public Routes
     {
         path: "/",
         element: (
@@ -56,6 +57,7 @@ const router = createBrowserRouter([
             </BaseRoute>
         ),
     },
+    // PR Routes
     {
         path: "confirmation/:id",
         element: (
@@ -64,6 +66,31 @@ const router = createBrowserRouter([
             </ProtectedRoute>
         ),
     },
+    {
+        path: "fulfil/:id",
+        element: (
+            <ProtectedRoute>
+                <FulfilPurchaseRequestPage />
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: "checkout/:id",
+        element: (
+            <ProtectedRoute>
+                <Checkout />
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: "view-purchase/:id",
+        element: (
+            <ProtectedRoute>
+                <ViewPurchaseRequest />
+            </ProtectedRoute>
+        ),
+    },
+    // Order Routes
     {
         path: "orders",
         element: (
@@ -83,40 +110,10 @@ const router = createBrowserRouter([
         ],
     },
     {
-        path: "/profile",
-        element: (
-            <ProtectedRoute>
-                <ProfileDetails />
-            </ProtectedRoute>
-        ),
-        children: [
-            {
-                path: "/profile",
-                element: <ProfileDetailsCard />,
-            },
-        ],
-    },
-    {
-        path: "fulfil/:id",
-        element: (
-            <ProtectedRoute>
-                <FulfilPurchaseRequestPage />
-            </ProtectedRoute>
-        ),
-    },
-    {
         path: "order/:id",
         element: (
             <ProtectedRoute>
                 <OrderConfirmation />
-            </ProtectedRoute>
-        ),
-    },
-    {
-        path: "checkout/:id",
-        element: (
-            <ProtectedRoute>
-                <Checkout />
             </ProtectedRoute>
         ),
     },
@@ -136,13 +133,20 @@ const router = createBrowserRouter([
             </ProtectedRoute>
         ),
     },
+    // Profile Routes
     {
-        path: "view-purchase/:id",
+        path: "/profile",
         element: (
             <ProtectedRoute>
-                <ViewPurchaseRequest />
+                <ProfileDetails />
             </ProtectedRoute>
         ),
+        children: [
+            {
+                path: "/profile",
+                element: <ProfileDetailsCard />,
+            },
+        ],
     },
 ]);
 

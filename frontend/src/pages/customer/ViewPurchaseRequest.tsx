@@ -9,6 +9,7 @@ import { formatDateToDateWithDay } from "../../functions/formatter";
 import { EventDetailsType } from "../../types/event";
 import { getPRconfirmation } from "../../axios/event/purchase_request";
 import ViewPurchaseRequestTable from "../../components/event/table/ViewPurchaseRequestTable";
+import EventBreadcrumb from "../../components/event/navigations/EventBreadcrumb";
 
 interface ViewPurchaseRequestProps {
     // : string;
@@ -27,55 +28,58 @@ const ViewPurchaseRequest: React.FC<ViewPurchaseRequestProps> = ({}) => {
     return (
         <>
             {pr && (
-                <Container sx={{ mt: "3rem" }} maxWidth="md">
-                    <Grid direction="column" alignContent="center">
-                        <EventBanner
-                            event={
-                                {
-                                    id: pr.id,
-                                    name: pr.name,
-                                    start_datetime: formatDateToDateWithDay(
-                                        new Date(pr.startDateTime)
-                                    ),
-                                    end_datetime: formatDateToDateWithDay(
-                                        new Date(pr.endDateTime)
-                                    ),
-                                    description: pr.description,
-                                    bannerURL: pr.bannerURL,
-                                    location: pr.location,
-                                } as EventDetailsType
-                            }
-                        />
-
-                        <Grid container rowGap={3} sx={{ py: "2rem" }}>
-                            <Heading color="primary" variant="h2">
-                                View Purchase Request
-                            </Heading>
-                            <ViewPurchaseRequestTable
-                                prItems={
-                                    pr.purchaseRequest.purchaseRequestItems
+                <>
+                    <EventBreadcrumb eventId={pr.id} eventName={pr.name} />
+                    <Container sx={{ mt: "3rem" }} maxWidth="md">
+                        <Grid direction="column" alignContent="center">
+                            <EventBanner
+                                event={
+                                    {
+                                        id: pr.id,
+                                        name: pr.name,
+                                        start_datetime: formatDateToDateWithDay(
+                                            new Date(pr.startDateTime)
+                                        ),
+                                        end_datetime: formatDateToDateWithDay(
+                                            new Date(pr.endDateTime)
+                                        ),
+                                        description: pr.description,
+                                        bannerURL: pr.bannerURL,
+                                        location: pr.location,
+                                    } as EventDetailsType
                                 }
                             />
-                        </Grid>
-                        <Grid item sx={{ py: "2rem" }}>
-                            <Divider />
-                        </Grid>
-                        <Grid
-                            container
-                            direction="row"
-                            justifyContent="flex-end"
-                            mb="2rem"
-                        >
-                            <Button
-                                color="primary"
-                                variant="contained"
-                                onClick={() => navigate(`/event/`)}
+
+                            <Grid container rowGap={3} sx={{ py: "2rem" }}>
+                                <Heading color="primary" variant="h2">
+                                    View Purchase Request
+                                </Heading>
+                                <ViewPurchaseRequestTable
+                                    prItems={
+                                        pr.purchaseRequest.purchaseRequestItems
+                                    }
+                                />
+                            </Grid>
+                            <Grid item sx={{ py: "2rem" }}>
+                                <Divider />
+                            </Grid>
+                            <Grid
+                                container
+                                direction="row"
+                                justifyContent="flex-end"
+                                mb="2rem"
                             >
-                                Browse Other Events
-                            </Button>
+                                <Button
+                                    color="primary"
+                                    variant="contained"
+                                    onClick={() => navigate(`/event/`)}
+                                >
+                                    Browse Other Events
+                                </Button>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Container>
+                    </Container>
+                </>
             )}
         </>
     );
